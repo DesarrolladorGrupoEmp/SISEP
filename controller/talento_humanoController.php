@@ -1,8 +1,4 @@
 <?php
-/**/
-
-//ini_set('error_reporting', E_ALL|E_STRICT);
-//ini_set('display_errors', 1);
 
 include_once '../DAO/talento_humanoDAO.php';
 include_once 'helper_controller/render_table.php';
@@ -28,7 +24,7 @@ class talento_humanoController extends talento_humanoDAO
     //Funciones-------------------------------------------
     //Espacio para las funciones de esta clase.
 
-    public function getTablaProyectoMarco()
+    public function getTablaFuncionarioCargo()
     {
 
         //permisos-------------------------------------------------------------------------
@@ -46,6 +42,7 @@ class talento_humanoController extends talento_humanoDAO
             ["nombre" => "apellido_funcionario"],
             ["nombre" => "nombre_cargo"],
             ["nombre" => "anio_funcionario_cargo"],
+            ["nombre" => "estado_funcionario_cargo"],
         ];
         //la configuracion de los botones de opciones
         $proyectosM_btn = [

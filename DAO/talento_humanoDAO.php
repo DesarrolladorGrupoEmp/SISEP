@@ -17,7 +17,7 @@ class talento_humanoDAO
 
         include '../conexion/datos.php';
 
-        $this->q_general = "SELECT funcionario_cargo.pkID AS pkID,nombre_funcionario,apellido_funcionario,nombre_cargo,anio_funcionario_cargo FROM `funcionario_cargo`
+        $this->q_general = "SELECT funcionario_cargo.pkID AS pkID,nombre_funcionario,apellido_funcionario,nombre_cargo,anio_funcionario_cargo,estado_funcionario_cargo FROM `funcionario_cargo`
             INNER JOIN funcionario ON funcionario.pkID = funcionario_cargo.fkID_funcionario
             INNER JOIN cargo ON cargo.pkID = funcionario_cargo.fkID_cargo
             WHERE funcionario_cargo.estadoV = 1";

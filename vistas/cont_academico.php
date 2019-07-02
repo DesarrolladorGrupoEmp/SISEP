@@ -49,11 +49,11 @@ $proyectoMGen   = $academicoInst->getProyectosMarcoId($pkID_proyectoM);
                                         <br>
 
                                         <div class="">
-                                            <div class="">
-                                                <div class="col-md-2 zoom"><a class="" href="grupo.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/grupos.jpg"></a></div>
-                                                <div class="col-md-2 zoom"><a class="" href="saberes.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img  class="zoom" src="../img/botones/docentes.jpg"></a></div>
-                                                <div class="col-md-2 zoom"><a class="" href="formacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img  class="zoom" src="../img/botones/cursosformacion.jpg"></a></div>
-                                                <div class="col-md-2 zoom"><a class="" href="apropiacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/apropiacionsocial.jpg"></a></div>
+                                            <div class="row text-center">
+                                                <div class="col-md-3 zoom"><a class="" href="grupo.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/grupos.png"></a></div>
+                                                <div class="col-md-3 zoom"><a class="" href="saberes.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img  class="zoom" src="../img/botones/saberes.png"></a></div>
+                                                <div class="col-md-3 zoom"><a class="" href="formacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img  class="zoom" src="../img/botones/formacion.png"></a></div>
+                                                <div class="col-md-3 zoom"><a class="" href="apropiacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/apropiacion.png"></a></div>
                                             </div>
                                         </div>
 

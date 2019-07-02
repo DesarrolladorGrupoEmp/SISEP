@@ -1,4 +1,6 @@
 $(function() {
+    var arrTutor = [];
+    var arrGrado = [];
     //INGRESA A LOS ATRIBUTOS AL FORMULARIO PARA INSERTAR INSTITUCIÓN 
     $("#btn_nuevoestudiante").click(function() {
         $("#lbl_form_estudiante").html("Nuevo Estudiante");
@@ -6,8 +8,22 @@ $(function() {
         $("#btn_actionestudiante").attr("data-action", "crear");
         $("#form_estudiante")[0].reset();
     });
+    $("#btn_asignarestudiante").click(function() {
+        $("#lbl_form_asignarestudiante").html("Asignar Estudiante");
+        $("#lbl_btn_actionasignarestudiante").html("Guardar <span class='glyphicon glyphicon-save'></span>");
+        $("#btn_actionasignarestudiante").attr("data-action", "asignar");
+        $("#form_asignarestudiante")[0].reset();
+        $("#frm_estudiante_grupo").html("");
+    });
     //Definir la acción del boton del formulario 
     $("#btn_actionestudiante").click(function() {
+        console.log("al principio");
+        action = $(this).attr("data-action");
+        //define la acción que va a realizar el formulario
+        valida_actio(action);
+        console.log("accion a ejecutar: " + action);
+    });
+    $("#btn_actionasignarestudiante").click(function() {
         console.log("al principio");
         action = $(this).attr("data-action");
         //define la acción que va a realizar el formulario
@@ -43,7 +59,9 @@ $(function() {
             crea_estudiante();
         } else if (action === "editar") {
             edita_estudiante();
-        };
+        } else if (action === "asignar") {
+            asigna_estudiante();
+        }
     };
 
     function crea_estudiante() {
@@ -71,6 +89,30 @@ $(function() {
                 location.reload();
             }
         })
+    }
+
+    function asigna_estudiante() {
+        guardar();
+        location.reload();
+    }
+
+    function guardar() {
+        $.each(arrTutor, function(llave, valor) {
+            console.log("llave=" + llave + " valor=" + valor);
+            id = $("#btn_asignarestudiante").attr('data-grupo');
+            grado = arrGrado[llave];
+            data = "fkID_grupo=" + id + "&fkID_estudiante=" + valor + "&fkID_grado=" + grado;
+            $.ajax({
+                url: "../controller/ajaxController12.php",
+                data: data + "&tipo=inserta&nom_tabla=estudiante_grupo",
+            }).done(function(data) {
+                console.log(data);
+            }).fail(function(data) {
+                console.log(data);
+            }).always(function() {
+                console.log("complete");
+            });
+        });
     }
 
     function carga_institucion(id_estudian) {
@@ -162,4 +204,75 @@ $(function() {
         }
         validaEqualIdentifica($(this).val());
     });
+    $("#fkID_estudiante").change(function(event) {
+        idUsuario = $(this).val();
+        nomUsuario = $(this).find("option:selected").data('nombre')
+        idGrado = $(this).find("option:selected").data('grado')
+        console.log(nomUsuario);
+        console.log(idGrado);
+        if (verPkIdTutor()) {
+            if (document.getElementById("fkID_estudiante_form_" + idUsuario)) {
+                console.log(document.getElementById("fkID_estudiante_form_" + idUsuario));
+                console.log("Este usuario ya fue seleccionado.");
+            } else {
+                arrTutor.length = 0;
+                console.log("este usuario es chavito")
+                selectTutor(idUsuario, nomUsuario, idGrado, 'select', $(this).data('accion'));
+                serializa_array(crea_array(arrTutor, $("#pkID").val(), fecha));
+            }
+        } else {
+            selectTutor(idUsuario, nomUsuario, idGrado, 'select', $(this).data('accion'));
+        };
+    });
+
+    function selectTutor(id, nombre, grado, type, numReg) {
+        console.log(id)
+        console.log("ya vamos aca ")
+        if (id != "") {
+            if (document.getElementById("fkID_estudiante_form_" + id)) {
+                console.log("Este usuario ya fue seleccionado.")
+            } else {
+                if (type == 'select') {
+                    console.log("1");
+                    $("#frm_estudiante_grupo").append('<div class="form-group" id="frm_group' + id + '">' + '<input type="text" style="width: 93%;display: inline;" class="form-control" id="fkID_usuario_form_' + id + '" name="fkID_usuario" value="' + nombre + '" readonly="true"> <button name="btn_actionRmUsuario_' + id + '" data-id-tutor="' + id + '" data-id-frm-group="frm_group' + id + '" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>' + '</div>');
+                } else {
+                    console.log("2");
+                    $("#frm_estudiante_grupo").append('<div class="form-group" id="frm_group' + id + '">' + '<input type="text" style="width: 90%;display: inline;" class="form-control" id="fkID_usuario_form_' + id + '" name="fkID_usuario" value="' + nombre + '" readonly="true"> <button name="btn_actionRmUsuario_' + id + '" data-id-tutor="' + id + '" data-id-frm-group="frm_group' + id + '" data-numReg = "' + numReg + '" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>' + '</div>');
+                }
+                $("[name*='btn_actionRmUsuario_" + id + "']").click(function(event) {
+                    console.log('click remover usuario ' + $(this).data('id-frm-group'));
+                    removeUsuario($(this).data('id-frm-group'));
+                    //buscar el indice
+                    var idUsuario = $(this).attr("data-id-tutor");
+                    console.log('el elemento es:' + idUsuario);
+                    var indexArr = arrTutor.indexOf(idUsuario);
+                    console.log("El indice encontrado es:" + indexArr);
+                    //quitar del array
+                    if (indexArr >= 0) {
+                        arrTutor.splice(indexArr, 1);
+                        console.log(arrTutor);
+                    } else {
+                        console.log('salio menor a 0');
+                        console.log(arrTutor);
+                    }
+                    deleteTutorNumReg(numReg);
+                });
+                arrTutor.push(id);
+                arrGrado.push(grado);
+                console.log(arrTutor);
+                console.log(arrGrado);
+            }
+        } else {
+            alert("No se seleccionó ningún usuario.")
+        }
+    };
+
+    function verPkIdTutor() {
+        var id_proyecto_form = $("#pkID").val();
+        if (id_proyecto_form != "") {
+            return true;
+        } else {
+            return false;
+        }
+    };
 });

@@ -78,13 +78,14 @@ include "form_modal_archivos.php";
                           <th>Apellidos</th>
                           <th>Cargo</th>
                           <th>Año</th>
+                          <th>Estado</th>
                           <th data-orderable="false">Opciones</th>
                       </tr>
                   </thead>
 
                   <tbody>
                       <?php
-$talento_humanoInst->getTablaProyectoMarco();
+$talento_humanoInst->getTablaFuncionarioCargo();
 ?>
                   </tbody>
               </table>

@@ -40,7 +40,13 @@ $talento_humanoInst->getSelectCargos();
                         <label for="nombre" class="control-label">Año</label>
                             <input type="text" class="form-control" id="anio_funcionario_cargo" name="anio_funcionario_cargo" placeholder="Año de asignacion de personal" required = "true">
                     </div>
-
+                    <div class="form-group">
+                        <label for="nombre" class="control-label">Estado</label>
+                        <select class="form-control" id="estado_funcionario_cargo" name="estado_funcionario_cargo">
+                          <option>Activo</option>
+                          <option>Inactivo</option>
+                        </select>
+                    </div>
                 </form>
 
         <!-- /form modal contenido-->
