@@ -48,6 +48,32 @@ switch ($accion) {
         }
 
         break;
+
+        case 'insertar':
+
+        $generico = new Generico_DAO();
+        $crea_sql = new crea_sql();
+        $nombre_album=$_GET['nombre_album'];
+        $fecha_creacion=$_GET['fecha_creacion'];
+        $observacion_album=$_GET['observacion_album'];
+        $fkID_grupo=$_GET['fkID_grupo'];
+
+        $q_inserta  = "INSERT INTO `grupo_album`(`nombre_album`, `fecha_creacion_album`, `observacion_album`, `fkID_grupo`) VALUES ('$nombre_album','$fecha_creacion','$observacion_album','$fkID_grupo')";
+        $r["query"] = $q_inserta;
+
+        $resultado = $generico->EjecutaInsertar($q_inserta);
+        /**/
+        if ($resultado) {
+
+            $r[] = $resultado;
+
+        } else {
+
+            $r["estado"]  = "Error";
+            $r["mensaje"] = "No se inserto.";
+        }
+
+        break;
     //----------------------------------------------------------------------------------------------------
 
     //----------------------------------------------------------------------------------------------------
@@ -193,7 +219,35 @@ switch ($accion) {
 
         break;
     //----------------------------------------------------------------------------------------------------
+    case 'actualizar2':
 
+        $generico = new Generico_DAO();
+        $crea_sql = new crea_sql();
+        $nombre_album=$_GET['nombre_album'];
+        $fecha_creacion=$_GET['fecha_creacion'];
+        $observacion_album=$_GET['observacion_album'];
+        $pkID=$_GET['pkID'];
+
+        $q_actualiza = "update `grupo_album` SET `nombre_album`='$nombre_album',`fecha_creacion_album`='$fecha_creacion',`observacion_album`='$observacion_album' WHERE pkID=".$pkID;
+
+        $resultado = $generico->EjecutaActualizar($q_actualiza);
+        /**/
+        if ($resultado) {
+
+            $r["estado"]  = "ok";
+            $r["mensaje"] = $resultado;
+            $r["query"]   = $q_actualiza;
+
+        } else {
+
+            $r["estado"]  = "Error";
+            $r["mensaje"] = "No se actualizó.";
+            $r["query"]   = $q_actualiza;
+        }
+
+        break;
+    //----------------------------------------------------------------------------------------------------
+    
     //----------------------------------------------------------------------------------------------------
     case 'eliminar':
 

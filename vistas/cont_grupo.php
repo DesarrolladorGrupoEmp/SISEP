@@ -16,6 +16,7 @@ $creaD = $arrPermisosD[0]['crear'];
 
 $pkID_user = $_COOKIE[$NomCookiesApp . '_id'];
 
+$filtro = $_GET["filter"];
 //print_r($pkID_user);
 
 $pkID_tipo_user = $_COOKIE[$NomCookiesApp . '_IDtipo'];
@@ -50,7 +51,7 @@ include "form_novedades.php";
           <h1 class="page-header titleprincipal"><img src="../img/botones/grupoonly.png">Grupos - <?php echo $proyectoMGen[0]["nombre"] ?></h1>
       </div>
       <!-- /.col-lg-12 -->
-    <div class="col-lg-12">
+    <div class="col-md-5">
           <ol class="breadcrumb migadepan">
             <li><a href="proyecto_marco.php" class="migadepan">Inicio</a></li>
             <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
@@ -58,6 +59,25 @@ include "form_novedades.php";
             <li class="active migadepan">Grupos - <?php echo $proyectoMGen[0]["nombre"] ?> </li>
           </ol>
     </div>
+
+    <div class="col-md-4 text-right form-inline">
+                    <label for="grupo_filtrop" class="control-label">Tipo de Grupo: </label>
+                      <?php
+$grupoInst->getSelectTipogrupoFiltro();
+?>
+     </div>
+    <div class="col-md-2 text-center form-inline">
+                    <label for="grupo_filtrop" class="control-label">Año: </label>
+                      <?php
+$grupoInst->getSelectAnioFiltro();
+?>
+     </div>
+    <div class="col-md-1 text-left form-inline">
+                     <button class="btn btn-success" id="btn_filtrarg"><span class="glyphicon glyphicon-filter"></span> Filtrar</button>
+
+                     <hr>
+
+            </div>
 
   </div>
   <!-- /.row -->
@@ -77,7 +97,7 @@ include "form_novedades.php";
                   <div class="titleprincipal"><h4>Registro de Grupos - <?php echo $proyectoMGen[0]["nombre"] ?></h4></div>
               </div>
               <div class="col-md-6 text-right">
-                 <button id="btn_nuevogrupo" type="button" class="btn btn-primary botonnewgrupo" data-toggle="modal" data-target="#frm_modal_grupo" <?php if ($crea != 1) {echo 'disabled="disabled"';}?> >
+                 <button id="btn_nuevogrupo" type="button" class="btn btn-primary botonnewgrupo" data-toggle="modal" data-proyecto="<?php echo $pkID_proyectoM; ?>" data-target="#frm_modal_grupo" <?php if ($crea != 1) {echo 'disabled="disabled"';}?> >
                  <span class="glyphicon glyphicon-plus"></span>Nuevo Grupo</button>
               </div>
             </div>
@@ -108,7 +128,7 @@ include "form_novedades.php";
 if (($pkID_tipo_user == 8) || ($pkID_tipo_user == 9)) {
     $grupoInst->getTablaGruposUsuario($pkID_user);
 } else {
-    $grupoInst->getTablaGrupo($pkID_grupo);
+    $grupoInst->getTablaGrupo($filtro, $pkID_proyectoM);
 }
 ?>
                   </tbody>

@@ -18,10 +18,42 @@ class grupoDAO extends UsuariosDAO
         return $this->getCookieProyectoM();
     }
 
-    public function getGrupos()
+    public function getGrupos($pkID_proyectoM)
     {
 
-        $query = "select distinct grupo.*,YEAR(grupo.fecha_creacion) as anio, grado.nombre as nom_grado, institucion.nombre_institucion as nom_institucion, grupo.pkID as numero, tipo_proyecto.nombre as nom_tipo FROM grupo INNER JOIN tipo_proyecto ON tipo_proyecto.pkID = grupo.fkID_tipo_grupo INNER JOIN institucion ON institucion.pkID = grupo.fkID_institucion INNER JOIN grado ON grado.pkID = (CASE WHEN grupo.fkID_grado = 0 THEN 6 WHEN grupo.fkID_grado != 0 THEN grupo.fkID_grado END) where grupo.estadoV = 1";
+        $query = "select distinct grupo.*,YEAR(grupo.fecha_creacion) as anio, grado.nombre as nom_grado, institucion.nombre_institucion as nom_institucion, grupo.pkID as numero, tipo_proyecto.nombre as nom_tipo FROM grupo INNER JOIN tipo_proyecto ON tipo_proyecto.pkID = grupo.fkID_tipo_grupo INNER JOIN institucion ON institucion.pkID = grupo.fkID_institucion INNER JOIN grado ON grado.pkID = (CASE WHEN grupo.fkID_grado = 0 THEN 6 WHEN grupo.fkID_grado != 0 THEN grupo.fkID_grado END) where grupo.estadoV = 1 AND fkID_proyecto_marco = " . $pkID_proyectoM;
+
+        return $this->EjecutarConsulta($query);
+    }
+
+    public function getGrupo($filtro, $pkID_proyectoM)
+    {
+        $porciones = explode(" ", $filtro);
+        $filtro    = $porciones[0];
+        $tipos     = $porciones[1];
+        if ($porciones[1] == "*") {
+            $t = "!=0";
+        } else {
+            $t = "=" . $tipos;
+        }
+
+        if ($filtro == "grupo.YEAR=1") {
+            $anio = '2017';
+        } else if ($filtro == "grupo.YEAR=2") {
+            $anio = "2018";
+        } else if ($filtro == "grupo.YEAR=3") {
+            $anio = "2019";
+        } else {
+            $anio = "2020";
+        }
+
+        if ($porciones[0] == "*") {
+            $f = "!=0";
+        } else {
+            $f = "=" . $anio;
+        }
+
+        $query = "select distinct grupo.*,YEAR(grupo.fecha_creacion) as anio, grado.nombre as nom_grado, institucion.nombre_institucion as nom_institucion, grupo.pkID as numero, tipo_proyecto.nombre as nom_tipo FROM grupo INNER JOIN tipo_proyecto ON tipo_proyecto.pkID = grupo.fkID_tipo_grupo INNER JOIN institucion ON institucion.pkID = grupo.fkID_institucion INNER JOIN grado ON grado.pkID = (CASE WHEN grupo.fkID_grado = 0 THEN 6 WHEN grupo.fkID_grado != 0 THEN grupo.fkID_grado END) where grupo.estadoV = 1 and YEAR(grupo.fecha_creacion)" . $f . " And fkID_tipo_grupo" . $t . " AND fkID_proyecto_marco = " . $pkID_proyectoM;
 
         return $this->EjecutarConsulta($query);
     }
@@ -111,21 +143,22 @@ class grupoDAO extends UsuariosDAO
     public function getGruposId($pkID)
     {
 
-        $query = "select grupo.*, grado.nombre as nom_grado, sede.nombre as nom_institucion
+        $query = "select grupo.*,nombre_institucion,grado.nombre as nombre_grado,concat_ws(' ', nombre_docente, apellido_docente)as nombres_docente, concat_ws(' ', nombre_funcionario, apellido_funcionario) as nombres_funcionario from grupo
+INNER JOIN grado on grado.pkID= grupo.fkID_grado
+INNER JOIN institucion on institucion.pkID= grupo.fkID_institucion
+LEFT JOIN docente_grupo on grupo.pkID = docente_grupo.fkID_grupo
+LEFT JOIN docente on docente.pkID = docente_grupo.fkID_docente
+LEFT JOIN funcionario_grupo on grupo.pkID = funcionario_grupo.fkID_grupo
+LEFT JOIN funcionario on funcionario.pkID = funcionario_grupo.fkID_tutor
+where grupo.estadoV = 1 and grupo.pkID=" . $pkID;
 
-                        FROM `grupo`
+        return $this->EjecutarConsulta($query);
+    }
 
-                        INNER JOIN grado ON grado.pkID = CASE
+    public function getproyectoId($pkID)
+    {
 
-                            WHEN grupo.fkID_grado = 0 THEN 6
-
-                            WHEN grupo.fkID_grado != 0 THEN grupo.fkID_grado
-
-                        END
-
-                        INNER JOIN sede ON sede.pkID = grupo.fkID_institucion
-
-                        WHERE grupo.pkID = " . $pkID;
+        $query = "select * FROM `proyecto_grupo` WHERE estadoV=1 and fkID_grupo=" . $pkID;
 
         return $this->EjecutarConsulta($query);
     }
@@ -263,6 +296,14 @@ class grupoDAO extends UsuariosDAO
                 INNER JOIN grupo ON grupo.pkID = estudiante_grupo.fkID_grupo
                 INNER JOIN grado ON grado.pkID = estudiante_grupo.fkID_grado
                 WHERE grupo.pkID = " . $pkID_grupo;
+
+        return $this->EjecutarConsulta($query);
+    }
+
+    public function getAlbumGrupo($pkID_grupo)
+    {
+
+        $query = "select * FROM `grupo_album` WHERE estadoV=1 and fkID_grupo= " . $pkID_grupo;
 
         return $this->EjecutarConsulta($query);
     }
