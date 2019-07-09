@@ -9,15 +9,16 @@ class Generico_DAO
 
 }
 
-$r    = array();
-$tipo = $_POST['tipo'];
-if (isset($_POST['pkID'])) {
-    $id = $_POST['pkID'];
-}
-$fechas = $_POST['fecha_salida'];
-$fkID_grupo = $_POST['fkID_grupo'];
-$comunidad = $_POST['comunidad_visitada'];
-$fk_asesor = $_POST['fkID_asesor'];
+$r         = array();
+$tipo      = $_POST['tipo'];
+$id        = $_POST['pkID'];
+$nombref   = $_POST['nombre'];
+$apellido  = $_POST['apellido'];
+$fk_tipo   = $_POST['fk_tipo'];
+$documento = $_POST['documento'];
+$telefono  = $_POST['telefono'];
+$direccion = $_POST['direccion'];
+$email     = $_POST['email'];
 
 switch ($tipo) {
     case 'crear':
@@ -31,12 +32,13 @@ switch ($tipo) {
         $nombre = str_replace("#", "_", $nombre);
         $nombre = str_replace("!", "_", $nombre);
         //carga el archivo en el servidor
-        $destino = "../vistas/logos/" . $nombre;
+        $destino = "../vistas/subidas/" . $nombre;
         if (move_uploaded_file($_FILES['file']["tmp_name"], $destino)) {
-            $q_inserta  = "insert into `saber_propio`(`fecha_salida`, `fkID_grupo`, `comunidad_visitada`, `fkID_asesor`, `url_lista`) VALUES ('$fechas', '$fkID_grupo', '$comunidad', '$fk_asesor', '$nombre')";
+            $q_inserta  = "insert into funcionario(nombre_funcionario, apellido_funcionario, fkID_tipo_documento, documento_funcionario, telefono_funcionario, direccion_funcionario, email_funcionario, url_funcionario) VALUES ('$nombref', '$apellido', '$fk_tipo', '$documento', '$telefono', '$direccion', '$email', '$nombre')";
             $r["query"] = $q_inserta;
 
             $resultado = $generico->EjecutaInsertar($q_inserta);
+            /**/
             if ($resultado) {
 
                 $r[] = $resultado;
@@ -50,6 +52,7 @@ switch ($tipo) {
         } else {
             $mensaje = "El archivo $nombre no se ha almacenado en forma exitosa";
         }
+        echo json_encode($nombre);
         break;
     case 'editar':
         $generico = new Generico_DAO();
@@ -64,7 +67,7 @@ switch ($tipo) {
         //carga el archivo en el servidor
         $destino = "../vistas/subidas/" . $nombre;
         if (move_uploaded_file($_FILES['file']["tmp_name"], $destino)) {
-            $q_inserta  = "update `saber_propio` SET `fecha_salida`='$fechas',`fkID_grupo`='$fkID_grupo',`comunidad_visitada`='$comunidad',`fkID_asesor`='$fk_asesor',url_lista='$nombre' where pkID='$id'";
+            $q_inserta  = "update funcionario SET nombre_funcionario='$nombref',apellido_funcionario='$apellido',fkID_tipo_documento='$fk_tipo',documento_funcionario='$documento',telefono_funcionario='$telefono',direccion_funcionario='$direccion',email_funcionario='$email',url_funcionario='$nombre' where pkID='$id'";
             $r["query"] = $q_inserta;
             $resultado  = $generico->EjecutaInsertar($q_inserta);
             /**/
@@ -85,62 +88,35 @@ switch ($tipo) {
         break;
     case 'editarsin':
         $generico   = new Generico_DAO();
-        $q_inserta  = "update `saber_propio` SET `fecha_salida`='$fechas',`fkID_grupo`='$fkID_grupo',`comunidad_visitada`='$comunidad',`fkID_asesor`='$fk_asesor' where pkID='$id'";
+        $q_inserta  = "update funcionario SET nombre_funcionario='$nombref',apellido_funcionario='$apellido',fkID_tipo_documento='$fk_tipo',documento_funcionario='$documento',telefono_funcionario='$telefono',direccion_funcionario='$direccion',email_funcionario='$email' where pkID='$id' ";
         $r["query"] = $q_inserta;
         $resultado  = $generico->EjecutaActualizar($q_inserta);
         /**/
         if ($resultado) {
             $r[] = $resultado;
 
-        } else {
-            $r["estado"]  = "Error";
-            $r["mensaje"] = "No se inserto.";
-        }
-        break;
-    case 'eliminarlogico':
-        $generico   = new Generico_DAO();
-        $q_inserta  = "update `saber_propio` SET estadoV=2 where pkID='$id'";
-        $r["query"] = $q_inserta;
-        $resultado  = $generico->EjecutaActualizar($q_inserta);
-        /**/
-        if ($resultado) {
-            $r[] = $resultado;
-
-        } else {
-            $r["estado"]  = "Error";
-            $r["mensaje"] = "No se inserto.";
-        }
-        break;
-    case 'crearsin':
-        $generico   = new Generico_DAO();
-        $q_inserta  = "insert into `saber_propio`(`fecha_salida`, `fkID_grupo`, `comunidad_visitada`, `fkID_asesor`) VALUES ('$fechas', '$fkID_grupo', '$comunidad', '$fk_asesor')";
-        $r["query"] = $q_inserta;
-
-        $resultado = $generico->EjecutaInsertar($q_inserta);
-        if ($resultado) {
-            $r[] = $resultado;
         } else {
             $r["estado"]  = "Error";
             $r["mensaje"] = "No se inserto.";
         }
         break;
     case 'eliminararchivo':
-                    $generico = new Generico_DAO();
-                    $q_inserta = "update saber_propio SET url_lista='' where pkID='$id' ";
-                    $r["query"] = $q_inserta;           
-                    $resultado = $generico->EjecutaActualizar($q_inserta);
-                    if($resultado){                    
-                        $r[] = $resultado;          
-                    }else{
-                      $r["estado"] = "Error";
-                      $r["mensaje"] = "No se inserto.";
-                        }
-                break;
+        $generico   = new Generico_DAO();
+        $q_inserta  = "update funcionario SET url_funcionario='' where pkID='$id' ";
+        $r["query"] = $q_inserta;
+        $resultado  = $generico->EjecutaActualizar($q_inserta);
+        /**/
+        if ($resultado) {
+            $r[] = $resultado;
+        } else {
+            $r["estado"]  = "Error";
+            $r["mensaje"] = "No se inserto.";
+        }
+
+        break;
     default:
         # code...
         break;
 }
 
 echo json_encode($r);
-
-?>

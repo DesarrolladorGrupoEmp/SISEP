@@ -57,7 +57,7 @@
                         validaCampo();
                     } else {
                         if (ajustes.subida == true) {
-                            subida_archivo2()
+                            subida_archivo('crear')
                         } else {
                             crear();
                         };

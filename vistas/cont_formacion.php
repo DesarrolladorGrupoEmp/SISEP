@@ -50,8 +50,8 @@ $proyectoMGen   = $principalInst->getProyectosMarcoId($pkID_proyectoM);
 
                                         <div class="">
                                             <div class="">
-                                                <div class="col-md-6 zoom text-center"><a class="" href="acompanamiento.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/instituciones.png"></a></div>
-                                                <div class="col-md-6 zoom text-center"><a class="" href="resignificacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img  class="zoom" src="../img/botones/docentes.png"></a></div>
+                                                <div class="col-md-6 zoom text-center"><a class="" href="acompanamiento.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/acompanamiento.png"></a></div>
+                                                <div class="col-md-6 zoom text-center"><a class="" href="resignificacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img  class="zoom" src="../img/botones/resignificacion.png"></a></div>
                                             </div>
                                         </div>
 

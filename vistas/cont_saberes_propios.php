@@ -49,7 +49,7 @@ include "form_novedades.php";
 
 
       <div class="col-lg-12">
-          <h1 class="page-header titleprincipal"><img src="../img/botones/saberesonly.png"> Saberes Propios - <?php echo $proyectoMGen[0]["nombre"] ?></h1>
+          <h1 class="page-header titleprincipal"><img src="../img/botones/grupoonly.png">Saberes Propios - <?php echo $proyectoMGen[0]["nombre_proyecto"] ?></h1>
       </div>
       <!-- /.col-lg-12 -->
     <div class="col-md-9">
@@ -61,15 +61,15 @@ include "form_novedades.php";
           </ol>
     </div>
 
-    <div class="col-md-2 text-right form-inline">
-                    <label for="grupo_filtrop" class="control-label">Año: </label>
+    <div class="col-md-2 text-right form-inline">                        
+                    <label for="grupo_filtrop" class="control-label">Año: </label>      
                       <?php
-$saberesInst->getSelectAnioFiltro();
-?>
+                             $saberesInst->getSelectAnioFiltro();
+                      ?>  
      </div>
-    <div class="col-md-1 text-left form-inline">
+    <div class="col-md-1 text-left form-inline">                                             
                      <button class="btn btn-success" id="btn_filtrarg"><span class="glyphicon glyphicon-filter"></span> Filtrar</button>
-
+                
                      <hr>
 
             </div>

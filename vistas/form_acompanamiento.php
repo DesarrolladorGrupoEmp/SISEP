@@ -32,16 +32,11 @@
 
                     <div class="form-group">
                         <label for="url_imagen" class="control-label">Documento tecnico</label>
-                        <input id="archivo1" type="file" name="archivo1">
+                        <input id="archivo" type="file">
                     </div>
 
                     <div class="form-group">
                         <input type="text" class="form-control" id="url_documento" name="url_documento" disabled="disabled" >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="url_imagen" class="control-label">Documento tecnico</label>
-                        <input id="archivo2" type="file" name="archivo2">
                     </div>
 
                 </form>
