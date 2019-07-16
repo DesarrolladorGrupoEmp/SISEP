@@ -9,15 +9,15 @@
     }
 
     $r = array();  
-    $tipo  = $_POST['tipo'];
-    $id      = $_POST['pkID'];  
-    $nombref  = $_POST['nombre'];
-    $apellido  = $_POST['apellido'];
-    $fk_tipo  = $_POST['fk_tipo'];
-    $documento  = $_POST['documento'];
-    $telefono  = $_POST['telefono'];
-    $direccion  = $_POST['direccion'];
-    $email  = $_POST['email'];
+    $tipo  = isset($_POST['tipo'])? $_POST['tipo'] : "";
+    $id      = isset($_POST['pkID'])? $_POST['pkID'] : ""; 
+    $nombref  = isset($_POST['nombre'])? $_POST['nombre'] : "";
+    $apellido  = isset($_POST['apellido'])? $_POST['apellido'] : "";
+    $fk_tipo  = isset($_POST['fk_tipo'])? $_POST['fk_tipo'] : "";
+    $documento  = isset($_POST['documento'])? $_POST['documento'] : "";
+    $telefono  = isset($_POST['telefono'])? $_POST['telefono'] : "";
+    $direccion  = isset($_POST['direccion'])? $_POST['direccion'] : "";
+    $email  = isset($_POST['email'])? $_POST['email'] : "";
 
     switch ($tipo) {
         case 'crear':
@@ -36,8 +36,7 @@
                         $q_inserta = "insert into funcionario(nombre_funcionario, apellido_funcionario, fkID_tipo_documento, documento_funcionario, telefono_funcionario, direccion_funcionario, email_funcionario, url_funcionario) VALUES ('$nombref', '$apellido', '$fk_tipo', '$documento', '$telefono', '$direccion', '$email', '$nombre')";
                         $r["query"] = $q_inserta;           
 
-                        $resultado = $generico->EjecutaInsertar($q_inserta);
-                        /**/
+                        $resultado = $generico->EjecutaInsertar($q_inserta);                        /**/
                         if($resultado){
                             
                             $r[] = $resultado;          
@@ -53,6 +52,25 @@
             }
             echo json_encode($nombre);
             break;
+        case 'crearsin':
+            $generico = new Generico_DAO();       
+                        $q_inserta = "insert into funcionario(nombre_funcionario, apellido_funcionario, fkID_tipo_documento, documento_funcionario, telefono_funcionario, direccion_funcionario, email_funcionario) VALUES ('$nombref', '$apellido', '$fk_tipo', '$documento', '$telefono', '$direccion', '$email')";
+                        $r["query"] = $q_inserta;           
+
+                        $resultado = $generico->EjecutaInsertar($q_inserta);
+                        /**/
+                        if($resultado){
+                            
+                            $r[] = $resultado;          
+
+                        }else{
+
+                            $r["estado"] = "Error";
+                            $r["mensaje"] = "No se inserto.";
+                        }
+            echo json_encode($nombre);
+            break;
+
         case 'editar':
             $generico = new Generico_DAO();
             $nombre =$_FILES['file']["name"];

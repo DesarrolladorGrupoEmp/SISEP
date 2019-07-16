@@ -23,17 +23,17 @@ INNER JOIN institucion on institucion.pkID = docente.fkID_institucion WHERE doce
 
         $query = "select usuarios.*, cargo.nombre as nom_cargo, rol.nombre as nom_rol
 
-					from usuarios
+                    from usuarios
 
-	      			INNER JOIN usuario_proyectoM ON usuario_proyectoM.fkID_usuario = usuarios.pkID
+                    INNER JOIN usuario_proyectoM ON usuario_proyectoM.fkID_usuario = usuarios.pkID
 
                     INNER JOIN cargo ON usuarios.fkID_cargo = cargo.pkID
 
                     INNER JOIN rol ON usuarios.fkID_rol = rol.pkID
 
-	      			WHERE fkID_tipo = 8
+                    WHERE fkID_tipo = 8
 
-	      			AND usuario_proyectoM.fkID_proyectoM = " . $pkID_proyectoM;
+                    AND usuario_proyectoM.fkID_proyectoM = " . $pkID_proyectoM;
 
         return $this->EjecutarConsulta($query);
     }
@@ -43,33 +43,33 @@ INNER JOIN institucion on institucion.pkID = docente.fkID_institucion WHERE doce
 
         $query = "select usuarios.*, tipo_documento_id.nombre as nom_tdoc, cargo.nombre as nom_cargo, nivel_formacion.nombre as nom_nformacion, grupo_etnico.nombre as nom_getnico, institucion.nombre as nom_institucion, genero.nombre as nom_genero
 
-					from usuarios
+                    from usuarios
 
-					INNER JOIN tipo_documento_id ON tipo_documento_id.pkID = usuarios.fkID_tipo_documento
+                    INNER JOIN tipo_documento_id ON tipo_documento_id.pkID = usuarios.fkID_tipo_documento
 
-					INNER JOIN cargo ON cargo.pkID = CASE
+                    INNER JOIN cargo ON cargo.pkID = CASE
 
-				        WHEN usuarios.fkID_cargo = 0 THEN 6
+                        WHEN usuarios.fkID_cargo = 0 THEN 6
 
-				        WHEN usuarios.fkID_cargo != 0 THEN usuarios.fkID_cargo
+                        WHEN usuarios.fkID_cargo != 0 THEN usuarios.fkID_cargo
 
-				    END
+                    END
 
-					INNER JOIN nivel_formacion ON nivel_formacion.pkID = usuarios.fkID_nivel_formacion
+                    INNER JOIN nivel_formacion ON nivel_formacion.pkID = usuarios.fkID_nivel_formacion
 
-					INNER JOIN grupo_etnico ON grupo_etnico.pkID = CASE
+                    INNER JOIN grupo_etnico ON grupo_etnico.pkID = CASE
 
-				        WHEN usuarios.fkID_grupo_etnico = 0 THEN 6
+                        WHEN usuarios.fkID_grupo_etnico = 0 THEN 6
 
-				        WHEN usuarios.fkID_grupo_etnico != 0 THEN grupo_etnico.pkID
+                        WHEN usuarios.fkID_grupo_etnico != 0 THEN grupo_etnico.pkID
 
-				    END
+                    END
 
-				    INNER JOIN institucion ON institucion.pkID = usuarios.fkID_institucion
+                    INNER JOIN institucion ON institucion.pkID = usuarios.fkID_institucion
 
-				    INNER JOIN genero on genero.pkID = usuarios.fkID_genero
+                    INNER JOIN genero on genero.pkID = usuarios.fkID_genero
 
-					WHERE usuarios.pkID = " . $pkID;
+                    WHERE usuarios.pkID = " . $pkID;
 
         return $this->EjecutarConsulta($query);
     }
@@ -79,13 +79,13 @@ INNER JOIN institucion on institucion.pkID = docente.fkID_institucion WHERE doce
 
         $query = "select materia.*, usuarios.alias
 
-					FROM materia
+                    FROM materia
 
-					INNER JOIN usuario_materia ON usuario_materia.fkID_materia = materia.pkID
+                    INNER JOIN usuario_materia ON usuario_materia.fkID_materia = materia.pkID
 
-					INNER JOIN usuarios ON usuario_materia.fkID_usuario = usuarios.pkID
+                    INNER JOIN usuarios ON usuario_materia.fkID_usuario = usuarios.pkID
 
-					WHERE usuarios.pkID = " . $pkID;
+                    WHERE usuarios.pkID = " . $pkID;
 
         return $this->EjecutarConsulta($query);
     }
@@ -95,13 +95,13 @@ INNER JOIN institucion on institucion.pkID = docente.fkID_institucion WHERE doce
 
         $query = "select grado.*, usuarios.alias
 
-					FROM grado
+                    FROM grado
 
-					INNER JOIN usuario_grado ON usuario_grado.fkID_grado = grado.pkID
+                    INNER JOIN usuario_grado ON usuario_grado.fkID_grado = grado.pkID
 
-					INNER JOIN usuarios ON usuario_grado.fkID_usuario = usuarios.pkID
+                    INNER JOIN usuarios ON usuario_grado.fkID_usuario = usuarios.pkID
 
-					WHERE usuarios.pkID = " . $pkID;
+                    WHERE usuarios.pkID = " . $pkID;
 
         return $this->EjecutarConsulta($query);
     }
@@ -127,11 +127,11 @@ INNER JOIN institucion on institucion.pkID = docente.fkID_institucion WHERE doce
 
         $query = "select sede.*
 
-					FROM sede
+                    FROM sede
 
-					INNER JOIN institucion_proyectoM ON sede.fkID_institucion = institucion_proyectoM.fkID_institucion
+                    INNER JOIN institucion_proyectoM ON sede.fkID_institucion = institucion_proyectoM.fkID_institucion
 
-					WHERE institucion_proyectoM.fkID_proyectoM = " . $this->getcpm();
+                    WHERE institucion_proyectoM.fkID_proyectoM = " . $this->getcpm();
 
         return $this->EjecutarConsulta($query);
     }
@@ -141,11 +141,11 @@ INNER JOIN institucion on institucion.pkID = docente.fkID_institucion WHERE doce
 
         $query = "select *
 
-					FROM sede
+                    FROM sede
 
-					INNER JOIN institucion_proyectoM ON sede.fkID_institucion = institucion_proyectoM.fkID_institucion
+                    INNER JOIN institucion_proyectoM ON sede.fkID_institucion = institucion_proyectoM.fkID_institucion
 
-					WHERE institucion_proyectoM.fkID_proyectoM = " . $proyectoM_docente;
+                    WHERE institucion_proyectoM.fkID_proyectoM = " . $proyectoM_docente;
 
         return $this->EjecutarConsulta($query);
     }
@@ -161,7 +161,7 @@ INNER JOIN institucion on institucion.pkID = docente.fkID_institucion WHERE doce
     public function getProyectosMarcoId($pkID)
     {
 
-        $query = "select proyecto_marco.*, departamento.nombre as nom_departamento
+        $query = "select proyecto_marco.*, departamento.nombre_departamento as nom_departamento
 
                       FROM proyecto_marco
 

@@ -307,32 +307,6 @@ $detalles_grupoInst->getTablaAlbumGrupo($pkID_grupo);
 
 			</div>
 
-
-			<div role="tabpanel" class="tab-pane" id="proyectos">
-				<br>
-				<!-- contenido general -->
-				<br>
-				<!-- contenido general -->
-				<div class="panel panel-default proc-pan-def3">
-
-					<div class="panel-body">
-
-						<div class="col-md-12">
-							<!-- instancia php controller -->
-							<?php $detalles_grupoInst->getDataProyectoGen($pkID_grupo);?>
-						</div>
-						<div class="col-md-12" hidden="true">
-							<input type="text" id="grupo_id" value=<?php echo $pkID_grupo; ?>>
-							<input type="text" id="grado_grupo" value=<?php echo $pkID_grado; ?>>
-							<input type="text" id="institucion_grupo" value=<?php echo $pkID_institucion; ?>>
-						</div>
-					</div>
-
-				</div>
-				<!-- /.contenido general -->
-
-			</div>
-
 	    </div>
 
       </div>

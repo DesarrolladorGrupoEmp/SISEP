@@ -1,103 +1,103 @@
-<?php 
+<?php
 
-	class crea_sql{
-	
+class crea_sql
+{
 
- 		function crea_select($array_campos){
- 			
- 			//-----------------------------------------------------------
- 			//toma el nombre de la tabla
- 			$nom_tabla = $array_campos['nom_tabla'];
- 			//-----------------------------------------------------------
- 			//retira el campo tipo y nom_tabla de $array_campos
- 			unset($array_campos['tipo']);
- 			unset($array_campos['nom_tabla']);
+    public function crea_select($array_campos)
+    {
 
- 			// construye query...
-		    $sql  = "select * from `".$nom_tabla."` where pkID = ".$array_campos['pkID'];
- 			//-----------------------------------------------------------
+        //-----------------------------------------------------------
+        //toma el nombre de la tabla
+        $nom_tabla = $array_campos['nom_tabla'];
+        //-----------------------------------------------------------
+        //retira el campo tipo y nom_tabla de $array_campos
+        unset($array_campos['tipo']);
+        unset($array_campos['nom_tabla']);
 
- 			return $sql;
- 		}
+        // construye query...
+        $sql = "select * from `" . $nom_tabla . "` where pkID = " . $array_campos['pkID'];
+        //-----------------------------------------------------------
 
- 		function crea_insert($array_campos){
- 			
- 			//-----------------------------------------------------------
- 			//toma el nombre de la tabla
- 			$nom_tabla = $array_campos['nom_tabla'];
- 			//-----------------------------------------------------------
- 			//retira el campo tipo y nom_tabla de $array_campos
- 			unset($array_campos['tipo']);
- 			unset($array_campos['nom_tabla']);
- 			//setea pkID a null ya que es autonumerico puede que esto sea condicional a futuro
- 			$array_campos['pkID'] = "NULL";
- 			//-----------------------------------------------------------
- 			// construye query...
-		    $sql  = "insert INTO `".$nom_tabla."`";
+        return $sql;
+    }
 
-		    // implode keys of $array...
-		    $sql .= " (`".implode("`, `", array_keys($array_campos))."`)";
+    public function crea_insert($array_campos)
+    {
 
-		    // implode values of $array...
-		    $sql .= " VALUES ('".implode("', '", $array_campos)."') ";
-		    //-----------------------------------------------------------
-		    return $sql;
- 		} 		
+        //-----------------------------------------------------------
+        //toma el nombre de la tabla
+        $nom_tabla = $array_campos['nom_tabla'];
+        //-----------------------------------------------------------
+        //retira el campo tipo y nom_tabla de $array_campos
+        unset($array_campos['tipo']);
+        unset($array_campos['nom_tabla']);
+        //setea pkID a null ya que es autonumerico puede que esto sea condicional a futuro
+        $array_campos['pkID'] = "NULL";
+        //-----------------------------------------------------------
+        // construye query...
+        $sql = "insert INTO `" . $nom_tabla . "`";
 
- 		function crea_update($array_campos){
- 			
- 			//-----------------------------------------------------------
- 			//toma el nombre de la tabla
- 			$nom_tabla = $array_campos['nom_tabla'];
- 			//-----------------------------------------------------------
- 			//retira el campo tipo y nom_tabla de $array_campos
- 			unset($array_campos['tipo']);
- 			unset($array_campos['nom_tabla']);
- 			//-----------------------------------------------------------
+        // implode keys of $array...
+        $sql .= " (`" . implode("`, `", array_keys($array_campos)) . "`)";
 
- 			foreach($array_campos as $field_name => $field_value) {
-			   $sql_str[] = "{$field_name} = '{$field_value}'";
-			}
+        // implode values of $array...
+        $sql .= " VALUES ('" . implode("', '", $array_campos) . "') ";
+        //-----------------------------------------------------------
+        return $sql;
+    }
 
- 			$sql = "update `".$nom_tabla."` SET ";
+    public function crea_update($array_campos)
+    {
 
- 			$sql .= implode(',', $sql_str);
+        //-----------------------------------------------------------
+        //toma el nombre de la tabla
+        $nom_tabla = $array_campos['nom_tabla'];
+        //-----------------------------------------------------------
+        //retira el campo tipo y nom_tabla de $array_campos
+        unset($array_campos['tipo']);
+        unset($array_campos['nom_tabla']);
+        //-----------------------------------------------------------
 
- 			$sql .= " where pkID = ".$array_campos["pkID"];
+        foreach ($array_campos as $field_name => $field_value) {
+            $sql_str[] = "{$field_name} = '{$field_value}'";
+        }
 
- 			return $sql;
- 		}
+        $sql = "update `" . $nom_tabla . "` SET ";
 
- 		function crea_delete($array_campos){
- 			
- 			//-----------------------------------------------------------
- 			//toma el nombre de la tabla
- 			$nom_tabla = $array_campos['nom_tabla'];
- 			//-----------------------------------------------------------
- 			//retira el campo tipo y nom_tabla de $array_campos
- 			unset($array_campos['tipo']);
- 			unset($array_campos['nom_tabla']);
+        $sql .= implode(',', $sql_str);
 
- 			// construye query...
-		    $sql  = "delete FROM `".$nom_tabla."` where pkID = ".$array_campos['pkID'];
- 			//-----------------------------------------------------------
+        $sql .= " where pkID = " . $array_campos["pkID"];
 
- 			return $sql;
- 		}
+        return $sql;
+    }
 
- 		function crea_deletelog($array_campos)
-		    {
-		        //toma el nombre de la tabla
-		        $nom_tabla = $array_campos['nom_tabla'];
-		        //retira el campo tipo y nom_tabla de $array_campos
-		        unset($array_campos['tipo']);
-		        unset($array_campos['nom_tabla']);
-		        // construye query...
-		        $sql = "update `" . $nom_tabla . "` SET estadoV='2' where pkID = " . $array_campos['pkID'];
-		        return $sql;
-		    }
+    public function crea_delete($array_campos)
+    {
 
- 	}
+        //-----------------------------------------------------------
+        //toma el nombre de la tabla
+        $nom_tabla = $array_campos['nom_tabla'];
+        //-----------------------------------------------------------
+        //retira el campo tipo y nom_tabla de $array_campos
+        unset($array_campos['tipo']);
+        unset($array_campos['nom_tabla']);
 
+        // construye query...
+        $sql = "delete FROM `" . $nom_tabla . "` where pkID = " . $array_campos['pkID'];
+        //-----------------------------------------------------------
 
- ?>
+        return $sql;
+    }
+
+    public function crea_deletelog($array_campos)
+    {
+        //toma el nombre de la tabla
+        $nom_tabla = $array_campos['nom_tabla'];
+        //retira el campo tipo y nom_tabla de $array_campos
+        unset($array_campos['nom_tabla']);
+        // construye query...
+        $sql = "update `" . $nom_tabla . "` SET estadoV='2' where pkID = " . $array_campos['pkID'];
+        return $sql;
+    }
+
+}

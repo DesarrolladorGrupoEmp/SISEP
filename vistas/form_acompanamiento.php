@@ -30,15 +30,6 @@
                         <input type="text" class="form-control" id="descripcion" name="descripcion" required="true">
                     </div>
 
-                    <div class="form-group">
-                        <label for="url_imagen" class="control-label">Documento tecnico</label>
-                        <input id="archivo" type="file">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="url_documento" name="url_documento" disabled="disabled" >
-                    </div>
-
                 </form>
 
         <!-- /form modal contenido-->

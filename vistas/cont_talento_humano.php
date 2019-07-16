@@ -15,6 +15,12 @@ $arrPermisos = $talento_humanoInst->getPermisosModulo_Tipo($id_modulo, $_COOKIE[
 
 $crea = $arrPermisos[0]['crear'];
 
+if (isset($_GET["anio"])) {
+    $filtro = $_GET["anio"];
+} else {
+    $filtro = "'Todos'";
+}
+
 include "form_talento_humano.php";
 
 include "form_modal_archivos.php";
@@ -31,10 +37,10 @@ include "form_modal_archivos.php";
 
 
       <div class="col-lg-12">
-          <h1 class="page-header titleprincipal"><img src="../img/botones/proyectosmarcoonly.png">Talento Humano - <?php echo $proyectoMGen[0]["nombre"] ?></h1>
+          <h1 class="page-header titleprincipal"><img src="../img/botones/talento_humanoonly.png">Talento Humano - <?php echo $proyectoMGen[0]["nombre"] ?></h1>
       </div>
       <!-- /.col-lg-12 -->
-      <div class="col-lg-12">
+      <div class="col-md-9">
         <ol class="breadcrumb migadepan">
           <li><a href="proyecto_marco.php" class="migadepan">Inicio</a></li>
           <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
@@ -42,7 +48,15 @@ include "form_modal_archivos.php";
         </ol>
       </div>
 
-  </div>
+      <div class="col-md-2 text-right form-inline">
+        <label for="grupo_filtrop" class="control-label">Año: </label>
+        <?php $talento_humanoInst->getSelectAnioFiltro();?>
+      </div>
+
+      <div class="col-md-1 text-left form-inline">
+        <button class="btn btn-success" name="btn_filtro_anio" id="btn_filtro_anio"><span class="glyphicon glyphicon-filter"></span> Filtrar</button>
+        <hr>
+      </div>
   <!-- /.row -->
 
   <div class="row">
@@ -60,7 +74,7 @@ include "form_modal_archivos.php";
                   <div class="titleprincipal"><h4>Asignación de talento humano - <?php echo $proyectoMGen[0]["nombre"] ?></h4></div>
               </div>
               <div class="col-md-6 text-right">
-                 <button id="btn_nuevoProyectoM" type="button" class="btn btn-primary botonnewgrupo" data-proyecto="<?php echo $pkID_proyectoM; ?>" data-toggle="modal" data-target="#frm_modal_proyectoM" <?php if ($crea != 1) {echo 'disabled="disabled"';}?> >
+                 <button id="btn_nuevotalento_humano" type="button" class="btn btn-primary botonnewgrupo" data-proyecto="<?php echo $pkID_proyectoM; ?>" data-toggle="modal" data-target="#frm_modal_talento_humano" <?php if ($crea != 1) {echo 'disabled="disabled"';}?> >
                  <span class="glyphicon glyphicon-plus"></span>Asignar Talento Humano</button>
               </div>
             </div>
@@ -85,7 +99,7 @@ include "form_modal_archivos.php";
 
                   <tbody>
                       <?php
-$talento_humanoInst->getTablaFuncionarioCargo($pkID_proyectoM);
+$talento_humanoInst->getTablaFuncionarioCargo($pkID_proyectoM, $filtro);
 ?>
                   </tbody>
               </table>

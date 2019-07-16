@@ -338,6 +338,18 @@ class docentesController extends docentesDAO
         };
         echo '</select>';
     }
+
+    public function getSelectDocentes()
+    {
+        $tipo = $this->getDocente();
+
+        echo '<select name="fkID_docente" id="fkID_docente" class="form-control" required = "true">
+                        <option value="" selected>Elija el docente</option>';
+        for ($a = 0; $a < sizeof($tipo); $a++) {
+            echo "<option id='fkID_participante_form_' data-nombre='" . $tipo[$a]["nombres"] . "' value='" . $tipo[$a]["pkID"] . "'>" . $tipo[$a]["nombres"] . "</option>";
+        }
+        echo "</select>";
+    }
     //-----------------------------------------------------------------------------
 
     public function getDataDocenteGen($pkID)
@@ -347,34 +359,34 @@ class docentesController extends docentesDAO
 
         /**/
         echo '
-				  <div class="col-sm-12">
+                  <div class="col-sm-12">
 
-					<div class="col-sm-6">
+                    <div class="col-sm-6">
 
-						<strong>Nombre: </strong> ' . $this->docentesId[0]["nombre"] . ' ' . $this->docentesId[0]["apellido"] . ' <br> <br>
-						<strong>Email: </strong> ' . $this->docentesId[0]["email"] . ' <br> <br>
-						<strong>Tipo de Documento: </strong> ' . $this->docentesId[0]["nom_tdoc"] . ' <br> <br>
-						<strong>Número de Documento: </strong> ' . $this->docentesId[0]["numero_documento"] . ' <br> <br>
-						<strong>Fecha de Nacimiento: </strong> ' . $this->docentesId[0]["fecha_nacimiento"] . ' <br> <br>
-						<strong>Dirección: </strong> ' . $this->docentesId[0]["direccion"] . ' <br> <br>
-						<strong>Número de Teléfono: </strong> ' . $this->docentesId[0]["numero_telefono"] . ' <br> <br>
-						<strong>Cargo: </strong> ' . $this->docentesId[0]["nom_cargo"] . ' <br> <br>
+                        <strong>Nombre: </strong> ' . $this->docentesId[0]["nombre"] . ' ' . $this->docentesId[0]["apellido"] . ' <br> <br>
+                        <strong>Email: </strong> ' . $this->docentesId[0]["email"] . ' <br> <br>
+                        <strong>Tipo de Documento: </strong> ' . $this->docentesId[0]["nom_tdoc"] . ' <br> <br>
+                        <strong>Número de Documento: </strong> ' . $this->docentesId[0]["numero_documento"] . ' <br> <br>
+                        <strong>Fecha de Nacimiento: </strong> ' . $this->docentesId[0]["fecha_nacimiento"] . ' <br> <br>
+                        <strong>Dirección: </strong> ' . $this->docentesId[0]["direccion"] . ' <br> <br>
+                        <strong>Número de Teléfono: </strong> ' . $this->docentesId[0]["numero_telefono"] . ' <br> <br>
+                        <strong>Cargo: </strong> ' . $this->docentesId[0]["nom_cargo"] . ' <br> <br>
 
-						';
+                        ';
 
         echo '</div>
 
-					<div class="col-sm-6">
+                    <div class="col-sm-6">
 
-						<strong>Fecha Vinculación: </strong> ' . $this->docentesId[0]["fecha_vinculacion"] . ' <br> <br>
-						<strong>Nivel de Formación: </strong> ' . $this->docentesId[0]["nom_nformacion"] . ' <br> <br>
-						<strong>Título: </strong> ' . $this->docentesId[0]["nombre_titulo"] . ' <br> <br>
-						<strong>Último Título: </strong> ' . $this->docentesId[0]["ultimo_titulo"] . ' <br> <br>
-						<strong>Grupo Etnico: </strong> ' . $this->docentesId[0]["nom_getnico"] . ' <br> <br>
-						<strong>Institución: </strong> ' . $this->docentesId[0]["nom_institucion"] . ' <br> <br>
-						<strong>Género: </strong> ' . $this->docentesId[0]["nom_genero"] . ' <br> <br>
-					</div>
-			';
+                        <strong>Fecha Vinculación: </strong> ' . $this->docentesId[0]["fecha_vinculacion"] . ' <br> <br>
+                        <strong>Nivel de Formación: </strong> ' . $this->docentesId[0]["nom_nformacion"] . ' <br> <br>
+                        <strong>Título: </strong> ' . $this->docentesId[0]["nombre_titulo"] . ' <br> <br>
+                        <strong>Último Título: </strong> ' . $this->docentesId[0]["ultimo_titulo"] . ' <br> <br>
+                        <strong>Grupo Etnico: </strong> ' . $this->docentesId[0]["nom_getnico"] . ' <br> <br>
+                        <strong>Institución: </strong> ' . $this->docentesId[0]["nom_institucion"] . ' <br> <br>
+                        <strong>Género: </strong> ' . $this->docentesId[0]["nom_genero"] . ' <br> <br>
+                    </div>
+            ';
 
         echo '</div>';
 

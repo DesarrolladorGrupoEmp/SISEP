@@ -21,7 +21,7 @@ class acompanamientoDAO extends UsuariosDAO
     public function getGrupos($pkID_proyectoM)
     {
 
-        $query = "SELECT * FROM acompanamiento
+        $query = "SELECT *,(SELECT count(*) FROM acompanamiento_docente LEFT JOIN docente ON docente.pkID = acompanamiento_docente.fkID_docente WHERE acompanamiento.pkID = acompanamiento_docente.fkID_acompanamiento) as canti FROM acompanamiento
                 WHERE estadoV = 1 AND fkID_proyecto_marco = " . $pkID_proyectoM;
 
         return $this->EjecutarConsulta($query);
@@ -29,33 +29,14 @@ class acompanamientoDAO extends UsuariosDAO
 
     public function getGrupo($filtro, $pkID_proyectoM)
     {
-        $porciones = explode(" ", $filtro);
-        $filtro    = $porciones[0];
-        $tipos     = $porciones[1];
-        if ($porciones[1] == "*") {
-            $t = "!=0";
+        if ($filtro == "'Todos'") {
+            $where_anio = '';
         } else {
-            $t = "=" . $tipos;
+            $where_anio = "AND YEAR(fecha_acompanamiento) = " . $filtro;
         }
 
-        if ($filtro == "grupo.YEAR=1") {
-            $anio = '2017';
-        } else if ($filtro == "grupo.YEAR=2") {
-            $anio = "2018";
-        } else if ($filtro == "grupo.YEAR=3") {
-            $anio = "2019";
-        } else {
-            $anio = "2020";
-        }
-
-        if ($porciones[0] == "*") {
-            $f = "!=0";
-        } else {
-            $f = "=" . $anio;
-        }
-
-        $query = "SELECT * FROM acompanamiento
-                WHERE grupo.estadoV = 1 AND fkID_proyecto_marco = " . $pkID_proyectoM;
+        $query = "SELECT *,(SELECT count(*) FROM acompanamiento_docente LEFT JOIN docente ON docente.pkID = acompanamiento_docente.fkID_docente WHERE acompanamiento.pkID = acompanamiento_docente.fkID_acompanamiento) as canti FROM acompanamiento
+                WHERE estadoV = 1 " . $where_anio . " AND fkID_proyecto_marco = " . $pkID_proyectoM;
 
         return $this->EjecutarConsulta($query);
     }
@@ -145,14 +126,8 @@ class acompanamientoDAO extends UsuariosDAO
     public function getGruposId($pkID)
     {
 
-        $query = "select grupo.*,nombre_institucion,grado.nombre as nombre_grado,concat_ws(' ', nombre_docente, apellido_docente)as nombres_docente, concat_ws(' ', nombre_funcionario, apellido_funcionario) as nombres_funcionario from grupo
-INNER JOIN grado on grado.pkID= grupo.fkID_grado
-INNER JOIN institucion on institucion.pkID= grupo.fkID_institucion
-LEFT JOIN docente_grupo on grupo.pkID = docente_grupo.fkID_grupo
-LEFT JOIN docente on docente.pkID = docente_grupo.fkID_docente
-LEFT JOIN funcionario_grupo on grupo.pkID = funcionario_grupo.fkID_grupo
-LEFT JOIN funcionario on funcionario.pkID = funcionario_grupo.fkID_tutor
-where grupo.estadoV = 1 and grupo.pkID=" . $pkID;
+        $query = "SELECT * FROM acompanamiento
+                WHERE estadoV = 1 AND pkID =" . $pkID;
 
         return $this->EjecutarConsulta($query);
     }
@@ -292,12 +267,20 @@ where grupo.estadoV = 1 and grupo.pkID=" . $pkID;
 
     public function getEstudiantesGrupo($pkID_grupo)
     {
+        $query = "SELECT *,CONCAT(nombre_docente,' ',apellido_docente) AS nombre FROM acompanamiento_docente
+                INNER JOIN acompanamiento ON acompanamiento.pkID = acompanamiento_docente.fkID_acompanamiento
+                INNER JOIN docente ON docente.pkID = acompanamiento_docente.fkID_docente
+                INNER JOIN estado_acompanamiento ON estado_acompanamiento.pkID = acompanamiento_docente.fkID_estado
+                WHERE acompanamiento.pkID = " . $pkID_grupo;
 
-        $query = "SELECT *,CONCAT(nombre_estudiante1,' ',nombre_estudiante2) AS nombre,CONCAT(apellido_estudiante1,' ',apellido_estudiante2) AS apellido,grado.nombre AS nombre_grado FROM estudiante_grupo
-                INNER JOIN estudiante ON estudiante.pkID = estudiante_grupo.fkID_estudiante
-                INNER JOIN grupo ON grupo.pkID = estudiante_grupo.fkID_grupo
-                INNER JOIN grado ON grado.pkID = estudiante_grupo.fkID_grado
-                WHERE grupo.pkID = " . $pkID_grupo;
+        return $this->EjecutarConsulta($query);
+    }
+
+    public function getAsistencias($pkID_grupo)
+    {
+
+        $query = "SELECT * FROM acompanamiento_asistencia
+                WHERE fkID_acompanamiento = " . $pkID_grupo;
 
         return $this->EjecutarConsulta($query);
     }
@@ -310,4 +293,11 @@ where grupo.estadoV = 1 and grupo.pkID=" . $pkID;
         return $this->EjecutarConsulta($query);
     }
 
+    public function getEstado()
+    {
+
+        $query = "SELECT * FROM estado_acompanamiento";
+
+        return $this->EjecutarConsulta($query);
+    }
 }

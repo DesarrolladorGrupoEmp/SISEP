@@ -1,15 +1,14 @@
 $(function() {
-    $("#btn_nuevoProyectoM").jquery_controllerV2({
-        nom_modulo: 'proyectoM',
-        titulo_label: 'Nuevo Talento Humano',
+    $("#btn_nuevotalento_humano").jquery_controllerV2({
+        nom_modulo: 'talento_humano',
+        titulo_label: 'Nuevo talento humano',
         functionBefore: function(ajustes) {
             console.log('Ejecutando antes de todo...');
             console.log(ajustes);
-            upload.functionReset();
         },
         functionAfter: function(ajustes) {
             console.log('Ejecutando despues de todo...');
-            id = $("#btn_nuevoProyectoM").attr('data-proyecto');
+            id = $("#btn_nuevotalento_humano").attr('data-proyecto');
             $("#fkID_proyecto_marco").val(id);
             console.log(id);
             //console.log(ajustes);
@@ -17,16 +16,12 @@ $(function() {
             //------------------------------------------
             //matrix Relation
             //limpia el form
-            $("#" + rel_municipios.formulario_add).html("");
-            //setea el valor de los arrays
-            rel_municipios.arrElementos.length = 0;
-            rel_municipios.arrElementosRelation.length = 0;
             //------------------------------------------      
         }
     });
-    $("#btn_actionproyectoM").jquery_controllerV2({
+    $("#btn_actiontalento_humano").jquery_controllerV2({
         tipo: 'inserta/edita',
-        nom_modulo: 'proyectoM',
+        nom_modulo: 'talento_humano',
         nom_tabla: 'funcionario_cargo',
         recarga: false,
         functionBefore: function(ajustes) {
@@ -40,9 +35,9 @@ $(function() {
             location.reload()
         }
     });
-    $("[name*='edita_proyectoM']").jquery_controllerV2({
+    $("[name*='edita_talento_humano']").jquery_controllerV2({
         tipo: 'carga_editar',
-        nom_modulo: 'proyectoM',
+        nom_modulo: 'talento_humano',
         nom_tabla: 'funcionario_cargo',
         titulo_label: 'Editar Asignacion laboral',
         tipo_load: 1,
@@ -56,70 +51,44 @@ $(function() {
             //----------------------------------------------------------------
         }
     });
-    $("[name*='elimina_proyectoM']").jquery_controllerV2({
-        tipo: 'eliminar_logico',
-        nom_modulo: 'proyectoM',
-        nom_tabla: 'funcionario_cargo',
-        functionBefore: function(ajustes) {
-            console.log('Ejecutando antes de todo...');
-            console.log(ajustes);
-        },
-        functionAfter: function(data) {
-            console.log('Ejecutando despues de todo...');
-            console.log(data);
+    $("[name*='elimina_talento_humano']").click(function(event) {
+        id_funciona = $(this).attr('data-id-talento_humano');
+        console.log(id_funciona)
+        elimina_talento_humano(id_funciona);
+    });
+
+    function elimina_talento_humano(id_funciona) {
+        console.log('Eliminar el talento humano: ' + id_funciona);
+        var confirma = confirm("En realidad quiere eliminar este talento humano?");
+        console.log(confirma);
+        /**/
+        if (confirma == true) {
+            //si confirma es true ejecuta ajax
+            $.ajax({
+                url: '../controller/ajaxController12.php',
+                data: "pkID=" + id_funciona + "&tipo=eliminarlogico&nom_tabla=funcionario_cargo",
+            }).done(function(data) {
+                //---------------------
+                console.log(data);
+                location.reload();
+            }).fail(function() {
+                console.log("errorfatal");
+            }).always(function() {
+                console.log("complete");
+            });
+        } else {
+            //no hace nada
         }
-    });
-    //
-    $("[name*='ver_archivos_proyectoM']").click(function(event) {
-        console.log($(this).data("id-registro"))
-        //var query_docs = "SELECT * FROM `documentos_apropiacionS` WHERE fkID_apropiacionS = "+$(this).data("id-registro");
-        var carga_archivos = new loadArchivosMult("SELECT * FROM `documentos_proyectoM` WHERE fkID_proyectoM = " + $(this).data("id-registro"));
-        carga_archivos.load()
-    });
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-    //Función para cargar varios archivos
-    self.upload = new funcionesUpload("btn_actionproyectoM", "res_form", "not_documentos", "documentos_proyectoM", "fkID_proyectoM")
-    //console.log(upload)
-    $('#fileuploadPM').fileupload({
-        dataType: 'json',
-        add: function(e, data) {
-            upload.functionAdd(data)
-        },
-        done: function(e, data) {
-            console.log('Load finished.');
-        }
-    });
-    //---
-    //---------------------------------------------------------------
-    //carga la funcionalidad de cargar municipios con el departamento
-    var depart = new locationDepMun();
-    //se setea un nuevo selector de munucipios porque no es el que 
-    //esta por defecto.
-    depart.set_mun("select_municipio")
-    //inicializa la funcionalidad
-    depart.init();
-    //---------------------------------------------------------------
-    //---------------------------------------------------------------
-    //Instancia del complemento matrixRelation
-    //(seleccionador,btn_accion,nombre_modulo,nombre_modulo2,formulario_add,nombre_tabla,obtHE)
-    var obtHE = {
-        "fkID_proyectoM": 0,
-        "fkID_municipio": 0
-    }
-    var rel_municipios = new matrixRelation("select_municipio", "btn_actionproyectoM", "municipio", "proyectoM", "frm_proyectoM_municipios", "proyectoM_municipio", obtHE);
-    //------------------
-    //setea el msg de error cuando cargue la relacion
-    rel_municipios.setMsgError("Todo el Departamento.")
-    rel_municipios.setMsgErrorClase("success")
-    //------------------
-    rel_municipios.setup();
-    //---------------------------------------------------------------
-    //---------------------------------------------------------------
+    };
     //click al detalle en cada fila----------------------------
     $('.table').on('click', '.detail', function() {
         window.location.href = $(this).attr('href');
     });
-    //
-    sessionStorage.setItem("id_tab_proyectoM", null);
     //------------------------------------------------------
+    //Funcion para pasar condicion de año
+    $("#btn_filtro_anio").click(function(event) {
+        proyecto = $("#btn_nuevotalento_humano").attr("data-proyecto");
+        nombre = $('select[name="anio_filtro"] option:selected').text();
+        location.href = "talento_humano.php?id_proyectoM=" + proyecto + "&anio='" + nombre + "'";
+    });
 });

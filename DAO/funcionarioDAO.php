@@ -22,11 +22,11 @@ class funcionarioDAO extends UsuariosDAO
 
         $query = "select usuarios.pkID as pkID_estudiante, usuarios.fkID_rol as pkID_rol, rol.nombre as rol from usuarios
 
-					INNER JOIN rol ON rol.pkID = usuarios.fkID_rol
+                    INNER JOIN rol ON rol.pkID = usuarios.fkID_rol
 
-					LEFT JOIN usuario_grupo ON usuario_grupo.fkID_usuario = usuarios.pkID
+                    LEFT JOIN usuario_grupo ON usuario_grupo.fkID_usuario = usuarios.pkID
 
-					WHERE usuarios.fkID_tipo = 9 ";
+                    WHERE usuarios.fkID_tipo = 9 ";
 
         return $this->EjecutarConsulta($query);
     }
@@ -58,7 +58,7 @@ class funcionarioDAO extends UsuariosDAO
     public function getProyectosMarcoId($pkID)
     {
 
-        $query = "select proyecto_marco.*, departamento.nombre as nom_departamento
+        $query = "select proyecto_marco.*, departamento.nombre_departamento as nom_departamento
 
                       FROM proyecto_marco
 
