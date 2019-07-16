@@ -36,7 +36,7 @@ class saberes_propioscontroller extends saberesDAO
     //$consulta = $arrPermisos[0]["consultar"];
     //-----------------------------------------------------------------------------
 
-    public function getTablasaberes($filtro,$pkID_proyectoM)
+    public function getTablasaberes($filtro, $pkID_proyectoM)
     {
 
         //permisos-------------------------------------------------------------------------
@@ -73,7 +73,7 @@ class saberes_propioscontroller extends saberesDAO
 
         ];
 
-        $array_opciones = [ 
+        $array_opciones = [
             "modulo" => "saber_propio", //nombre del modulo definido para jquerycontrollerV2
             "title"  => "Click Ver Detalles", //etiqueta html title
             "href"   => "detalle_saber_propio.php?id_saber_propio=",
@@ -81,14 +81,14 @@ class saberes_propioscontroller extends saberesDAO
         ];
         //---------------------------------------------------------------------------------
         //carga el array desde el DAO
-        if ($filtro=="*") {
+        if ($filtro == "*") {
             $saberes = $this->getSaberes($pkID_proyectoM);
-        } else if ($filtro=="") {
+        } else if ($filtro == "") {
             $saberes = $this->getSaberes($pkID_proyectoM);
         } else {
             $saberes = $this->getGrupo($filtro);
         }
-        
+
         //print_r($saberes);
 
         //Instancia el render
@@ -212,7 +212,7 @@ class saberes_propioscontroller extends saberesDAO
 
         echo '<span class="input-group-addon">#</span>';
         for ($i = 0; $i < sizeof($m_u_Select); $i++) {
-            echo '<input type="text" class="form-control" id="total_estudiantes" name="total_estudiantes" readonly="true" value='. $m_u_Select[$i]["cantidad"].'>';
+            echo '<input type="text" class="form-control" id="total_estudiantes" name="total_estudiantes" readonly="true" value=' . $m_u_Select[$i]["cantidad"] . '>';
         }
     }
 
@@ -267,7 +267,6 @@ class saberes_propioscontroller extends saberesDAO
         }
         echo "</select>";
     }
-
 
     public function getSelectAsesor()
     {
@@ -349,9 +348,9 @@ class saberes_propioscontroller extends saberesDAO
 
               </div>
 
-            <div class="col-sm-6"> 
-                <div class="form-group " hidden>                     
-                            <input type="text" class="form-control" id="fkID_grupo" name="fkID_grupo" value='.$this->saberesid[0]["fkID_grupo"].'>
+            <div class="col-sm-6">
+                <div class="form-group " hidden>
+                            <input type="text" class="form-control" id="fkID_grupo" name="fkID_grupo" value=' . $this->saberesid[0]["fkID_grupo"] . '>
                         </div>
               <strong>Fecha de Salida: </strong> ' . $this->saberesId[0]["fecha_salida"] . ' <br> <br>
               <strong>Grupo: </strong> ' . $this->saberesId[0]["nombre"] . ' <br> <br>
@@ -361,7 +360,7 @@ class saberes_propioscontroller extends saberesDAO
             <div  class="">
             <label class="align-center">Lista de Asistencia:</label><br><br>
               <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="text" class=""  target="_blank" ><span> <img  src="../img/pdfdescargable.png"></span></a>
-              <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="text" class="" href = "../server/php/files/'.$this->saberesId[0]["url_lista"].'" target="_blank" >'.$this->saberesId[0]["url_lista"].'</a><br><br><br>
+              <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="text" class="" href = "../server/php/files/' . $this->saberesId[0]["url_lista"] . '" target="_blank" >' . $this->saberesId[0]["url_lista"] . '</a><br><br><br>
               </div>
               ';
 
@@ -375,12 +374,12 @@ class saberes_propioscontroller extends saberesDAO
         $this->grupoId = $this->getproyectoId($pkID);
 
         //print_r($this->gruposId);
-        if ($this->grupoId[0]["linea_investigacion"]=="") {
-            echo'<div class="col-md-12 text-center">
+        if ($this->grupoId[0]["linea_investigacion"] == "") {
+            echo '<div class="col-md-12 text-center">
                              <button id="btn_crearproyectogrupo" type="button" class="btn btn-primary botonnewgrupo" data-toggle="modal"  data-grupo="" data-target="#frm_modal_proyecto_grupo" ><span class="glyphicon glyphicon-plus"></span> Crear Proyecto</button>
                           </div>';
-            
-        } else if ($this->grupoId[0]["url_documento"]=="" && $this->grupoId[0]["url_bitacora"]=="") {
+
+        } else if ($this->grupoId[0]["url_documento"] == "" && $this->grupoId[0]["url_bitacora"] == "") {
             echo '<div class="panel panel-default proc-pan-def3">
 
                     <div class="titulohead">
@@ -396,7 +395,7 @@ class saberes_propioscontroller extends saberesDAO
                         </div>
 
                     </div>
-                 </div>   
+                 </div>
 
 
         <div class="col-sm-12 panel panel-primary">
@@ -404,17 +403,17 @@ class saberes_propioscontroller extends saberesDAO
 
         <div class="col-sm-12 panel panel-info">
                 <label class="align-center">Linea de Investigación: </label><br> <br>
-              <strong></strong>' .$this->grupoId[0]["linea_investigacion"].' <br> <br>
+              <strong></strong>' . $this->grupoId[0]["linea_investigacion"] . ' <br> <br>
               </div>
         <div class="col-sm-12 panel panel-info">
                 <label class="align-center">Pregunta de Investigación:</label><br> <br>
-              <strong> </strong>' .$this->grupoId[0]["pregunta_investigacion"].'<br> <br>
+              <strong> </strong>' . $this->grupoId[0]["pregunta_investigacion"] . '<br> <br>
               </div>
         <div class="col-sm-12 panel panel-info">
               <label class="align-center">Objetivo General:</label><br> <br>
-              <strong></strong>'.$this->grupoId[0]["objetivo_general"].' <br> <br>
+              <strong></strong>' . $this->grupoId[0]["objetivo_general"] . ' <br> <br>
               </div>
-              </div> 
+              </div>
               <div class="col-sm-1 panel panel-primary"><br>
                 <img  src="../img/pdf.png"><br><br><br>
               </div>
@@ -429,7 +428,7 @@ class saberes_propioscontroller extends saberesDAO
               </div>
 
               <div class="col-sm-2">
-                
+
               </div>
               <div class="col-sm-1 panel panel-primary"><br>
                 <img  src="../img/pdf.png"><br><br><br>
@@ -444,8 +443,8 @@ class saberes_propioscontroller extends saberesDAO
                 <button id="btn_bitacora" type="button" class="btn btn-success"  ><span class="glyphicon glyphicon-upload"></span> Guardar archivo</button>
                 </form><br>
             ';
-        echo '</div>';
-        } else if($this->grupoId[0]["url_bitacora"]!="" && $this->grupoId[0]["url_documento"]=="") {
+            echo '</div>';
+        } else if ($this->grupoId[0]["url_bitacora"] != "" && $this->grupoId[0]["url_documento"] == "") {
             echo '<div class="panel panel-default proc-pan-def3">
 
                     <div class="titulohead">
@@ -461,7 +460,7 @@ class saberes_propioscontroller extends saberesDAO
                         </div>
 
                     </div>
-                 </div>   
+                 </div>
 
 
         <div class="col-sm-12 panel panel-primary">
@@ -469,18 +468,18 @@ class saberes_propioscontroller extends saberesDAO
 
         <div class="col-sm-12 panel panel-info">
                 <label class="align-center">Linea de Investigación: </label><br> <br>
-              <strong></strong>' .$this->grupoId[0]["linea_investigacion"].' <br> <br>
+              <strong></strong>' . $this->grupoId[0]["linea_investigacion"] . ' <br> <br>
               </div>
         <div class="col-sm-12 panel panel-info">
                 <label class="align-center">Pregunta de Investigación:</label><br> <br>
-              <strong> </strong>' .$this->grupoId[0]["pregunta_investigacion"].'<br> <br>
+              <strong> </strong>' . $this->grupoId[0]["pregunta_investigacion"] . '<br> <br>
               </div>
         <div class="col-sm-12 panel panel-info">
               <label class="align-center">Objetivo General:</label><br> <br>
-              <strong></strong>'.$this->grupoId[0]["objetivo_general"].' <br> <br>
+              <strong></strong>' . $this->grupoId[0]["objetivo_general"] . ' <br> <br>
               </div>
-              </div> 
-              
+              </div>
+
               <div class="col-sm-1 panel panel-primary"><br>
                 <img  src="../img/pdf.png"><br><br><br>
               </div>
@@ -495,14 +494,14 @@ class saberes_propioscontroller extends saberesDAO
               </div>
 
               <div class="col-sm-2">
-                
+
               </div>
                 <div  class="col-sm-5 panel panel-primary">
               <label for="adjunto" id="lbl_pkID_archivo_" name="lbl_pkID_archivo_" class="custom-control-label">Bitacora</label><br><br>
-              <input type="text" style="width: 79%;display: inline;" class="form-control" id="pkID_archivo" name="btn_RmFuncionario" value='.$this->grupoId[0]["url_bitacora"].' readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../server/php/files/'.$this->grupoId[0]["url_bitacora"].'" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmBitacora" id="btn_actionRmBitacora" data-id-contratos="1" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button><br><br><br>
+              <input type="text" style="width: 79%;display: inline;" class="form-control" id="pkID_archivo" name="btn_RmFuncionario" value=' . $this->grupoId[0]["url_bitacora"] . ' readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../server/php/files/' . $this->grupoId[0]["url_bitacora"] . '" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmBitacora" id="btn_actionRmBitacora" data-id-contratos="1" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button><br><br><br>
             ';
-        echo '</div>';
-        }else if ($this->grupoId[0]["url_bitacora"]=="" && $this->grupoId[0]["url_documento"]!="") {
+            echo '</div>';
+        } else if ($this->grupoId[0]["url_bitacora"] == "" && $this->grupoId[0]["url_documento"] != "") {
             echo '<div class="panel panel-default proc-pan-def3">
 
                     <div class="titulohead">
@@ -518,7 +517,7 @@ class saberes_propioscontroller extends saberesDAO
                         </div>
 
                     </div>
-                 </div>   
+                 </div>
 
 
         <div class="col-sm-12 panel panel-primary">
@@ -526,27 +525,27 @@ class saberes_propioscontroller extends saberesDAO
 
         <div class="col-sm-12 panel panel-info">
                 <label class="align-center">Linea de Investigación: </label><br> <br>
-              <strong></strong>' .$this->grupoId[0]["linea_investigacion"].' <br> <br>
+              <strong></strong>' . $this->grupoId[0]["linea_investigacion"] . ' <br> <br>
               </div>
         <div class="col-sm-12 panel panel-info">
                 <label class="align-center">Pregunta de Investigación:</label><br> <br>
-              <strong> </strong>' .$this->grupoId[0]["pregunta_investigacion"].'<br> <br>
+              <strong> </strong>' . $this->grupoId[0]["pregunta_investigacion"] . '<br> <br>
               </div>
         <div class="col-sm-12 panel panel-info">
               <label class="align-center">Objetivo General:</label><br> <br>
-              <strong></strong>'.$this->grupoId[0]["objetivo_general"].' <br> <br>
+              <strong></strong>' . $this->grupoId[0]["objetivo_general"] . ' <br> <br>
               </div>
-              </div> 
+              </div>
               <div  class="col-sm-5 panel panel-primary">
               <label for="adjunto" id="lbl_pkID_archivo_" name="lbl_pkID_archivo_" class="custom-control-label">Documento Técnico</label><br><br>
-              <input type="text" style="width: 79%;display: inline;" class="form-control" id="pkID_archivo" name="btn_RmFuncionario" value='.$this->grupoId[0]["url_documento"].' readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../server/php/files/'.$this->grupoId[0]["url_documento"].'" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmDocumento" id="btn_actionRmDocumento" data-id-contratos="1" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button><br><br><br>
+              <input type="text" style="width: 79%;display: inline;" class="form-control" id="pkID_archivo" name="btn_RmFuncionario" value=' . $this->grupoId[0]["url_documento"] . ' readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../server/php/files/' . $this->grupoId[0]["url_documento"] . '" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmDocumento" id="btn_actionRmDocumento" data-id-contratos="1" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button><br><br><br>
 
               </div>
 
               <div class="col-sm-2">
-                
+
               </div>
-              
+
               <div class="col-sm-1 panel panel-primary"><br>
                 <img  src="../img/pdf.png"><br><br><br>
               </div>
@@ -559,8 +558,8 @@ class saberes_propioscontroller extends saberesDAO
                 <button id="btn_bitacora" type="button" class="btn btn-success"  ><span class="glyphicon glyphicon-upload"></span> Guardar archivo</button>
                 </form><br>
             ';
-        echo '</div>';
-        }else{
+            echo '</div>';
+        } else {
             echo '<div class="panel panel-default proc-pan-def3">
 
                     <div class="titulohead">
@@ -576,7 +575,7 @@ class saberes_propioscontroller extends saberesDAO
                         </div>
 
                     </div>
-                 </div>   
+                 </div>
 
 
         <div class="col-sm-12 panel panel-primary">
@@ -584,34 +583,33 @@ class saberes_propioscontroller extends saberesDAO
 
         <div class="col-sm-12 panel panel-info">
                 <label class="align-center">Linea de Investigación: </label><br> <br>
-              <strong></strong>' .$this->grupoId[0]["linea_investigacion"].' <br> <br>
+              <strong></strong>' . $this->grupoId[0]["linea_investigacion"] . ' <br> <br>
               </div>
         <div class="col-sm-12 panel panel-info">
                 <label class="align-center">Pregunta de Investigación:</label><br> <br>
-              <strong> </strong>' .$this->grupoId[0]["pregunta_investigacion"].'<br> <br>
+              <strong> </strong>' . $this->grupoId[0]["pregunta_investigacion"] . '<br> <br>
               </div>
         <div class="col-sm-12 panel panel-info">
               <label class="align-center">Objetivo General:</label><br> <br>
-              <strong></strong>'.$this->grupoId[0]["objetivo_general"].' <br> <br>
+              <strong></strong>' . $this->grupoId[0]["objetivo_general"] . ' <br> <br>
               </div>
-              </div> 
+              </div>
               <div  class="col-sm-5 panel panel-primary">
               <label for="adjunto" id="lbl_pkID_archivo_" name="lbl_pkID_archivo_" class="custom-control-label">Documento Técnico</label><br><br>
-              <input type="text" style="width: 79%;display: inline;" class="form-control" id="pkID_archivo" name="btn_RmFuncionario" value='.$this->grupoId[0]["url_documento"].' readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../server/php/files/'.$this->grupoId[0]["url_documento"].'" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmDocumento" id="btn_actionRmDocumento" data-id-contratos="1" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button><br><br><br>
+              <input type="text" style="width: 79%;display: inline;" class="form-control" id="pkID_archivo" name="btn_RmFuncionario" value=' . $this->grupoId[0]["url_documento"] . ' readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../server/php/files/' . $this->grupoId[0]["url_documento"] . '" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmDocumento" id="btn_actionRmDocumento" data-id-contratos="1" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button><br><br><br>
 
               </div>
 
               <div class="col-sm-2">
-                
+
               </div>
               <div  class="col-sm-5 panel panel-primary">
               <label for="adjunto" id="lbl_pkID_archivo_" name="lbl_pkID_archivo_" class="custom-control-label">Bitacora</label><br><br>
-              <input type="text" style="width: 79%;display: inline;" class="form-control" id="pkID_archivo" name="btn_RmFuncionario" value='.$this->grupoId[0]["url_bitacora"].' readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../server/php/files/'.$this->grupoId[0]["url_bitacora"].'" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmBitacora" id="btn_actionRmBitacora" data-id-contratos="1" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button><br><br><br>
+              <input type="text" style="width: 79%;display: inline;" class="form-control" id="pkID_archivo" name="btn_RmFuncionario" value=' . $this->grupoId[0]["url_bitacora"] . ' readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../server/php/files/' . $this->grupoId[0]["url_bitacora"] . '" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmBitacora" id="btn_actionRmBitacora" data-id-contratos="1" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button><br><br><br>
             ';
-        echo '</div>';
+            echo '</div>';
 
         }
-        
 
     }
 
@@ -733,7 +731,7 @@ class saberes_propioscontroller extends saberesDAO
 
             [
                 "tipo"    => "eliminar",
-                "nombre"  => "estudiante",
+                "nombre"  => "estudiante_saber_propio",
                 "permiso" => $elimina,
             ],
 
@@ -752,7 +750,7 @@ class saberes_propioscontroller extends saberesDAO
 
         //---------------------------------------------------------------------------------
         //carga el array desde el DAO
-        $saberes = $this->getEstudiantesSaberes($pkID_saber);    
+        $saberes = $this->getEstudiantesSaberes($pkID_saber);
         //print_r($saberes);
 
         //Instancia el render
@@ -829,7 +827,7 @@ class saberes_propioscontroller extends saberesDAO
         //print_r($saberes);
 
         //Instancia el render
-        $this->table_inst = new RenderTable($saberes, $saberes_campos, $saberes_btn,$array_opciones);
+        $this->table_inst = new RenderTable($saberes, $saberes_campos, $saberes_btn, $array_opciones);
         //---------------------------------------------------------------------------------
 
         //valida si hay usuarios y permiso de consulta

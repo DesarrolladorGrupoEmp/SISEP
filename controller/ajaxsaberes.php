@@ -10,14 +10,14 @@ class Generico_DAO
 }
 
 $r    = array();
-$tipo = isset($_POST['tipo'])? $_POST['tipo'] : "";
+$tipo = isset($_POST['tipo']) ? $_POST['tipo'] : "";
 if (isset($_POST['pkID'])) {
     $id = $_POST['pkID'];
 }
-$fechas = $tipo = isset($_POST['fecha_salida'])? $_POST['fecha_salida'] : "";
-$fkID_grupo = $tipo = isset($_POST['fkID_grupo'])? $_POST['fkID_grupo'] : "";
-$comunidad = $tipo = isset($_POST['comunidad_visitada'])? $_POST['comunidad_visitada'] : "";
-$fk_asesor = $tipo = isset($_POST['fkID_asesor'])? $_POST['fkID_asesor'] : "";
+$fechas     = isset($_POST['fecha_salida']) ? $_POST['fecha_salida'] : "";
+$fkID_grupo = isset($_POST['fkID_grupo']) ? $_POST['fkID_grupo'] : "";
+$comunidad  = isset($_POST['comunidad_visitada']) ? $_POST['comunidad_visitada'] : "";
+$fk_asesor  = isset($_POST['fkID_asesor']) ? $_POST['fkID_asesor'] : "";
 
 switch ($tipo) {
     case 'crear':
@@ -125,22 +125,20 @@ switch ($tipo) {
         }
         break;
     case 'eliminararchivo':
-                    $generico = new Generico_DAO();
-                    $q_inserta = "update saber_propio SET url_lista='' where pkID='$id' ";
-                    $r["query"] = $q_inserta;           
-                    $resultado = $generico->EjecutaActualizar($q_inserta);
-                    if($resultado){                    
-                        $r[] = $resultado;          
-                    }else{
-                      $r["estado"] = "Error";
-                      $r["mensaje"] = "No se inserto.";
-                        }
-                break;
+        $generico   = new Generico_DAO();
+        $q_inserta  = "update saber_propio SET url_lista='' where pkID='$id' ";
+        $r["query"] = $q_inserta;
+        $resultado  = $generico->EjecutaActualizar($q_inserta);
+        if ($resultado) {
+            $r[] = $resultado;
+        } else {
+            $r["estado"]  = "Error";
+            $r["mensaje"] = "No se inserto.";
+        }
+        break;
     default:
         # code...
         break;
 }
 
 echo json_encode($r);
-
-?>

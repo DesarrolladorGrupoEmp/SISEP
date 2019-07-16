@@ -52,11 +52,11 @@ $proyectoMGen   = $principalInst->getProyectosMarcoId($pkID_proyectoM);
                                         <div class="">
                                             <div class="">
                                                 <div class="col-md-1"></div>
-                                                <div class="col-md-2 zoom"><a class="" href="actor.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/apropiacion.png"></a></div>
-                                                <div class="col-md-2 zoom"><a class="" href="taller_formacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/apropiacion.png"></a></div>
-                                                <div class="col-md-2 zoom"><a class="" href="anuario.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/apropiacion.png"></a></div>
-                                                <div class="col-md-2 zoom"><a class="" href="contenido.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/apropiacion.png"></a></div>
-                                                <div class="col-md-2 zoom"><a class="" href="feria.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/apropiacion.png"></a></div>
+                                                <div class="col-md-2 zoom"><a class="" href="actor.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/actor.png"></a></div>
+                                                <div class="col-md-2 zoom"><a class="" href="taller_formacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/taller.png"></a></div>
+                                                <div class="col-md-2 zoom"><a class="" href="anuario.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/anuario.png"></a></div>
+                                                <div class="col-md-2 zoom"><a class="" href="contenido.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/contenidos.png"></a></div>
+                                                <div class="col-md-2 zoom"><a class="" href="feria.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/ferias.png"></a></div>
                                                 <div class="col-md-1"></div>
                                             </div>
                                         </div>

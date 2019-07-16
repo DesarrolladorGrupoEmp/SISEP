@@ -1,8 +1,7 @@
 $(function() {
     var arrEstudiante = [];
     var arrEstudiantes = [];
-    var arrestudiantesasignados=[]
-    
+    var arrestudiantesasignados = []
     $("#btn_asignarestudiante").click(function() {
         $("#lbl_form_asignarestudiante").html("Asignar Estudiante");
         $("#lbl_btn_actionasignarestudiante").html("Guardar <span class='glyphicon glyphicon-save'></span>");
@@ -11,7 +10,7 @@ $(function() {
         $("#frm_estudiante_grupo").html("");
     });
     //Definir la acción del boton del formulario 
-    $("#btn_actionestudiante").click(function() {   
+    $("#btn_actionestudiante").click(function() {
         console.log("al principio");
         action = $(this).attr("data-action");
         //define la acción que va a realizar el formulario
@@ -25,13 +24,11 @@ $(function() {
         valida_actio(action);
         console.log("accion a ejecutar: " + action);
     });
-
-    $("[name*='elimina_estudiante']").click(function(event) {
+    $("[name*='elimina_estudiante_saber_propio']").click(function(event) {
         id_estudian = $(this).attr('data-id-estudiante');
         console.log(id_estudian)
         deleteSaberNumReg(id_estudian);
     });
-    
     sessionStorage.setItem("id_tab_estudiante", null);
     //---------------------------------------------------------
     //click al detalle en cada fila----------------------------
@@ -41,20 +38,14 @@ $(function() {
     //valida accion a realizar
     function valida_actio(action) {
         console.log("en la mitad");
-        if (action === "crear") {
-            
-        } else if (action === "editar") {
-           
-        } else {
+        if (action === "crear") {} else if (action === "editar") {} else {
             guardar();
             asigna_estudiante();
-
         }
     };
 
-
     function asigna_estudiante() {
-       location.reload();
+        location.reload();
     }
 
     function guardar() {
@@ -71,10 +62,9 @@ $(function() {
                 console.log(data);
             }).always(function() {
                 console.log("complete");
-            });  
+            });
         });
     }
-
     //valida si existe el documento
     function validaEqualIdentifica(num_id) {
         console.log("busca valor " + encodeURI(num_id));
@@ -97,7 +87,6 @@ $(function() {
             console.log("complete");
         });
     }
-    
     $("#fkID_estudiante").change(function(event) {
         idUsuario = $(this).val();
         nomUsuario = $(this).find("option:selected").data('nombre')
@@ -115,7 +104,7 @@ $(function() {
                 serializa_array(crea_array(arrEstudiante, $("#pkID").val(), fecha));
             }
         } else {
-            selectEstudiante(idUsuario, nomUsuario,'select', $(this).data('accion'));
+            selectEstudiante(idUsuario, nomUsuario, 'select', $(this).data('accion'));
         };
     });
 
@@ -164,7 +153,6 @@ $(function() {
         });
     }
 
-
     function selectEstudiante(id, nombre, type, numReg) {
         console.log(id)
         console.log("ya vamos aca ")
@@ -204,6 +192,7 @@ $(function() {
             alert("No se seleccionó ningún usuario.")
         }
     };
+
     function removeUsuario(id) {
         $("#" + id).remove();
     }
@@ -214,7 +203,7 @@ $(function() {
             return true;
         } else {
             return false;
-        }  
+        }
     };
 
     function deleteSaberNumReg(numReg) {
@@ -222,19 +211,17 @@ $(function() {
         console.log(confirma);
         /**/
         if (confirma == true) {
-        $.ajax({
-            url: '../controller/ajaxController12.php',
-            data: "pkID=" + numReg + "&tipo=eliminar&nom_tabla=saber_estudiante",
-        }).done(function(data) {
-            console.log(data);
-            location.reload();
-        }).fail(function() {
-            console.log("error");
-        }).always(function() {
-            console.log("complete"); 
-        });
+            $.ajax({
+                url: '../controller/ajaxController12.php',
+                data: "pkID=" + numReg + "&tipo=eliminar&nom_tabla=saber_estudiante",
+            }).done(function(data) {
+                console.log(data);
+                location.reload();
+            }).fail(function() {
+                console.log("error");
+            }).always(function() {
+                console.log("complete");
+            });
+        }
     }
-}
-
-
 });

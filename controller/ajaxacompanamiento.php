@@ -9,100 +9,134 @@ class Generico_DAO
 
 }
 
-$r         = array();
-$tipo      = isset($_POST['tipo'])? $_POST['tipo'] : "";
-$id        = isset($_POST['pkID'])? $_POST['pkID'] : "";
-$nombref   = isset($_POST['nombre'])? $_POST['nombre'] : "";
-$apellido  = isset($_POST['apellido'])? $_POST['apellido'] : "";
-$fk_tipo   = isset($_POST['fk_tipo'])? $_POST['fk_tipo'] : "";
-$documento = isset($_POST['documento'])? $_POST['documento'] : "";
-$telefono  = isset($_POST['telefono'])? $_POST['telefono'] : "";
-$direccion = isset($_POST['direccion'])? $_POST['direccion'] : "";
-$email     = isset($_POST['email'])? $_POST['email'] : "";
+$r                    = array();
+$tipo                 = isset($_POST['tipo']) ? $_POST['tipo'] : "";
+$id                   = isset($_POST['pkID']) ? $_POST['pkID'] : "";
+$fecha_acompanamiento = isset($_POST['fecha_acompanamiento']) ? $_POST['fecha_acompanamiento'] : "";
+$descripcion          = isset($_POST['descripcion']) ? $_POST['descripcion'] : "";
+$file                 = isset($_POST['file']) ? $_POST['file'] : "";
+$file2                = isset($_POST['file2']) ? $_POST['file2'] : "";
+$fkID_proyecto_marco  = isset($_POST['fkID_proyecto_marco']) ? $_POST['fkID_proyecto_marco'] : "";
 
 switch ($tipo) {
     case 'crear':
         $generico = new Generico_DAO();
-        $nombre   = $_FILES['file']["name"];
-        //Reemplaza los caracteres especiales por guiones al piso
-        $nombre = str_replace(" ", "_", $nombre);
-        $nombre = str_replace("%", "_", $nombre);
-        $nombre = str_replace("-", "_", $nombre);
-        $nombre = str_replace(";", "_", $nombre);
-        $nombre = str_replace("#", "_", $nombre);
-        $nombre = str_replace("!", "_", $nombre);
-        //carga el archivo en el servidor
-        $destino = "../vistas/subidas/" . $nombre;
-        if (move_uploaded_file($_FILES['file']["tmp_name"], $destino)) {
-            $q_inserta  = "insert into funcionario(nombre_funcionario, apellido_funcionario, fkID_tipo_documento, documento_funcionario, telefono_funcionario, direccion_funcionario, email_funcionario, url_funcionario) VALUES ('$nombref', '$apellido', '$fk_tipo', '$documento', '$telefono', '$direccion', '$email', '$nombre')";
-            $r["query"] = $q_inserta;
+        if (isset($_FILES['file']["name"])) {
+            $nombreDoc = $_FILES['file']["name"];
+            //Reemplaza los caracteres especiales por guiones al piso
+            $nombreDoc = str_replace(" ", "_", $nombreDoc);
+            $nombreDoc = str_replace("%", "_", $nombreDoc);
+            $nombreDoc = str_replace("-", "_", $nombreDoc);
+            $nombreDoc = str_replace(";", "_", $nombreDoc);
+            $nombreDoc = str_replace("#", "_", $nombreDoc);
+            $nombreDoc = str_replace("!", "_", $nombreDoc);
+            //carga el archivo en el servidor
+            $destinoDoc = "../vistas/subidas/" . $nombreDoc;
 
-            $resultado = $generico->EjecutaInsertar($q_inserta);
-            /**/
-            if ($resultado) {
+            move_uploaded_file($_FILES['file']["tmp_name"], $destinoDoc);
+        } else {
+            $nombreDoc = '';
+        }
 
-                $r[] = $resultado;
+        if (isset($_FILES['file2']["name"])) {
+            $nombreInf = $_FILES['file2']["name"];
+            //Reemplaza los caracteres especiales por guiones al piso
+            $nombreInf = str_replace(" ", "_", $nombreInf);
+            $nombreInf = str_replace("%", "_", $nombreInf);
+            $nombreInf = str_replace("-", "_", $nombreInf);
+            $nombreInf = str_replace(";", "_", $nombreInf);
+            $nombreInf = str_replace("#", "_", $nombreInf);
+            $nombreInf = str_replace("!", "_", $nombreInf);
+            //carga el archivo en el servidor
+            $destinoInf = "../vistas/subidas/" . $nombreInf;
 
-            } else {
+            move_uploaded_file($_FILES['file']["tmp_name"], $destinoInf);
+        } else {
+            $nombreInf = '';
+        }
+        $q_inserta  = "INSERT INTO acompanamiento (fecha_acompanamiento, descripcion, url_documento, url_informe, fkID_proyecto_marco) VALUES ('$fecha_acompanamiento', '$descripcion', '$nombreDoc', '$nombreInf', '$fkID_proyecto_marco')";
+        $r["query"] = $q_inserta;
 
-                $r["estado"]  = "Error";
-                $r["mensaje"] = "No se inserto.";
-            }
+        $resultado = $generico->EjecutaInsertar($q_inserta);
+        /**/
+        if ($resultado) {
+
+            $r[] = $resultado;
 
         } else {
-            $mensaje = "El archivo $nombre no se ha almacenado en forma exitosa";
+
+            $r["estado"]  = "Error";
+            $r["mensaje"] = "No se inserto.";
         }
-        echo json_encode($nombre);
+        echo json_encode($r);
         break;
     case 'editar':
         $generico = new Generico_DAO();
-        $nombre   = $_FILES['file']["name"];
-        //Reemplaza los caracteres especiales por guiones al piso
-        $nombre = str_replace(" ", "_", $nombre);
-        $nombre = str_replace("%", "_", $nombre);
-        $nombre = str_replace("-", "_", $nombre);
-        $nombre = str_replace(";", "_", $nombre);
-        $nombre = str_replace("#", "_", $nombre);
-        $nombre = str_replace("!", "_", $nombre);
-        //carga el archivo en el servidor
-        $destino = "../vistas/subidas/" . $nombre;
-        if (move_uploaded_file($_FILES['file']["tmp_name"], $destino)) {
-            $q_inserta  = "update funcionario SET nombre_funcionario='$nombref',apellido_funcionario='$apellido',fkID_tipo_documento='$fk_tipo',documento_funcionario='$documento',telefono_funcionario='$telefono',direccion_funcionario='$direccion',email_funcionario='$email',url_funcionario='$nombre' where pkID='$id'";
-            $r["query"] = $q_inserta;
-            $resultado  = $generico->EjecutaInsertar($q_inserta);
-            /**/
-            if ($resultado) {
+        if (isset($_FILES['file']["name"])) {
+            $nombreDoc = $_FILES['file']["name"];
+            //Reemplaza los caracteres especiales por guiones al piso
+            $nombreDoc = str_replace(" ", "_", $nombreDoc);
+            $nombreDoc = str_replace("%", "_", $nombreDoc);
+            $nombreDoc = str_replace("-", "_", $nombreDoc);
+            $nombreDoc = str_replace(";", "_", $nombreDoc);
+            $nombreDoc = str_replace("#", "_", $nombreDoc);
+            $nombreDoc = str_replace("!", "_", $nombreDoc);
+            //carga el archivo en el servidor
+            $destinoDoc = "../vistas/subidas/" . $nombreDoc;
+            $documento  = ",url_documento = '" . $nombreDoc . "'";
+            move_uploaded_file($_FILES['file']["tmp_name"], $destinoDoc);
+        } else {
+            $documento = '';
+        }
 
-                $r[] = $resultado;
+        if (isset($_FILES['file2']["name"])) {
+            $nombreInf = $_FILES['file2']["name"];
+            //Reemplaza los caracteres especiales por guiones al piso
+            $nombreInf = str_replace(" ", "_", $nombreInf);
+            $nombreInf = str_replace("%", "_", $nombreInf);
+            $nombreInf = str_replace("-", "_", $nombreInf);
+            $nombreInf = str_replace(";", "_", $nombreInf);
+            $nombreInf = str_replace("#", "_", $nombreInf);
+            $nombreInf = str_replace("!", "_", $nombreInf);
+            //carga el archivo en el servidor
+            $destinoInf = "../vistas/subidas/" . $nombreInf;
+            $informe    = ",url_informe = '" . $nombreInf . "'";
+            move_uploaded_file($_FILES['file']["tmp_name"], $destinoInf);
+        } else {
+            $informe = '';
+        }
+        $q_inserta  = "UPDATE acompanamiento SET fecha_acompanamiento='$fecha_acompanamiento',descripcion='$descripcion'" . $documento . $informe . " WHERE pkID='$id'";
+        $r["query"] = $q_inserta;
+        $resultado  = $generico->EjecutaActualizar($q_inserta);
+        /**/
+        if ($resultado) {
 
-            } else {
-
-                $r["estado"]  = "Error";
-                $r["mensaje"] = "No se inserto.";
-            }
+            $r[] = $resultado;
 
         } else {
-            $mensaje = "El archivo $nombre no se ha almacenado en forma exitosa";
+
+            $r["estado"]  = "Error";
+            $r["mensaje"] = "No se inserto.";
         }
-        echo json_encode($nombre);
+        echo json_encode($r);
         break;
-    case 'editarsin':
+    case 'eliminararchivodocumento':
         $generico   = new Generico_DAO();
-        $q_inserta  = "update funcionario SET nombre_funcionario='$nombref',apellido_funcionario='$apellido',fkID_tipo_documento='$fk_tipo',documento_funcionario='$documento',telefono_funcionario='$telefono',direccion_funcionario='$direccion',email_funcionario='$email' where pkID='$id' ";
+        $q_inserta  = "UPDATE acompanamiento SET url_documento='' where pkID='$id' ";
         $r["query"] = $q_inserta;
         $resultado  = $generico->EjecutaActualizar($q_inserta);
         /**/
         if ($resultado) {
             $r[] = $resultado;
-
         } else {
             $r["estado"]  = "Error";
             $r["mensaje"] = "No se inserto.";
         }
+
         break;
-    case 'eliminararchivo':
+    case 'eliminararchivoinforme':
         $generico   = new Generico_DAO();
-        $q_inserta  = "update funcionario SET url_funcionario='' where pkID='$id' ";
+        $q_inserta  = "UPDATE acompanamiento SET url_informe='' where pkID='$id' ";
         $r["query"] = $q_inserta;
         $resultado  = $generico->EjecutaActualizar($q_inserta);
         /**/
