@@ -69,7 +69,7 @@ $(function() {
             processData: false,
             success: function(a) {
                 console.log(a);
-                //location.reload();
+                location.reload();
             }
         })
     }

@@ -1,16 +1,16 @@
 <?php
 include "../conexion/datos.php";
 //--------------------------------------------------------------------
-include '../controller/principalController.php';
+include '../controller/cientificoController.php';
 //--------------------------------------------------------------------
 //intancias menu principal
-$principalInst  = new principalController();
+$academicoInst  = new cientificoController();
 $pkID_proyectoM = $_GET["id_proyectoM"];
-$proyectoMGen   = $principalInst->getProyectosMarcoId($pkID_proyectoM);
+$proyectoMGen   = $academicoInst->getProyectosMarcoId($pkID_proyectoM);
 //--------------------------------------------------------------------
 ?>
 
-<div id="page-principal" style="margin: 0px;">
+<div id="page-wrapper" style="margin: 0px;">
 
              <!-- Contenido del Index -->
              <div class="row">
@@ -25,14 +25,15 @@ $proyectoMGen   = $principalInst->getProyectosMarcoId($pkID_proyectoM);
                     <div class="panel panel-default">
 
                         <div class="titulohead">
-                            <div class="text-center titulo-menu"><h3>Menú Principal - <?php echo $proyectoMGen[0]["nombre"] ?></h3></div>
+                            <div class="text-center titulo-menu"><h3>Científico - <?php echo $proyectoMGen[0]["nombre"] ?></h3></div>
                         </div>
                         <div class="panel-body">
 
                             <div class="col-lg-12">
                                   <ol class="breadcrumb migadepan">
                                     <li><a href="proyecto_marco.php" class="migadepan">Inicio</a></li>
-                                    <li class="active migadepan">Menú principal - <?php echo $proyectoMGen[0]["nombre"] ?> </li>
+                                    <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
+                                    <li class="active migadepan">Científico - <?php echo $proyectoMGen[0]["nombre"] ?> </li>
                                   </ol>
                               </div>
 
@@ -48,13 +49,14 @@ $proyectoMGen   = $principalInst->getProyectosMarcoId($pkID_proyectoM);
                                         <br>
 
                                         <div class="">
-                                            <div class="">
-                                                <div class="col-md-2 zoom"><a class="" href="talento_humano.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/talento_humano.png"></a></div>
-                                                <div class="col-md-2 zoom"><a class="" href="academico.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img  class="zoom" src="../img/academico.png"></a></div>
-                                                <div class="col-md-2 zoom"><a class="" href="cientifico.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/cientifico.png"></a></div>
-                                                <div class="col-md-2 zoom"><a class="" href="reportes.php"><img class="zoom" src="../img/reportes.png"></a></div>
-                                                <div class="col-md-2 zoom"><a class="" href="financiero.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img  class="zoom" src="../img/financiero.png"></a></div>
-                                                <div class="col-md-2 zoom"><a class="" href="configuracion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/configuracion.png"></a></div>
+                                            <div class="row text-center">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-2 zoom"><a class="" href="tiex.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/grupos.png"></a></div>
+                                                <div class="col-md-2 zoom"><a class="" href="aibd.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img  class="zoom" src="../img/botones/saberes.png"></a></div>
+                                                <div class="col-md-2 zoom"><a class="" href="apropiacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/apropiacion.png"></a></div>
+                                                <div class="col-md-2 zoom"><a class="" href="microbiologia.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img  class="zoom" src="../img/botones/formacion.png"></a></div>
+                                                <div class="col-md-2 zoom"><a class="" href="apropiacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>"><img class="zoom" src="../img/botones/apropiacion.png"></a></div>
+                                                <div class="col-md-1"></div>
                                             </div>
                                         </div>
 

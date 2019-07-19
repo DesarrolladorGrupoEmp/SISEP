@@ -60,11 +60,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="gerente" class="control-label">Gerente</label>
-                        <input type="text" class="form-control" id="gerente" name="gerente" placeholder="Gerente del proyecto marco" >
-                    </div>
-
-                    <div class="form-group">
                         <label for="interventoria" class="control-label">Interventoria</label>
                         <input type="text" class="form-control" id="interventoria" name="interventoria" placeholder="Interventoria del proyecto marco" >
                     </div>

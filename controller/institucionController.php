@@ -29,7 +29,7 @@ class institucionController extends institucionDAO
         $tipo = $this->getDepartamentos();
 
         for ($a = 0; $a < sizeof($tipo); $a++) {
-            echo "<option value='" . $tipo[$a]["pkID"] . "'>" . $tipo[$a]["nombre"] . "</option>";
+            echo "<option value='" . $tipo[$a]["pkID"] . "'>" . $tipo[$a]["nombre_departamento"] . "</option>";
         }
     }
 
