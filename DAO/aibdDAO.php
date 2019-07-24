@@ -51,10 +51,10 @@ class aibdDAO extends UsuariosDAO
         return $this->EjecutarConsulta($query);
     }
 
-    public function getInventario($pkid_aibd)
+    public function getDocumentos($pkid_aibd)
     {
-        $query = "SELECT * FROM inventario_aibd
-                WHERE estadoV=1 AND fkID_aibd = " . $pkid_aibd;
+        $query = "SELECT * FROM documentos_aibd
+                WHERE estadoV=1 AND fkID_proyecto_marco = " . $pkid_aibd;
 
         return $this->EjecutarConsulta($query);
     }
@@ -90,4 +90,11 @@ class aibdDAO extends UsuariosDAO
         return $this->EjecutarConsulta($query);
     }
 
+    public function getproyectoId($pkID)
+    {
+
+        $query = "select * FROM `aibd` WHERE estadoV=1 and fkID_proyecto_marco=" . $pkID;
+
+        return $this->EjecutarConsulta($query);
+    }
 }

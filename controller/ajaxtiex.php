@@ -16,8 +16,9 @@ $fecha               = isset($_POST['fecha']) ? $_POST['fecha'] : "";
 $fkID_institucion    = isset($_POST['fkID_institucion']) ? $_POST['fkID_institucion'] : "";
 $fkID_grado          = isset($_POST['fkID_grado']) ? $_POST['fkID_grado'] : "";
 $fkID_curso          = isset($_POST['fkID_curso']) ? $_POST['fkID_curso'] : "";
+$fkID_ciclo          = isset($_POST['fkID_ciclo']) ? $_POST['fkID_ciclo'] : "";
 $fkID_proyecto_marco = isset($_POST['fkID_proyecto_marco']) ? $_POST['fkID_proyecto_marco'] : "";
-$fkID_microbiologia  = isset($_POST['fkID_microbiologia']) ? $_POST['fkID_microbiologia'] : "";
+$fkID_tiex           = isset($_POST['fkID_tiex']) ? $_POST['fkID_tiex'] : "";
 $fecha_sesion        = isset($_POST['fecha_sesion']) ? $_POST['fecha_sesion'] : "";
 $descripcion_sesion  = isset($_POST['descripcion_sesion']) ? $_POST['descripcion_sesion'] : "";
 $file                = isset($_POST['file']) ? $_POST['file'] : "";
@@ -25,7 +26,7 @@ $file                = isset($_POST['file']) ? $_POST['file'] : "";
 switch ($tipo) {
     case 'crear':
         $generico   = new Generico_DAO();
-        $q_inserta  = "INSERT INTO microbiologia (fecha, fkID_institucion, fkID_grado, fkID_curso, fkID_proyecto_marco) VALUES ('$fecha', '$fkID_institucion','$fkID_grado' , '$fkID_curso', '$fkID_proyecto_marco')";
+        $q_inserta  = "INSERT INTO tiex (fecha, fkID_institucion, fkID_grado, fkID_curso, fkID_ciclo, fkID_proyecto_marco) VALUES ('$fecha', '$fkID_institucion','$fkID_grado' , '$fkID_curso', '$fkID_ciclo','$fkID_proyecto_marco')";
         $r["query"] = $q_inserta;
 
         $resultado = $generico->EjecutaInsertar($q_inserta);
@@ -43,7 +44,7 @@ switch ($tipo) {
         break;
     case 'editar':
         $generico   = new Generico_DAO();
-        $q_inserta  = "UPDATE microbiologia SET fecha ='$fecha',fkID_institucion='$fkID_institucion', fkID_grado='$fkID_grado', fkID_curso='$fkID_curso' WHERE pkID='$id'";
+        $q_inserta  = "UPDATE tiex SET fecha ='$fecha',fkID_institucion='$fkID_institucion', fkID_grado='$fkID_grado', fkID_curso='$fkID_curso', fkID_ciclo='$fkID_ciclo' WHERE pkID='$id'";
         $r["query"] = $q_inserta;
         $resultado  = $generico->EjecutaActualizar($q_inserta);
         /**/
@@ -136,7 +137,7 @@ switch ($tipo) {
             }
         }
 
-        $q_inserta  = "INSERT INTO `microbiologia_sesion`(`fkID_microbiologia`, `fecha_sesion`, `descripcion_sesion`, `url_lista`) VALUES ('$fkID_microbiologia', '$fecha_sesion', '$descripcion_sesion','$nombreDoc')";
+        $q_inserta  = "INSERT INTO `tiex_sesion`(`fkID_tiex`, `fecha_sesion`, `descripcion_sesion`, `url_lista`) VALUES ('$fkID_tiex', '$fecha_sesion', '$descripcion_sesion','$nombreDoc')";
         $r["query"] = $q_inserta;
         $resultado  = $generico->EjecutaInsertar($q_inserta);
         /**/
@@ -165,7 +166,7 @@ switch ($tipo) {
             }
         }
 
-        $q_inserta  = "UPDATE microbiologia_sesion SET fecha_sesion ='$fecha_sesion', descripcion_sesion='$descripcion_sesion' " . $nombreDoc . " WHERE pkID='$id'";
+        $q_inserta  = "UPDATE tiex_sesion SET fecha_sesion ='$fecha_sesion', descripcion_sesion='$descripcion_sesion' " . $nombreDoc . " WHERE pkID='$id'";
         $r["query"] = $q_inserta;
         $resultado  = $generico->EjecutaActualizar($q_inserta);
         /**/
@@ -178,7 +179,7 @@ switch ($tipo) {
         break;
     case 'eliminarlista':
         $generico   = new Generico_DAO();
-        $q_inserta  = "update `microbiologia_sesion` SET url_lista='' where pkID='$id' ";
+        $q_inserta  = "update `tiex_sesion` SET url_lista='' where pkID='$id' ";
         $r["query"] = $q_inserta;
         $resultado  = $generico->EjecutaActualizar($q_inserta);
         /**/

@@ -1,11 +1,11 @@
 $(function() {
     var arrEstudiante = [];
     var arrestudiantesasignados = []
-    $("#btn_microbiologia_estudiante").click(function() {
-        $("#lbl_form_microbiologia_estudiante").html("Asignar Estudiante");
-        $("#lbl_btn_actionmicrobiologia_estudiante").html("Guardar <span class='glyphicon glyphicon-save'></span>");
-        $("#btn_actionmicrobiologia_estudiante").attr("data-action", "crear_estudiante");
-        $("#form_microbiologia_estudiante")[0].reset();
+    $("#btn_tiex_estudiante").click(function() {
+        $("#lbl_form_tiex_estudiante").html("Asignar Estudiante");
+        $("#lbl_btn_actiontiex_estudiante").html("Guardar <span class='glyphicon glyphicon-save'></span>");
+        $("#btn_actiontiex_estudiante").attr("data-action", "crear_estudiante");
+        $("#form_tiex_estudiante")[0].reset();
         $("#frm_estudiante_grupo").html("");
     });
     //Definir la acción del boton del formulario 
@@ -16,15 +16,15 @@ $(function() {
         valida_actio(action);
         console.log("accion a ejecutar: " + action);
     });
-    $("#btn_actionmicrobiologia_estudiante").click(function() {
+    $("#btn_actiontiex_estudiante").click(function() {
         console.log("al principio");
         action = $(this).attr("data-action");
         //define la acción que va a realizar el formulario
         valida_actio(action);
         console.log("accion a ejecutar: " + action);
     });
-    $("[name*='elimina_microbiologia_estudiante']").click(function(event) {
-        id_estudian = $(this).attr('data-id-microbiologia_estudiante');
+    $("[name*='elimina_tiex_estudiante']").click(function(event) {
+        id_estudian = $(this).attr('data-id-tiex_estudiante');
         console.log(id_estudian)
         deleteSaberNumReg(id_estudian);
     });
@@ -50,11 +50,11 @@ $(function() {
     function crea_estudiante() {
         $.each(arrEstudiante, function(llave, valor) {
             console.log("llave=" + llave + " valor=" + valor);
-            id = $("#btn_microbiologia_estudiante").attr('data-microbiologia');
-            data = "fkID_microbiologia=" + id + "&fkID_estudiante=" + valor;
+            id = $("#btn_tiex_estudiante").attr('data-tiex');
+            data = "fkID_tiex=" + id + "&fkID_estudiante=" + valor;
             $.ajax({
                 url: "../controller/ajaxController12.php",
-                data: data + "&tipo=inserta&nom_tabla=microbiologia_estudiante",
+                data: data + "&tipo=inserta&nom_tabla=tiex_estudiante",
             }).done(function(data) {
                 console.log(data);
             }).fail(function(data) {
@@ -66,21 +66,20 @@ $(function() {
     }
 
     function crea_sesion() {
-        ok = $("#form_microbiologia_sesion").valida();
-        console.log(ok);
-        if (ok === true) {
+        ok = $('#form_tiex_sesion').valida();
+        if (ok.estado === true) {
             var data = new FormData();
-            id_microbiologia = $("#btn_nuevosesion").attr('data-microbiologia');
+            id_tiex = $("#btn_nuevosesion").attr('data-tiex');
             data.append('fecha_sesion', $("#fecha_sesion").val());
             data.append('descripcion_sesion', $("#descripcion_sesion").val());
             if (document.getElementById("url_lista").files.length) {
                 data.append('file', $("#url_lista").get(0).files[0]);
             }
-            data.append('fkID_microbiologia', id_microbiologia);
+            data.append('fkID_tiex', id_tiex);
             data.append('tipo', "crear_sesion");
             $.ajax({
                 type: "POST",
-                url: "../controller/ajaxmicrobiologia.php",
+                url: "../controller/ajaxtiex.php",
                 data: data,
                 contentType: false,
                 processData: false,
@@ -245,7 +244,7 @@ $(function() {
         if (confirma == true) {
             $.ajax({
                 url: '../controller/ajaxController12.php',
-                data: "pkID=" + numReg + "&tipo=eliminarlogico&nom_tabla=microbiologia_estudiante",
+                data: "pkID=" + numReg + "&tipo=eliminarlogico&nom_tabla=tiex_estudiante",
             }).done(function(data) {
                 console.log(data);
                 location.reload();
@@ -264,7 +263,7 @@ $(function() {
         if (confirma == true) {
             $.ajax({
                 url: '../controller/ajaxController12.php',
-                data: "pkID=" + numReg + "&tipo=eliminarlogico&nom_tabla=microbiologia_sesion",
+                data: "pkID=" + numReg + "&tipo=eliminarlogico&nom_tabla=tiex_sesion",
             }).done(function(data) {
                 console.log(data);
                 location.reload();
@@ -276,17 +275,17 @@ $(function() {
         }
     }
     $("#btn_nuevosesion").click(function() {
-        $("#lbl_form_microbiologia_sesion").html("Crear sesion");
+        $("#lbl_form_tiex_sesion").html("Crear sesion");
         $("#lbl_btn_actionsesion").html("Guardar Cambios <span class='glyphicon glyphicon-pencil'></span>");
         $("#btn_actionsesion").attr("data-action", "crear_sesion");
         $("#btn_actionsesion").removeAttr('disabled', 'disabled');
-        $("#form_microbiologia_sesion")[0].reset();
+        $("#form_tiex_sesion")[0].reset();
         $("#adjunto_lista").remove();
         cargar_input_lista();
     });
 
     function cargar_input_lista() {
-        $("#form_microbiologia_sesion").append('<div class="form-group" id="adjunto_lista">' + '<label for="adjunto" id="lbl_url_lista" class=" control-label">Adjuntar Lista</label>' + '<input type="file" class="form-control" id="url_lista" name="url_lista" placeholder="Lista de asistencia del sesion de formación" required = "">' + '</div>')
+        $("#form_tiex_sesion").append('<div class="form-group" id="adjunto_lista">' + '<label for="adjunto" id="lbl_url_lista" class=" control-label">Adjuntar Lista</label>' + '<input type="file" class="form-control" id="url_lista" name="url_lista" placeholder="Lista de asistencia del sesion de formación">' + '</div>')
     }
     $("#btn_actionsesion").click(function() {
         action = $(this).attr("data-action");
@@ -294,11 +293,11 @@ $(function() {
         console.log("accion a ejecutar: " + action);
     });
     $("[name*='edita_sesion']").click(function(event) {
-        $("#lbl_form_microbiologia_sesion").html("Editar Registro sesion");
+        $("#lbl_form_tiex_sesion").html("Editar Registro sesion");
         $("#lbl_btn_actionsesion").html("Guardar Cambios <span class='glyphicon glyphicon-pencil'></span>");
         $("#btn_actionsesion").attr("data-action", "editar_sesion");
         $("#btn_actionsesion").removeAttr('disabled', 'disabled');
-        $("#form_microbiologia_sesion")[0].reset();
+        $("#form_tiex_sesion")[0].reset();
         id_sesion = $(this).attr('data-id-sesion');
         $("#adjunto_lista").remove();
         console.log(id_sesion)
@@ -309,12 +308,12 @@ $(function() {
     function carga_sesion(id_sesion) {
         $.ajax({
             url: '../controller/ajaxController12.php',
-            data: "pkID=" + id_sesion + "&tipo=consultar&nom_tabla=microbiologia_sesion",
+            data: "pkID=" + id_sesion + "&tipo=consultar&nom_tabla=tiex_sesion",
         }).done(function(data) {
             console.log(data)
             $.each(data.mensaje[0], function(key, valu) {
                 if (key == "url_lista" && valu != "") {
-                    $("#form_microbiologia_sesion").append('<div id="adjunto_lista" class="form-group">' + '<label for="lista" id="lbl_pkID_archivo_lista" name="lbl_pkID_archivo_lista" class="custom-control-label">Lista de asistencia</label>' + '<br>' + '<input type="text" style="width: 89%;display: inline;" class="form-control" id="pkID_sesion name="btn_Rmtaller_documento" value="' + valu + '" readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../server/php/files/' + valu + '" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmsesion_lista" id="btn_actionRmsesion_lista" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>' + '</div>');
+                    $("#form_tiex_sesion").append('<div id="adjunto_lista" class="form-group">' + '<label for="lista" id="lbl_pkID_archivo_lista" name="lbl_pkID_archivo_lista" class="custom-control-label">Lista de asistencia</label>' + '<br>' + '<input type="text" style="width: 89%;display: inline;" class="form-control" id="pkID_sesion" name="btn_Rmtaller_documento" value="' + valu + '" readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../server/php/files/' + valu + '" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmsesion_lista" id="btn_actionRmsesion_lista" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>' + '</div>');
                     $("#lbl_url_lista").remove();
                     $("#url_lista").remove();
                     $("[name*='btn_actionRmsesion_lista']").click(function(event) {
@@ -334,26 +333,31 @@ $(function() {
     };
 
     function edita_sesion() {
-        var data = new FormData();
-        data.append('pkID', $("#pkID").val());
-        data.append('fkID_microbiologia', $("#fkID_microbiologia").val());
-        data.append('fecha_sesion', $("#fecha_sesion").val());
-        data.append('descripcion_sesion', $("#descripcion_sesion").val());
-        if (document.getElementById("url_lista")) {
-            data.append('file', $("#url_lista").get(0).files[0]);
-        }
-        data.append('tipo', "editar_sesion");
-        $.ajax({
-            type: "POST",
-            url: "../controller/ajaxmicrobiologia.php",
-            data: data,
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                console.log(data);
-                location.reload();
+        ok = $('#form_tiex_sesion').valida();
+        if (ok.estado === true) {
+            var data = new FormData();
+            data.append('pkID', $("#pkID").val());
+            data.append('fkID_tiex', $("#fkID_tiex").val());
+            data.append('fecha_sesion', $("#fecha_sesion").val());
+            data.append('descripcion_sesion', $("#descripcion_sesion").val());
+            if (document.getElementById("url_lista")) {
+                data.append('file', $("#url_lista").get(0).files[0]);
             }
-        });
+            data.append('tipo', "editar_sesion");
+            $.ajax({
+                type: "POST",
+                url: "../controller/ajaxtiex.php",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+                    location.reload();
+                }
+            });
+        } else {
+            alert('Faltan campos por llenar :(');
+        }
     }
 
     function elimina_archivo_lista(id_archivo) {
@@ -367,7 +371,7 @@ $(function() {
             //si confirma es true ejecuta ajax
             $.ajax({
                 type: "POST",
-                url: '../controller/ajaxmicrobiologia.php',
+                url: '../controller/ajaxtiex.php',
                 data: data,
                 contentType: false,
                 processData: false,
