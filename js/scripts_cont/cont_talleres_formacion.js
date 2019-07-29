@@ -124,10 +124,11 @@ $(function(){
         var data = new FormData();
         data.append('fecha_taller', $("#fecha_taller").val());
         data.append('fkID_tipo_taller', $("#fkID_tipo_taller option:selected").val());
+        data.append('fkID_proyectoM', $("#fkID_proyectoM").val());
         data.append('descripcion', $("#descripcion").val());
         data.append('fkID_tutor', $("#fkID_tutor option:selected").val());
         if (document.getElementById("url_documento").files.length) {
-          data.append('file', $("#url_documento").get(0).files[0]);
+          data.append('file', $("#url_documento").get(0).files[0]); 
         }
         data.append('tipo',"crear");
         console.log('Datos serializados: '+data);
@@ -252,6 +253,59 @@ function elimina_taller(id) {
         } 
     };
 
+    $("#btn_filtrart").click(function(event) {
+        proyecto = $("#btn_nuevotaller").attr("data-proyecto");
+        nombre = $('select[name="anio_filtrot"] option:selected').text();
+        tipo = $('select[name="tipot_filtro"] option:selected').text();
+        location.href = "taller_formacion.php?id_proyectoM=" + proyecto + "&anio=" + nombre + "&tipo=" + tipo  ;
+    });
+
+    $("#descripcion").change(function(event) {
+        var descripcion = $("#descripcion").val();
+        var taller = $("#fkID_tipo_taller option:selected").val();
+        var date = $("#fecha_taller").val();
+        var fecha = date.split("-", 1);            
+        validaEqualIdentifica(descripcion,taller,fecha[0]);
+    });
+
+    $("#fkID_tipo_taller").change(function(event) {
+        var descripcion = $("#descripcion").val();
+        var taller = $("#fkID_tipo_taller option:selected").val();
+        var date = $("#fecha_taller").val();
+        var fecha = date.split("-", 1);            
+        validaEqualIdentifica(descripcion,taller,fecha[0]);
+    });
+
+    $("#fecha_taller").change(function(event) {
+        var descripcion = $("#descripcion").val();
+        var taller = $("#fkID_tipo_taller option:selected").val();
+        var date = $("#fecha_taller").val();
+        var fecha = date.split("-", 1);            
+        validaEqualIdentifica(descripcion,taller,fecha[0]);
+    });
+
+    function validaEqualIdentifica(descripcion,taller,fecha) {
+        console.log("busca valor " + encodeURI(descripcion,taller,fecha));
+        var consEqual = "SELECT COUNT(*) as res_equal FROM `talleres_formacion` WHERE estadoV=1 and fkID_tipo_taller='" + taller + "' and descripcion='" + descripcion + "' and year(fecha_taller)='" + fecha + "'";
+        $.ajax({
+            url: '../controller/ajaxController12.php',
+            data: "query=" + consEqual + "&tipo=consulta_gen",
+        }).done(function(data) {
+            /**/
+            //console.log(data.mensaje[0].res_equal);
+            if (data.mensaje[0].res_equal > 0) {
+                alert("Este Taller ya existe, por favor ingrese un taller diferente.");
+                $("#descripcion").val("");
+                $("#fecha_taller").val(""); 
+            } else {
+                //return false;
+            }
+        }).fail(function() {
+            console.log("error");
+        }).always(function() {
+            console.log("complete");
+        });
+    }
 
 
 

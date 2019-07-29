@@ -59,7 +59,7 @@ include "form_contenido.php";
             <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
             <li><a href="academico.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Académico</a></li>
             <li><a href="apropiacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Apropiación social</a></li>
-            <li class="active migadepan">Contenidos Digitales - <?php echo $proyectoMGen[0]["nombre"] ?> </li>
+            <li class="active migadepan">Contenidos Digitales </li>
           </ol>
     </div>
 

@@ -1,87 +1,76 @@
 <?php
 /**/
-include_once 'genericoDAO.php';
+	include_once 'genericoDAO.php';
+		
+	class actorDAO {
+		
+		use GenericoDAO;
+		
+		public $q_general;
+		
+		
+		//Funciones------------------------------------------
+		//Espacio para las funciones en general de esta clase.
+    public function getcpm(){
 
-class actorDAO
-{
-
-    use GenericoDAO;
-
-    public $q_general;
-
-    //Funciones------------------------------------------
-    //Espacio para las funciones en general de esta clase.
-    public function getcpm()
-    {
-
-        return $this->getCookieProyectoM();
+            return $this->getCookieProyectoM();
     }
+		
+		public function getActores($pkID_proyectoM,$filtro,$filtro2){
 
-    public function getActores()
-    {
+          if ($filtro == "Todos") {
+            $where_anio = "!= 0";
+        } else {
+            $where_anio = "=" . $filtro;
+        }     
 
-        $query = "select actor.*, tipo_actor.nombre as nom_tipo
+        if ($filtro2 == "Todos") {
+            $where_tipo = "!='0'";
+        } else { 
+            $where_tipo = "= '$filtro2'";
+        }   
+       
+      		$query = "select actor.*, tipo_actor.nombre as nom_tipo, concat_ws(' ',actor.nombre_contacto,apellido_contacto) as nombres  FROM `actor`
+                  INNER JOIN tipo_actor ON tipo_actor.pkID = actor.fkID_tipo
+                  where estadoV=1 and fkID_proyectoM=".$pkID_proyectoM." and year(fecha_socializacion)".$where_anio."  and tipo_actor.nombre".$where_tipo;
 
-                    FROM `actor`
+      		return $this->EjecutarConsulta($query);
+    	}
 
-                    INNER JOIN tipo_actor ON tipo_actor.pkID = actor.fkID_tipo
+    	public function getTipoActor(){        
+       
+      		$query = "select * FROM `tipo_actor`";
 
-                    where estadoV=1";
+      		return $this->EjecutarConsulta($query);
+    	}
 
-        return $this->EjecutarConsulta($query);
-    }
+    	public function getAnio(){        
+       
+	      $query = "select * FROM anio";
 
-    public function getTipoActor()
-    {
+	      return $this->EjecutarConsulta($query);
+	    }
 
-        $query = "select * FROM `tipo_actor`";
+    	public function getTipoVinculacion(){        
+       
+      		$query = "select * FROM `tipo_vinculacion`";
 
-        return $this->EjecutarConsulta($query);
-    }
+      		return $this->EjecutarConsulta($query);
+    	}
 
-    public function getAnio()
-    {
+    	public function getDepartamentos(){        
+       
+      		$query = "select * FROM `departamento`";
 
-        $query = "select * FROM anio";
+      		return $this->EjecutarConsulta($query);
+    	}
 
-        return $this->EjecutarConsulta($query);
-    }
+    	public function getMunicipios(){        
+       
+      		$query = "select * FROM `municipio`";
 
-    public function getTipoVinculacion()
-    {
-
-        $query = "select * FROM `tipo_vinculacion`";
-
-        return $this->EjecutarConsulta($query);
-    }
-
-    public function getDepartamentos()
-    {
-
-        $query = "select * FROM `departamento`";
-
-        return $this->EjecutarConsulta($query);
-    }
-
-    public function getMunicipios()
-    {
-
-        $query = "select * FROM `municipio`";
-
-        return $this->EjecutarConsulta($query);
-    }
-
-    public function getProyectosMarcoId($pkID)
-    {
-
-        $query = "select proyecto_marco.*, departamento.nombre_departamento as nom_departamento
-
-                      FROM proyecto_marco
-
-                      INNER JOIN departamento ON departamento.pkID = proyecto_marco.fkID_departamento
-
-                      WHERE proyecto_marco.pkID = " . $pkID;
-
-        return $this->EjecutarConsulta($query);
-    }
-}
+      		return $this->EjecutarConsulta($query);
+    	}
+		
+	}
+?>

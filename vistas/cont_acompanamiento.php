@@ -60,7 +60,7 @@ include "form_novedades.php";
             <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
             <li><a href="academico.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Académico</a></li>
             <li><a href="formacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Formación a maestros</a></li>
-            <li class="active migadepan">Acompañamiento maestros - <?php echo $proyectoMGen[0]["nombre"] ?> </li>
+            <li class="active migadepan">Acompañamiento maestros </li>
           </ol>
     </div>
 
@@ -131,6 +131,13 @@ if (($pkID_tipo_user == 8) || ($pkID_tipo_user == 9)) {
 ?>
                   </tbody>
               </table>
+              <div class="col-md-6 text-right">
+                                <label for="total_ingresos" class="control-label"><B>Total Estudiantes</B></label>
+              </div>
+                                <div class="input-group col-md-2 text-left">
+                                   <?php $acompanamientoInst->getSelectTotaldocentes($pkID_proyectoM, $filtro);?>
+                                </div>
+                            </div>  
           </div>
           <!-- /.table-responsive -->
 

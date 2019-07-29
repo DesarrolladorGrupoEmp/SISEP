@@ -31,7 +31,7 @@ include "form_aulas.php";
 
 
       <div class="col-lg-12">
-          <h1 class="page-header titleprincipal"><img src="../img/botones/grupoonly.png">Aulas de Ciencia y Tecnología- <?php echo $proyectoMGen[0]["nombre"] ?></h1>
+          <h1 class="page-header titleprincipal"><img src="../img/botones/aulasonly.png">Aulas de Ciencia y Tecnología- <?php echo $proyectoMGen[0]["nombre"] ?></h1>
       </div>
       <!-- /.col-lg-12 -->
     <div class="col-md-9">
@@ -87,7 +87,7 @@ include "form_aulas.php";
                   <thead>
                       <tr>
                           <th>No aula</th>
-                          <th>Fecha</th>
+                          <th>Año</th>
                           <th>Institución</th>
                           <th>Descripción</th>
                           <th data-orderable="false">Opciones</th>

@@ -1,6 +1,7 @@
 <?php
 
 include '../controller/tiexController.php';
+include '../controller/estudiantesController.php';
 include '../conexion/datos.php';
 
 $detalles_tiexInst = new tiexController();
@@ -10,8 +11,11 @@ $pkID_tiex         = $_GET["id_tiex"];
 $proyectoMGen      = $detalles_tiexInst->getProyectosMarcoGrupo($pkID_tiex);
 $pkID_proyectoM    = $proyectoMGen[0]["fkID_proyecto_marco"];
 //++++++++++++++++++++++++++++++++++
+$estudiantesInst = new estudiantesController();
+//++++++++++++++++++++++++++++++++++
 include 'form_tiex_estudiante.php';
 include 'form_tiex_sesion.php';
+include 'form_estudiantes.php';
 //++++++++++++++++++++++++++++++++++
 ?>
 

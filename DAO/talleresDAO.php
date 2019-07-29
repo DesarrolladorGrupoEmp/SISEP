@@ -17,12 +17,24 @@
             return $this->getCookieProyectoM();
     }
         
-        public function getTalleres(){        
+        public function getTalleres($pkID_proyectoM,$filtro,$filtro2){
+
+            if ($filtro == "Todos") {
+            $where_anio = "!= 0";
+        } else {
+            $where_anio = "=" . $filtro;
+        }     
+
+        if ($filtro2 == "Todos") {
+            $where_tipo = "!='0'";
+        } else { 
+            $where_tipo = "= '$filtro2'";
+        }         
        
-            $query = "select talleres_formacion.pkID,fecha_taller,talleres_formacion.descripcion,(select count(*) FROM talleres_participantes LEFT JOIN estudiante ON estudiante.pkID = talleres_participantes.fkID_participantes WHERE talleres_formacion.pkID = talleres_participantes.fkID_taller_formacion) as canti,tipo_taller.nombre,concat_ws(' ',nombre_funcionario,apellido_funcionario)nombres_funcionario FROM `talleres_formacion`
+            $query = "select talleres_formacion.pkID,fecha_taller,talleres_formacion.descripcion,(select count(*) FROM participante_taller LEFT JOIN participante ON participante.pkID = participante_taller.fkID_participante WHERE talleres_formacion.pkID = participante_taller.fkID_taller_formacion) as canti,tipo_taller.nombre,concat_ws(' ',nombre_funcionario,apellido_funcionario)nombres_funcionario FROM `talleres_formacion`
                 INNER JOIN funcionario on funcionario.pkID = talleres_formacion.fkID_tutor
                 INNER JOIN tipo_taller on tipo_taller.pkID = talleres_formacion.fkID_tipo_taller
-                 where talleres_formacion.estadoV= 1";
+                 where talleres_formacion.estadoV= 1 and talleres_formacion.fkID_proyectoM=".$pkID_proyectoM." and year(fecha_taller)".$where_anio." and tipo_taller.nombre".$where_tipo;
 
             return $this->EjecutarConsulta($query);
         }
@@ -61,9 +73,10 @@
         public function getTalleresId($pkID)
     {
 
-        $query = "select saber_propio.*,grupo.nombre,grupo.url_logo,(select count(*) FROM saber_estudiante LEFT JOIN estudiante ON estudiante.pkID = saber_estudiante.fkID_estudiante WHERE saber_propio.pkID = saber_estudiante.fkID_saber_propio) as canti,concat_ws(' ',nombre_funcionario,apellido_funcionario)nombres_funcionario FROM `saber_propio`
-            LEFT JOIN funcionario on funcionario.pkID = saber_propio.fkID_asesor
-            INNER JOIN grupo on grupo.pkID = saber_propio.fkID_grupo where saber_propio.estadoV= 1 and saber_propio.pkID=" . $pkID;
+        $query = "select talleres_formacion.*,(select count(*) FROM participante_taller LEFT JOIN participante ON participante.pkID = participante_taller.fkID_participante WHERE talleres_formacion.pkID = participante_taller.fkID_taller_formacion) as canti,concat_ws(' ',nombre_funcionario,apellido_funcionario)nombres_funcionario , tipo_taller.nombre FROM talleres_formacion
+            LEFT JOIN funcionario on funcionario.pkID = talleres_formacion.fkID_tutor
+            INNER JOIN tipo_taller on tipo_taller.pkID = talleres_formacion.fkID_tipo_taller
+            where talleres_formacion.estadoV= 1 and talleres_formacion.pkID=" . $pkID;
 
         return $this->EjecutarConsulta($query);
     }
@@ -90,6 +103,40 @@
       $query = "select *, concat_ws(' ',nombre_participante,apellido_participante) as nombre FROM participante where estadoV=1 and proyecto_macro=2";
 
       return $this->EjecutarConsulta($query);
+    }
+
+    public function getAlbumTaller($pkID_taller){  
+       
+      $query = "select * FROM `galeria_taller` WHERE estadoV=1";
+
+      return $this->EjecutarConsulta($query);
+    }
+
+    public function getTaller($pkID_album){  
+       
+      $query = "select galeria_taller.*, proyecto_marco.pkID as fkID_proyecto FROM galeria_taller 
+                INNER JOIN talleres_formacion on talleres_formacion.pkID = galeria_taller.fkID_taller
+                INNER JOIN proyecto_marco on proyecto_marco.pkID = talleres_formacion.fkID_proyectoM
+                WHERE galeria_taller.pkID=".$pkID_album;
+
+      return $this->EjecutarConsulta($query);
+    }
+
+    public function getFotosTaller($pkID_album){  
+       
+      $query = "select * FROM `fotos_taller` WHERE estadoV=1 and fkID_album=".$pkID_album;
+
+      return $this->EjecutarConsulta($query);
+    }
+
+    public function getProyectosMarcoTaller($fkID_proyectoM)
+    {
+
+        $query = "select talleres_formacion.*,proyecto_marco.nombre AS nombre_proyecto, proyecto_marco.pkID as fkIDproyecto  FROM proyecto_marco
+            LEFT JOIN talleres_formacion ON talleres_formacion.fkID_proyectoM = proyecto_marco.pkID
+            WHERE proyecto_marco.pkID=" . $fkID_proyectoM;
+
+        return $this->EjecutarConsulta($query);
     }
 
     public function getParticipantesTaller($pkID_taller)

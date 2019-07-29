@@ -52,7 +52,7 @@ class aulasController extends aulasDAO
         $grupo_campos = [
             // ["nombre"=>"pkID"],
             ["nombre" => "num_aula"],
-            ["nombre" => "fecha"],
+            ["nombre" => "anio"],
             ["nombre" => "nombre_institucion"],
             ["nombre" => "descripcion"],
         ];

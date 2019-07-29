@@ -21,7 +21,7 @@ class biotecnologiaDAO extends UsuariosDAO
     public function getbiotecnologias($pkID_proyectoM)
     {
 
-        $query = "SELECT *,biotecnologia.pkID AS pkID,grado.nombre AS grado,(SELECT COUNT(*) FROM biotecnologia_estudiante LEFT JOIN estudiante ON estudiante.pkID = biotecnologia_estudiante.fkID_estudiante WHERE biotecnologia.pkID = biotecnologia_estudiante.fkID_biotecnologia AND biotecnologia_estudiante.estadoV = 1) as cantidad  FROM biotecnologia
+        $query = "SELECT *,YEAR(fecha) AS anio,biotecnologia.pkID AS pkID,grado.nombre AS grado,(SELECT COUNT(*) FROM biotecnologia_estudiante LEFT JOIN estudiante ON estudiante.pkID = biotecnologia_estudiante.fkID_estudiante WHERE biotecnologia.pkID = biotecnologia_estudiante.fkID_biotecnologia AND biotecnologia_estudiante.estadoV = 1) as cantidad  FROM biotecnologia
                 INNER JOIN institucion ON institucion.pkID = biotecnologia.fkID_institucion
                 INNER JOIN grado ON grado.pkID = biotecnologia.fkID_grado
                 LEFT JOIN curso ON curso.pkID = biotecnologia.fkID_curso
@@ -38,8 +38,11 @@ class biotecnologiaDAO extends UsuariosDAO
             $where_anio = "AND YEAR(fecha) = " . $filtro;
         }
 
-        $query = "SELECT * FROM biotecnologia
-                WHERE estadoV = 1 " . $where_anio . " AND fkID_proyecto_marco = " . $pkID_proyectoM;
+        $query = "SELECT *,YEAR(fecha) AS anio,biotecnologia.pkID AS pkID,grado.nombre AS grado,(SELECT COUNT(*) FROM biotecnologia_estudiante LEFT JOIN estudiante ON estudiante.pkID = biotecnologia_estudiante.fkID_estudiante WHERE biotecnologia.pkID = biotecnologia_estudiante.fkID_biotecnologia AND biotecnologia_estudiante.estadoV = 1) as cantidad  FROM biotecnologia
+                INNER JOIN institucion ON institucion.pkID = biotecnologia.fkID_institucion
+                INNER JOIN grado ON grado.pkID = biotecnologia.fkID_grado
+                LEFT JOIN curso ON curso.pkID = biotecnologia.fkID_curso
+                WHERE biotecnologia.estadoV = 1 " . $where_anio . " AND fkID_proyecto_marco = " . $pkID_proyectoM;
 
         return $this->EjecutarConsulta($query);
     }
@@ -151,6 +154,22 @@ class biotecnologiaDAO extends UsuariosDAO
     public function getSesiones($pkID_biotecnologia)
     {
         $query = "SELECT * FROM biotecnologia_sesion WHERE estadoV=1 and fkID_biotecnologia =" . $pkID_biotecnologia;
+
+        return $this->EjecutarConsulta($query);
+    }
+
+    public function getTotalEstudiantes($pkID_proyectoM, $filtro)
+    {
+        if ($filtro == "'Todos'") {
+            $where_anio = "!= 0";
+        } else {
+            $where_anio = "=" . $filtro;
+        }
+
+        $query = "SELECT COUNT(*) AS cantidad FROM biotecnologia_estudiante
+                LEFT JOIN estudiante ON estudiante.pkID = biotecnologia_estudiante.fkID_estudiante
+                LEFT JOIN biotecnologia on biotecnologia.pkID = biotecnologia_estudiante.fkID_biotecnologia
+                WHERE biotecnologia.estadoV=1 AND biotecnologia_estudiante.estadoV=1 and biotecnologia.pkID = biotecnologia_estudiante.fkID_biotecnologia and biotecnologia.fkID_proyecto_marco = " . $pkID_proyectoM . " and YEAR(biotecnologia.fecha)" . $where_anio;
 
         return $this->EjecutarConsulta($query);
     }

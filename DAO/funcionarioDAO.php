@@ -9,10 +9,10 @@ include_once 'usuariosDAO.php';
 class funcionarioDAO extends UsuariosDAO
 {
 
-    public function getFuncionario()
+    public function getFuncionario($pkID_proyectoM)
     {
 
-        $query = "select pkID, concat_ws(' ',nombre_funcionario,apellido_funcionario) as nombres, documento_funcionario, telefono_funcionario, email_funcionario FROM `funcionario` WHERE estadoV=1";
+        $query = "select pkID, concat_ws(' ',nombre_funcionario,apellido_funcionario) as nombres, documento_funcionario, telefono_funcionario, email_funcionario FROM `funcionario` WHERE estadoV=1 and proyecto_marco=".$pkID_proyectoM;  
 
         return $this->EjecutarConsulta($query);
     }
@@ -22,11 +22,11 @@ class funcionarioDAO extends UsuariosDAO
 
         $query = "select usuarios.pkID as pkID_estudiante, usuarios.fkID_rol as pkID_rol, rol.nombre as rol from usuarios
 
-                    INNER JOIN rol ON rol.pkID = usuarios.fkID_rol
+					INNER JOIN rol ON rol.pkID = usuarios.fkID_rol
 
-                    LEFT JOIN usuario_grupo ON usuario_grupo.fkID_usuario = usuarios.pkID
+					LEFT JOIN usuario_grupo ON usuario_grupo.fkID_usuario = usuarios.pkID
 
-                    WHERE usuarios.fkID_tipo = 9 ";
+					WHERE usuarios.fkID_tipo = 9 ";
 
         return $this->EjecutarConsulta($query);
     }

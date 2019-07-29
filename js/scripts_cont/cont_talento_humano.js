@@ -59,20 +59,20 @@ $(function() {
 
     function elimina_talento_humano(id_funciona) {
         console.log('Eliminar el talento humano: ' + id_funciona);
-        var confirma = confirm("En realidad quiere eliminar este talento humano?");
+        var confirma = confirm("En realidad quiere eliminar esta Asignación?");
         console.log(confirma);
         /**/
         if (confirma == true) {
             //si confirma es true ejecuta ajax
             $.ajax({
                 url: '../controller/ajaxController12.php',
-                data: "pkID=" + id_funciona + "&tipo=eliminarlogico&nom_tabla=funcionario_cargo",
+                data: "pkID=" + id_funciona + "&tipo=eliminar_logico&nom_tabla=funcionario_cargo",
             }).done(function(data) {
                 //---------------------
                 console.log(data);
                 location.reload();
             }).fail(function() {
-                console.log("errorfatal");
+                console.log("errorfatal");  
             }).always(function() {
                 console.log("complete");
             });
@@ -89,6 +89,64 @@ $(function() {
     $("#btn_filtro_anio").click(function(event) {
         proyecto = $("#btn_nuevotalento_humano").attr("data-proyecto");
         nombre = $('select[name="anio_filtro"] option:selected').text();
-        location.href = "talento_humano.php?id_proyectoM=" + proyecto + "&anio='" + nombre + "'";
+        estado = $('select[name="estado_filtro"] option:selected').text();
+        location.href = "talento_humano.php?id_proyectoM=" + proyecto + "&anio=" + nombre +  "&estado=" + estado + "";
     });
+
+    $("#estado_funcionario_cargo").change(function(event) {
+        var cargo = $("#fkID_cargo option:selected").val();
+        var funcionario = $("#fkID_funcionario option:selected").val();
+        var date = $("#anio_funcionario_cargo").val();
+        var fecha = date.split("-", 1);
+        var estado = $("#estado_funcionario_cargo option:selected").text();            
+        validaEqualIdentifica(estado,fecha[0],funcionario,cargo);
+    });
+    $("#fkID_cargo").change(function(event) {
+        var cargo = $("#fkID_cargo option:selected").val();
+        var funcionario = $("#fkID_funcionario option:selected").val();
+        var date = $("#anio_funcionario_cargo").val();
+        var fecha = date.split("-", 1);
+        var estado = $("#estado_funcionario_cargo option:selected").text();            
+        validaEqualIdentifica(estado,fecha[0],funcionario,cargo);
+    });
+    $("#fkID_funcionario").change(function(event) {
+        var cargo = $("#fkID_cargo option:selected").val();
+        var funcionario = $("#fkID_funcionario option:selected").val();
+        var date = $("#anio_funcionario_cargo").val();
+        var fecha = date.split("-", 1);
+        var estado = $("#estado_funcionario_cargo option:selected").text();            
+        validaEqualIdentifica(estado,fecha[0],funcionario,cargo);
+    });
+    $("#anio_funcionario_cargo").change(function(event) {
+        var cargo = $("#fkID_cargo option:selected").val();
+        var funcionario = $("#fkID_funcionario option:selected").val();
+        var date = $("#anio_funcionario_cargo").val();
+        var fecha = date.split("-", 1);
+        var estado = $("#estado_funcionario_cargo option:selected").text();            
+        validaEqualIdentifica(estado,fecha[0],funcionario,cargo);
+    });
+
+    function validaEqualIdentifica(num_id,fecha,funcionario,cargo) {
+        console.log("busca valor " + encodeURI(num_id));
+        var consEqual = "SELECT COUNT(*) as res_equal FROM `funcionario_cargo` WHERE estadoV=1 and fkID_funcionario='" + funcionario + "' and fkID_cargo='" + cargo + "' and YEAR(anio_funcionario_cargo)='" + fecha + "' and estado_funcionario_cargo='" + num_id + "'";
+        $.ajax({
+            url: '../controller/ajaxController12.php',
+            data: "query=" + consEqual + "&tipo=consulta_gen",
+        }).done(function(data) {
+            /**/
+            //console.log(data.mensaje[0].res_equal);
+            if (data.mensaje[0].res_equal > 0) {
+                alert("La Asignación de ese funcionario ya existe, por favor ingrese una asignacion diferente.");
+                $("#anio_funcionario_cargo").val("");; 
+            } else {
+                //return false;
+            }
+        }).fail(function() {
+            console.log("error");
+        }).always(function() {
+            console.log("complete");
+        });
+    }
+
+
 });

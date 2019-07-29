@@ -318,7 +318,7 @@
                 //si confirma es true ejecuta ajax
                 $.ajax({
                     url: '../controller/ajaxController12.php',
-                    data: "pkID=" + id + "&tipo=" + ajustes.tipo_ajax.eliminarlogico + "&nom_tabla=" + ajustes.nom_tabla,
+                    data: "pkID=" + id + "&tipo=" + ajustes.tipo_ajax.eliminar_logico + "&nom_tabla=" + ajustes.nom_tabla,
                 }).done(function(data) {
                     //---------------------
                     console.log(data);
@@ -331,7 +331,7 @@
                         audita.auditar()
                     };
                     //---------------------------------------------------------------------------
-                    //alert(data.mensaje.mensaje);
+                    alert(data.mensaje.mensaje);
                     //valida si hay que recargar la pagina
                     if (ajustes.recarga == true) {
                         location.reload();

@@ -30,7 +30,7 @@ include "form_biotecnologia.php";
 
 
       <div class="col-lg-12">
-          <h1 class="page-header titleprincipal"><img src="../img/botones/grupoonly.png">Biotecnología- <?php echo $proyectoMGen[0]["nombre"] ?></h1>
+          <h1 class="page-header titleprincipal"><img src="../img/botones/biotecnologiaonly.png">Biotecnología- <?php echo $proyectoMGen[0]["nombre"] ?></h1>
       </div>
       <!-- /.col-lg-12 -->
     <div class="col-md-9">
@@ -85,7 +85,7 @@ include "form_biotecnologia.php";
               <table class="display table table-striped table-bordered table-hover" id="tbl_grupo">
                   <thead>
                       <tr>
-                          <th>Fecha</th>
+                          <th>Año</th>
                           <th>Institución</th>
                           <th>Grado</th>
                           <th>Curso</th>
@@ -95,11 +95,15 @@ include "form_biotecnologia.php";
                   </thead>
 
                   <tbody>
-                      <?php
-$biotecnologiaInst->getTablabiotecnologia($filtro, $pkID_proyectoM);
-?>
+                      <?php $biotecnologiaInst->getTablabiotecnologia($filtro, $pkID_proyectoM);?>
                   </tbody>
               </table>
+              <div class="col-md-6 text-right">
+                <label for="total_ingresos" class="control-label"><B>Total Estudiantes</B></label>
+              </div>
+              <div class="input-group col-md-2 text-left">
+                <?php $biotecnologiaInst->getSelectTotal($pkID_proyectoM, $filtro);?>
+              </div>
           </div>
           <!-- /.table-responsive -->
 

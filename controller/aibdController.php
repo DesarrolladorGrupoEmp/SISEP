@@ -491,7 +491,7 @@ class aibdController extends aibdDAO
                     <td title="Click Ver Detalles" href="">' . $nombre . '</td>
                     <td title="Descargar Archivo"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="text" class="" href = "../server/php/files/' . $url_documento . '" target="_blank" >' . $url_documento . '</a></td>
                     <td>
-                    <button id="edita_documentos" title="Editar" name="edita_documentos" type="button" class="btn btn-warning" data-toggle="modal" data-target="#frm_modal_documento" data-documento = "' . $id . '" ';
+                    <button id="edita_documento" title="Editar" name="edita_documento" type="button" class="btn btn-warning" data-toggle="modal" data-target="#frm_modal_documento" data-documento = "' . $id . '" ';
                 echo '><span class="glyphicon glyphicon-pencil"></span></button>
 
                     <button title="Eliminar" name="elimina_documento_aibd" type="button" class="btn btn-danger" data-id-documento = "' . $id . '" ';

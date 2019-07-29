@@ -54,11 +54,11 @@ switch ($accion) {
         $generico          = new Generico_DAO();
         $crea_sql          = new crea_sql();
         $nombre_album      = $_GET['nombre_album'];
-        $fecha_creacion    = $_GET['fecha_creacion'];
+        $fecha_creacion    = $_GET['fecha_album'];
         $observacion_album = $_GET['observacion_album'];
         $fkID_grupo        = $_GET['fkID_grupo'];
 
-        $q_inserta  = "INSERT INTO `grupo_album`(`nombre_album`, `fecha_creacion_album`, `observacion_album`, `fkID_grupo`) VALUES ('$nombre_album','$fecha_creacion','$observacion_album','$fkID_grupo')";
+        $q_inserta  = "INSERT INTO `grupo_album`(`nombre_album`, `fecha_album`, `fkID_grupo`) VALUES ('$nombre_album','$fecha_creacion','$fkID_taller')";
         $r["query"] = $q_inserta;
 
         $resultado = $generico->EjecutaInsertar($q_inserta);
@@ -273,7 +273,7 @@ switch ($accion) {
 
         break;
     //----------------------------------------------------------------------------------------------------
-    case 'eliminarlogico':
+    case 'eliminar_logico':
         $generico   = new Generico_DAO();
         $crea_sql   = new crea_sql();
         $q_elimina  = $crea_sql->crea_deletelog($_GET);

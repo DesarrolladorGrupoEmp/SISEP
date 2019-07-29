@@ -28,8 +28,9 @@ $detalles_grupoInst->getSelectEstado();
                     <div class="form-group">
                         <label for="" class=" control-label">Participantes</label>
                         <?php
-$docentesInst->getSelectDocentes();
+$detalles_grupoInst->getSelectDocente();
 ?>
+                    <button id="btn_nuevodocente" type="button" class="btn btn-success" data-toggle="modal" data-target="#frm_modal_docente"><span class="glyphicon glyphicon-plus"></span></button>
                     </div>
 </form>
                     <div id='select_tutor'>

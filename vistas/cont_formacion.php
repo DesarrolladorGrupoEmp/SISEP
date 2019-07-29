@@ -33,7 +33,7 @@ $proyectoMGen   = $principalInst->getProyectosMarcoId($pkID_proyectoM);
                                   <ol class="breadcrumb migadepan">
                                     <li><a href="proyecto_marco.php" class="migadepan">Inicio</a></li>
                                     <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
-                                   <li><a href="academico.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Academico</a></li>
+                                    <li><a href="academico.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Academico</a></li>
                                     <li class="active migadepan">Formación a maestros - <?php echo $proyectoMGen[0]["nombre"] ?> </li>
                                   </ol>
                               </div>

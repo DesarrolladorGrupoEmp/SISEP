@@ -59,6 +59,7 @@
                         <input type="text" class="form-control" id="financiadores" name="financiadores" placeholder="Financiadores del proyecto marco" >
                     </div>
 
+
                     <div class="form-group">
                         <label for="interventoria" class="control-label">Interventoria</label>
                         <input type="text" class="form-control" id="interventoria" name="interventoria" placeholder="Interventoria del proyecto marco" >

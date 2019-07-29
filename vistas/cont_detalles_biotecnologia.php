@@ -1,6 +1,7 @@
 <?php
 
 include '../controller/biotecnologiaController.php';
+include '../controller/estudiantesController.php';
 include '../conexion/datos.php';
 
 $detalles_biotecnologiaInst = new biotecnologiaController();
@@ -10,8 +11,11 @@ $pkID_biotecnologia         = $_GET["id_biotecnologia"];
 $proyectoMGen               = $detalles_biotecnologiaInst->getProyectosMarcoGrupo($pkID_biotecnologia);
 $pkID_proyectoM             = $proyectoMGen[0]["fkID_proyecto_marco"];
 //++++++++++++++++++++++++++++++++++
+$estudiantesInst = new estudiantesController();
+//++++++++++++++++++++++++++++++++++
 include 'form_biotecnologia_estudiante.php';
 include 'form_biotecnologia_sesion.php';
+include 'form_estudiantes.php';
 //++++++++++++++++++++++++++++++++++
 ?>
 

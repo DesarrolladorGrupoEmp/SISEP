@@ -7,7 +7,7 @@ $muestra_grupo = new mostrar();
 
 //---------------------------------------------------------
 $pagina    = 'cont_detalles_tiex.php';
-$scripts   = array('cont_detalles_tiex.js');
+$scripts   = array('cont_detalles_tiex.js', 'cont_estudiantes.js');
 $id_modulo = 31;
 //---------------------------------------------------------
 

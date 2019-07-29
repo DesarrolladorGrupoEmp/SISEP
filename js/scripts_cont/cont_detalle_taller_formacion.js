@@ -25,9 +25,9 @@ $(function() {
         asigna_participante();
     });
     $("#btn_actionsesion").click(function() {
-        var validacioncon = validarasignacion();
+        var validacioncon = validarsesion();
         if (validacioncon === "no") {
-            window.alert("Falta asignar participantes.");
+            window.alert("Falta campos por llenar.");
         } else {
             action = $(this).attr("data-action");
             valida_actio(action);
@@ -57,7 +57,9 @@ $(function() {
         elimina_sesion(id_sesion);
     });
     $("#fkID_participante").change(function(event) {
+        grupo = $("#btn_asignarparticipante").attr("data-taller");
         idUsuario = $(this).val();
+        validaEqualParticipante(grupo, idUsuario);
         nomUsuario = $(this).find("option:selected").data('nombre')
         idGrado = $(this).find("option:selected").data('grado')
         console.log(nomUsuario);
@@ -329,4 +331,53 @@ $(function() {
             //no hace nada
         }
     };
+    $("#fecha_sesion").change(function(event) {
+        var descripcion = $("#descripcion_sesion").val();
+        var date = $("#fecha_sesion").val();
+        validaEqualIdentifica(descripcion, date);
+    });
+    $("#descripcion_sesion").change(function(event) {
+        var descripcion = $("#descripcion_sesion").val();
+        var date = $("#fecha_sesion").val();
+        validaEqualIdentifica(descripcion, date);
+    });
+
+    function validaEqualIdentifica(descripcion, date) {
+        console.log("busca valor " + encodeURI(date));
+        var consEqual = "SELECT COUNT(*) as res_equal FROM sesion_taller WHERE estadoV=1  and descripcion_sesion='" + descripcion + "' and fecha_sesion='" + date + "'";
+        $.ajax({
+            url: '../controller/ajaxController12.php',
+            data: "query=" + consEqual + "&tipo=consulta_gen",
+        }).done(function(data) {
+            /**/
+            //console.log(data.mensaje[0].res_equal);
+            if (data.mensaje[0].res_equal > 0) {
+                alert("Esta Sesion ya existe, por favor ingrese una Sesion diferente.");
+                $("#descripcion_sesion").val("");
+                $("#fecha_sesion").val("");
+            } else {
+                //return false;
+            }
+        }).fail(function() {
+            console.log("error");
+        }).always(function() {
+            console.log("complete");
+        });
+    }
+
+    function validaEqualParticipante(cod, num_id) {
+        console.log("busca valor " + encodeURI(num_id));
+        var consEqual = "SELECT COUNT(*) as res_equal FROM participante_taller where`fkID_taller_formacion` ='" + cod + "' and fkID_participante= '" + num_id + "'";
+        $.ajax({
+            url: '../controller/ajaxController12.php',
+            data: "query=" + consEqual + "&tipo=consulta_gen",
+            success: function(data) {
+                if (data.mensaje[0].res_equal > 0) {
+                    alert("El Participante ya esta asignado a este taller, por favor ingrese otro participante.");
+                    removeUsuario("frm_group" + num_id);
+                    $("#fkID_participante").val("");
+                } else {}
+            }
+        })
+    }
 });

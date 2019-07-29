@@ -9,9 +9,9 @@
       <div class="modal-body">
         <!-- form modal contenido -->
 
-                <form id="form_talento_humano" method="POST">
-                <br>
-                    <div class="form-group " hidden>
+                <form id="form_talento_humano" method="POST">  
+                <br>  
+                    <div class="form-group " hidden>  
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="pkID" name="pkID">
                         </div>
@@ -21,13 +21,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="fkID_departamento" class="control-label">Funcionario</label>
+                        <label for="fkID_funcionario" class="control-label">Funcionario</label>
                             <select class="form-control" id="fkID_funcionario" name="fkID_funcionario" required = "true">
                               <option></option>
                               <?php
-$talento_humanoInst->getSelectFuncionarios();
+$talento_humanoInst->getSelectFuncionarios();    
 ?>
                             </select>
+                            <button id="btn_nuevofuncionario" type="button" class="btn btn-success" data-toggle="modal" data-target="#frm_modal_funcionario"><span class="glyphicon glyphicon-plus"></span></button>
                     </div>
 
                     <div class="form-group">
@@ -39,15 +40,18 @@ $talento_humanoInst->getSelectCargos();
 ?>
                             </select>
                     </div>
+
                     <div class="form-group">
-                        <label for="nombre" class="control-label">Año</label>
-                            <input type="text" class="form-control" id="anio_funcionario_cargo" name="anio_funcionario_cargo" placeholder="Año de asignacion de personal" required = "true">
+                        <label for="anio_funcionario_cargo" class="control-label">Fecha de Asignación</label>
+                        <input type="date" class="form-control" id="anio_funcionario_cargo" name="anio_funcionario_cargo" placeholder="Fecha de creación del grupo" required = "true">
                     </div>
+
                     <div class="form-group">
                         <label for="nombre" class="control-label">Estado</label>
-                        <select class="form-control" id="estado_funcionario_cargo" name="estado_funcionario_cargo">
-                          <option>Activo</option>
-                          <option>Inactivo</option>
+                        <select class="form-control" id="estado_funcionario_cargo" name="estado_funcionario_cargo" required = "true">
+                          <option value="" selected>Elija un cargo</option>
+                          <option >Activo</option>
+                          <option >Inactivo</option>
                         </select>
                     </div>
                 </form>

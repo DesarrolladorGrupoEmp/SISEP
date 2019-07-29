@@ -1,6 +1,7 @@
 <?php
 
 include '../controller/microbiologiaController.php';
+include '../controller/estudiantesController.php';
 include '../conexion/datos.php';
 
 $detalles_microbiologiaInst = new microbiologiaController();
@@ -10,8 +11,11 @@ $pkID_microbiologia         = $_GET["id_microbiologia"];
 $proyectoMGen               = $detalles_microbiologiaInst->getProyectosMarcoGrupo($pkID_microbiologia);
 $pkID_proyectoM             = $proyectoMGen[0]["fkID_proyecto_marco"];
 //++++++++++++++++++++++++++++++++++
+$estudiantesInst = new estudiantesController();
+//++++++++++++++++++++++++++++++++++
 include 'form_microbiologia_estudiante.php';
 include 'form_microbiologia_sesion.php';
+include 'form_estudiantes.php';
 //++++++++++++++++++++++++++++++++++
 ?>
 

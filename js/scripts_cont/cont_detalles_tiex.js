@@ -244,7 +244,7 @@ $(function() {
         if (confirma == true) {
             $.ajax({
                 url: '../controller/ajaxController12.php',
-                data: "pkID=" + numReg + "&tipo=eliminarlogico&nom_tabla=tiex_estudiante",
+                data: "pkID=" + numReg + "&tipo=eliminar_logico&nom_tabla=tiex_estudiante",
             }).done(function(data) {
                 console.log(data);
                 location.reload();
@@ -263,7 +263,7 @@ $(function() {
         if (confirma == true) {
             $.ajax({
                 url: '../controller/ajaxController12.php',
-                data: "pkID=" + numReg + "&tipo=eliminarlogico&nom_tabla=tiex_sesion",
+                data: "pkID=" + numReg + "&tipo=eliminar_logico&nom_tabla=tiex_sesion",
             }).done(function(data) {
                 console.log(data);
                 location.reload();

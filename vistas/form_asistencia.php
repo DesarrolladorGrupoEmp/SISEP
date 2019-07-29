@@ -17,28 +17,18 @@
                             <input type="text" class="form-control" id="pkID" name="pkID">
                         </div>
                     </div>
+                    <div class="form-group " hidden>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="fkID_acompanamiento" name="fkID_acompanamiento" value="<?php echo $pkID_acompanamiento; ?>">
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="fecha_acompanamiento_asistencia" class="control-label">Fecha</label>
-                        <input type="date" class="form-control" id="fecha_acompanamiento_asistenciaa" name="fecha_acompanamiento_asistencia" placeholder="Fecha" required = "true">
+                        <input type="date" class="form-control" id="fecha_acompanamiento_asistencia" name="fecha_acompanamiento_asistencia" placeholder="Fecha" required = "true">
                     </div>
 
-                <div class="form-group">
-                    <label for="archivo" class="control-label">Adjuntar Documento</label>
-                    <input id="fileuploadPM" type="file" name="files[]" data-url="../server/php/" multiple>
-                </div>
-
-                <div id="not_archivo" class="alert alert-info"></div>
-
-                <div id="res_form"></div>
-
-                <div id="not_documentos" class="alert alert-info"></div>
 </form>
-                    <div id='select_tutor'>
-                      <label class="control-label">Participantes Asignados</label>
-                      <form id="frm_participante_acompanamiento" name="frm_participante_acompanamiento"></form>
-                    </div>
-
 
 
         <!-- /form modal contenido-->

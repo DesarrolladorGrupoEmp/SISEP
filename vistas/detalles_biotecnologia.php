@@ -7,7 +7,7 @@ $muestra_grupo = new mostrar();
 
 //---------------------------------------------------------
 $pagina    = 'cont_detalles_biotecnologia.php';
-$scripts   = array('cont_detalles_biotecnologia.js');
+$scripts   = array('cont_detalles_biotecnologia.js', 'cont_estudiantes.js');
 $id_modulo = 37;
 //---------------------------------------------------------
 

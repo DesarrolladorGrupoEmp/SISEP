@@ -11,42 +11,47 @@
 
                 <form id="form_actor" method="POST">
                 <br>
-                    <div class="form-group " hidden>
+                    <div class="form-group " hidden>                     
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="pkID" name="pkID">
                         </div>
                     </div>
 
                     <div class="form-group">
+                        <label for="fkID_tipo" class="control-label">Tipo de Actor</label>
+                            <select class="form-control" id="fkID_tipo" name="fkID_tipo" <?php if ($crea != 1){echo 'disabled="disabled"';} ?> required = "true">
+                              <option></option>
+                              <?php 
+                                  $actorInst->getSelectTipoActor();
+                               ?>
+                            </select>
+                    </div> 
+
+                    <div class="form-group " id="div_actor">                     
+                        
+                    </div>
+                    
+                    <div class="form-group">
                         <label for="actor" class="control-label">Nombre del Actor</label>
                             <input type="text" class="form-control" id="actor" name="actor" placeholder="Nombre del Actor" required = "true">
-                    </div>
+                    </div>                 
 
                     <div class="form-group">
-                        <label for="descripcion" class="control-label">Descripción</label>
+                        <label for="descripcion" class="control-label">Descripción</label>                        
                         <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción breve del actor"></textarea>
                     </div>
 
-                    <div class="form-group">
-                        <label for="fkID_tipo" class="control-label">Tipo de Actor</label>
-                            <select class="form-control" id="fkID_tipo" name="fkID_tipo" <?php if ($crea != 1) {echo 'disabled="disabled"';}?> required = "true">
-                              <option></option>
-                              <?php
-$actorInst->getSelectTipoActor();
-?>
-                            </select>
-                    </div>
 <!--
                     <div class="form-group">
                         <label for="fkID_tipo_vinculacion" class="control-label">Tipo de Vinculación</label>
                             <select class="form-control" id="fkID_tipo_vinculacion" name="fkID_tipo_vinculacion" <?php //if ($crea != 1){echo 'disabled="disabled"';} ?> required = "true">
                               <option></option>
-                              <?php
-$actorInst //->getSelectTipoVincu();
-?>
+                              <?php 
+                                  $actorInst//->getSelectTipoVincu();
+                               ?>
                             </select>
                     </div><br>
--->
+-->                    
                     <div class="form-group">
                         <label for="fecha_socializacion" class="control-label">Fecha Socialización</label>
                         <input type="text" class="form-control" id="fecha_socializacion" name="fecha_socializacion" placeholder="Fecha de socializacion">
@@ -75,63 +80,45 @@ $actorInst //->getSelectTipoVincu();
                     </div>
 
                     <div class="form-group">
-                        <label for="telefono_contacto" class=" control-label">Número de Teléfono</label>
-                        <input type="text" class="form-control" id="telefono_contacto" name="telefono_contacto" placeholder="Número de teléfono del contacto" required = "true">
+                        <label for="telefono_contacto" class=" control-label">Número de Teléfono</label>                
+                        <input type="text" class="form-control" id="telefono_contacto" name="telefono_contacto" placeholder="Número de teléfono del contacto" required = "true">                        
                     </div>
 
                     <div class="form-group">
-                        <label for="email_contacto" class=" control-label">Email</label>
-                        <input type="text" class="form-control" id="email_contacto" name="email_contacto" placeholder="Email del contacto" required = "true">
+                        <label for="email_contacto" class=" control-label">Email</label>                        
+                        <input type="text" class="form-control" id="email_contacto" name="email_contacto" placeholder="Email del contacto" required = "true">                        
                     </div>
 
                     <div class="form-group">
-                        <label for="direccion_contacto" class=" control-label">Dirección</label>
-                        <input type="text" class="form-control" id="direccion_contacto" name="direccion_contacto" placeholder="Dirección del contacto" required = "true">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="fkID_departamento" class="control-label">Departamento</label>
-                            <select class="form-control" id="fkID_departamento" name="fkID_departamento" required = "true">
-                              <option></option>
-                              <?php
-$actorInst->getSelectDepartamentos();
-?>
-                            </select>
-                    </div>
-
-                    <div class="form-group">
-                     <label for="fkID_municipio" class="control-label">Municipio</label>
-                            <select name="fkID_municipio" id="fkID_municipio" class="form-control">
-                              <option></option>
-                              <?php
-$actorInst->getSelectMunicipios();
-?>
-                            </select>
-                    </div>
+                        <label for="direccion_contacto" class=" control-label">Dirección</label>                        
+                        <input type="text" class="form-control" id="direccion_contacto" name="direccion_contacto" placeholder="Dirección del contacto" required = "true">                        
+                    </div>          
 
                     <div class="form-group" hidden="true">
                         <label class="control-label"></label>
-                        <input type="text" name="fkID_proyectoM" id="fkID_proyectoM" value=<?php
-echo $actorInst->getcpm(); ?>>
+                        <input type="text" name="fkID_proyectoM" id="fkID_proyectoM" value=<?php 
+                        echo $actorInst->getcpm(); ?>>
                     </div>
+
+                    
 
                 </form>
 
                 <div class="form-group">
-                    <label for="archivo" class="control-label">Adjuntar Documentos</label>
+                    <label for="archivo" class="control-label">Adjuntar Documentos</label>                        
                     <input id="fileuploadA" type="file" name="files[]" data-url="../server/php/" multiple>
                 </div>
 
                 <br>
-
+                                
                 <div id="res_form"></div>
 
-                <div id="not_documentos" class="alert alert-info"></div>
+                <div id="not_documentos" class="alert alert-info"></div>       
 
 
         <!-- /form modal contenido-->
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer">        
         <button id="btn_actionactor" type="button" class="btn btn-primary botonnewgrupo" data-action="-">
             <span id="lbl_btn_actionactor"></span>
         </button>

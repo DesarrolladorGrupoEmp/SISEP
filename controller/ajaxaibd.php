@@ -34,7 +34,7 @@ switch ($tipo) {
             $nombreImg = str_replace("#", "_", $nombreImg);
             $nombreImg = str_replace("!", "_", $nombreImg);
             //carga el archivo en el servidor
-            $destinoImg = "../vistas/subidas/" . $nombreImg;
+            $destinoImg = "../server/php/files/" . $nombreImg;
 
             move_uploaded_file($_FILES['file']["tmp_name"], $destinoImg);
         } else {
@@ -69,7 +69,7 @@ switch ($tipo) {
             $nombreImg = str_replace("#", "_", $nombreImg);
             $nombreImg = str_replace("!", "_", $nombreImg);
             //carga el archivo en el servidor
-            $destinoImg = "../vistas/subidas/" . $nombreImg;
+            $destinoImg = "../server/php/files/" . $nombreImg;
             $imagen     = ",url_imagen = '" . $nombreImg . "'";
             move_uploaded_file($_FILES['file']["tmp_name"], $destinoImg);
         } else {
@@ -131,7 +131,7 @@ switch ($tipo) {
             $nombreDoc = str_replace("#", "_", $nombreDoc);
             $nombreDoc = str_replace("!", "_", $nombreDoc);
             //carga el archivo en el servidor
-            $destinoDoc = "../vistas/subidas/" . $nombreDoc;
+            $destinoDoc = "../server/php/files/" . $nombreDoc;
 
             move_uploaded_file($_FILES['file']["tmp_name"], $destinoDoc);
         } else {
@@ -166,7 +166,7 @@ switch ($tipo) {
             $nombreDoc = str_replace("#", "_", $nombreDoc);
             $nombreDoc = str_replace("!", "_", $nombreDoc);
             //carga el archivo en el servidor
-            $destinoDoc = "../vistas/subidas/" . $nombreDoc;
+            $destinoDoc = "../server/php/files/" . $nombreDoc;
             $documento  = ",url_documento = '" . $nombreDoc . "'";
             move_uploaded_file($_FILES['file']["tmp_name"], $destinoDoc);
         } else {

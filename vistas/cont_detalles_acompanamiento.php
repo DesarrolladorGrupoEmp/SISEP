@@ -86,12 +86,15 @@ $ne = $numeroEstudiantes[0]['num_estudiantes'];
 $proyectoMGen = $detalles_grupoInst->getProyectosMarcoGrupo($pkID_acompanamiento);
 
 $pkID_proyectoM = $proyectoMGen[0]["fkID_proyecto_marco"];
+
+
 //echo date("Y-m-d");
 
 //print_r($fecha);
 //++++++++++++++++++++++++++++++++++
 include 'form_asignacion_participantes.php';
-include 'form_asistencia.php';
+include 'form_docentes.php';
+include 'form_asistencia.php';  
 //++++++++++++++++++++++++++++++++++/**/
 ?>
 
@@ -140,8 +143,8 @@ include 'form_asistencia.php';
             <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
             <li><a href="academico.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Académico</a></li>
             <li><a href="formacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Formación a maestros</a></li>
-            <li><a href="formacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Acompañamiento maestros</a></li>
-            <li class="active migadepan">Detalle Acompañamiento - <?php echo $proyectoMGen[0]["nombre_proyecto"] ?> </li>
+            <li><a href="acompanamiento.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Acompañamiento maestros</a></li>
+            <li class="active migadepan">Detalle Acompañamiento </li>
           </ol>
     </div>
 
@@ -150,12 +153,12 @@ include 'form_asistencia.php';
 
   <div class="row">
 
-      <div class="col-lg-12">
+      <div class="col-lg-12">   
 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs tabs-proc3" role="tablist">
 	        <li id="li_general" role="presentation"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">General</a></li>
-          	<li id="li_participantes" role="presentation"><a href="#participantes" aria-controls="general" role="tab" data-toggle="tab">Participantes</a></li>
+          	<li id="li_participantes" role="presentation"><a href="#participantes" aria-controls="participantes" role="tab" data-toggle="tab">Participantes</a></li>
 	        <li id="li_asistencia" role="presentation"><a href="#asistencia" aria-controls="general" role="tab" data-toggle="tab">Asistencia</a></li>
 	        <li id="li_album" role="presentation"><a href="#album" aria-controls="general" role="tab" data-toggle="tab">Galeria</a></li>
 	    </ul>
@@ -278,7 +281,7 @@ $detalles_grupoInst->getTablaEstudiantesGrupo($pkID_acompanamiento);
 
 				                  <tbody>
 				                      <?php
-$detalles_grupoInst->getTablaAlbumGrupo($pkID_acompanamiento);
+$detalles_grupoInst->getTablaAsistencia($pkID_acompanamiento);
 ?>
 				                  </tbody>
 				              </table>
@@ -307,7 +310,7 @@ $detalles_grupoInst->getTablaAlbumGrupo($pkID_acompanamiento);
 			                  <div class="titleprincipal"><h4>Asistencia Acompañamiento - <?php echo $proyectoMGen[0]["nombre_proyecto"] ?></h4></div>
 			              </div>
 			              <div class="col-md-6 text-right">
-			      			 <button id="btn_asistencia" type="button" class="btn btn-primary botonnewgrupo" data-toggle="modal"  data-acompanamiento="<?php echo $pkID_acompanamiento ?>" data-target="#frm_modal_asistencia" <?php if (($creaeg != 1) || ($ne >= 30)) {echo 'disabled="disabled"';}?> ><span class="glyphicon glyphicon-plus"></span> Crear asistencia</button>
+			      			 <button id="btn_asignarasistencia" type="button" class="btn btn-primary botonnewgrupo" data-toggle="modal"  data-acompanamiento="<?php echo $pkID_acompanamiento ?>" data-target="#frm_modal_asistencia" <?php if (($creaeg != 1) || ($ne >= 30)) {echo 'disabled="disabled"';}?> ><span class="glyphicon glyphicon-plus"></span> Crear asistencia</button>
 			              </div>
 			            </div>
 

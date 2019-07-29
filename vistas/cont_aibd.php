@@ -44,7 +44,7 @@ include 'form_documentos_aibd.php';
       <input type="hidden" id="id_mod_page_estudiante" value=<?php echo $id_modulo ?>>
 
       <div class="col-lg-12">
-          <h1 class="page-header titleprincipal"><img src="../img/botones/grupoonly.png">AIBD (Aula Investigación Básica Departamental) - <?php echo $proyectoMGen[0]["nombre_proyecto"] ?></h1>
+          <h1 class="page-header titleprincipal"><img src="../img/botones/aibdonly.png">AIBD (Aula Investigación Básica Departamental) - <?php echo $proyectoMGen[0]["nombre_proyecto"] ?></h1>
       </div>
       <!-- /.col-lg-12 -->
 

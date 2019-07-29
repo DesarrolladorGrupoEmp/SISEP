@@ -213,7 +213,7 @@ $(function() {
             //si confirma es true ejecuta ajax
             $.ajax({
                 url: '../controller/ajaxController12.php',
-                data: "pkID=" + id_funciona + "&tipo=eliminarlogico&nom_tabla=aulas_tecnologia",
+                data: "pkID=" + id_funciona + "&tipo=eliminar_logico&nom_tabla=aulas_tecnologia",
             }).done(function(data) {
                 //---------------------
                 console.log(data);
@@ -307,7 +307,7 @@ $(function() {
             //si confirma es true ejecuta ajax
             $.ajax({
                 url: '../controller/ajaxController12.php',
-                data: "pkID=" + id_funciona + "&tipo=eliminarlogico&nom_tabla=aulas_cientifico",
+                data: "pkID=" + id_funciona + "&tipo=eliminar_logico&nom_tabla=aulas_cientifico",
             }).done(function(data) {
                 //---------------------
                 console.log(data);
@@ -401,7 +401,7 @@ $(function() {
             //si confirma es true ejecuta ajax
             $.ajax({
                 url: '../controller/ajaxController12.php',
-                data: "pkID=" + id_funciona + "&tipo=eliminarlogico&nom_tabla=aulas_wifi",
+                data: "pkID=" + id_funciona + "&tipo=eliminar_logico&nom_tabla=aulas_wifi",
             }).done(function(data) {
                 //---------------------
                 console.log(data);
@@ -542,7 +542,7 @@ $(function() {
             //si confirma es true ejecuta ajax
             $.ajax({
                 url: '../controller/ajaxController12.php',
-                data: "pkID=" + id_funciona + "&tipo=eliminarlogico&nom_tabla=aulas_acta",
+                data: "pkID=" + id_funciona + "&tipo=eliminar_logico&nom_tabla=aulas_acta",
             }).done(function(data) {
                 //---------------------
                 console.log(data);

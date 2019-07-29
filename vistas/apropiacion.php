@@ -13,7 +13,6 @@ $muestra_detalles_proyectoM = new mostrar();
 //---------------------------------------------------------
 $pagina    = 'cont_apropiacion.php';
 $scripts   = array('helper_proyectoM.js', 'cont_apropiacion.js');
-$id_modulo = 59;
-//---------------------------------------------------------
+$id_modulo = 21;//---------------------------------------------------------
 
 $muestra_detalles_proyectoM->mostrar_pagina_scripts($pagina, $scripts, $id_modulo);

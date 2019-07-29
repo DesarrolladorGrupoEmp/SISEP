@@ -29,7 +29,7 @@ include "form_modal_archivos.php";
 
 
       <div class="col-lg-12">
-          <h2 class="page-header titleprincipal">Proyectos Marcos</h2>
+          <h2 class="page-header titleprincipal"><img src="../img/botones/proyectosmarcoonly.png">Proyectos Marcos</h2>
       </div>
       <!-- /.col-lg-12 -->
       <div class="col-lg-12">

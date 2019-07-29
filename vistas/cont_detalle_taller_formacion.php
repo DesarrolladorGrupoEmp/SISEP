@@ -45,7 +45,7 @@ $arrPermisoseg = $estudiantesInst->getPermisosModulo_Tipo(30, $_COOKIE[$NomCooki
 
 $creaeg = $arrPermisoseg[0]['crear'];
 
-$rolEstudiante = $estudiantesInst->getRolEstudiante();
+$rolEstudiante = $estudiantesInst->getRolEstudiante(); 
 
 $re = $rolEstudiante[0]["pkID_rol"];
 
@@ -100,6 +100,8 @@ $ne = $numeroEstudiantes[0]['num_estudiantes'];
 
 $proyectoMGen = $detalles_grupoInst->getProyectosMarcoGrupo($pkID_taller);
 
+$pkID_proyectoM = $proyectoMGen[0]["fkID_proyecto_marco"];
+
 //echo date("Y-m-d");
 
 //print_r($fecha);
@@ -153,7 +155,7 @@ include "frm_modal_proyectog.php";
       <input type="hidden" id="id_mod_page_estudiante" value=<?php echo $id_modulo ?>>
 
       <div class="col-lg-12">
-          <h1 class="page-header titleprincipal"><img src="../img/botones/grupoonly.png"><?php echo $proyectoMGen[0]["nombre_proyecto"] ?> - Taller Formación</h1>
+          <h1 class="page-header titleprincipal"><img src="../img/botones/grupoonly.png"><?php echo  $proyectoMGen[0]["nombre_proyecto"] ?> - Taller Formación</h1>
       </div>
       <!-- /.col-lg-12 -->
 
@@ -162,6 +164,7 @@ include "frm_modal_proyectog.php";
             <li><a href="proyecto_marco.php" class="migadepan">Inicio</a></li>
             <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
             <li><a href="academico.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Académico</a></li>
+            <li><a href="apropiacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Apropiacion social</a></li> 
             <li><a href="taller_formacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Taller de formación</a></li>
             <li class="active migadepan">Detalle Talleres de Formación</li>
           </ol>
@@ -219,7 +222,7 @@ include "frm_modal_proyectog.php";
 			                  <div class="titleprincipal"><h4>Sesiones del Taller</h4></div>
 			              </div>
 			              <div class="col-md-6 text-right">
-			      			 <button id="btn_nuevosesion" type="button" class="btn btn-primary botonnewgrupo" data-toggle="modal"  data-saber="<?php echo $pkID_taller ?>" data-target="#frm_modal_sesion"><span class="glyphicon glyphicon-plus"></span> Crear Sesion</button>
+			      			 <button id="btn_nuevosesion" type="button" class="btn btn-primary botonnewgrupo" data-toggle="modal"  data-taller="<?php echo $pkID_taller ?>" data-target="#frm_modal_sesion"><span class="glyphicon glyphicon-plus"></span> Crear Sesion</button>
 			              </div>
 			            </div>
 
@@ -242,8 +245,8 @@ include "frm_modal_proyectog.php";
 
 				                  <tbody>
 				                      <?php
-$tallerInst->getTablasesiones($pkID_taller);
-?>
+										$tallerInst->getTablasesiones($pkID_taller);
+										?>
 				                  </tbody>
 				              </table>
 					        </div>
@@ -293,8 +296,8 @@ $tallerInst->getTablasesiones($pkID_taller);
 
 				                  <tbody>
 				                      <?php
-$tallerInst->getTablaParticipantesTaller($pkID_taller);
-?>
+												$tallerInst->getTablaParticipantesTaller($pkID_taller);
+										?>
 				                  </tbody>
 				              </table>
 					        </div>
@@ -318,10 +321,10 @@ $tallerInst->getTablaParticipantesTaller($pkID_taller);
 
 			            <div class="row">
 			              <div class="col-md-6">
-			                  <div class="titleprincipal"><h4>Galeria de fotos</h4></div>
+			                  <div class="titleprincipal"><h4>Galeria de Álbumes</h4></div>
 			              </div>
 			              <div class="col-md-6 text-right">
-			      			 <button id="btn_album_grupo" type="button" class="btn btn-primary botonnewgrupo" data-toggle="modal"  data-grupo="<?php echo $pkID_taller ?>" data-target="#frm_modal_album_grupo"><span class="glyphicon glyphicon-plus"></span>
+			      			 <button id="btn_album_grupo" type="button" class="btn btn-primary botonnewgrupo" data-toggle="modal"  data-grupo="<?php echo $pkID_taller ?>" data-target="#frm_modal_album_grupo"><span class="glyphicon glyphicon-plus"></span> 
 			      			 Crear album</button>
 
 			      			 <div class="form-group " hidden>
@@ -333,18 +336,17 @@ $tallerInst->getTablaParticipantesTaller($pkID_taller);
 			            </div>
 
 		            </div>
+		            <br><br>
 		            <!-- /.panel-heading -->
 
-					<div class="panel-body">
+					<div class="container-fluid">
+						<div class="row">
+							<?php
+								$tallerInst->getSelectAlbumTaller($pkID_taller);
+							?>
 
-						<div class="col-md-2 text-center">
-							<div class="dataTable_wrapper">
-				              <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="text" class=""  target="_blank" ><span> <img  src="../img/carpeta_fotos.png"></span></a>
-				              <label class="text-center">Galeria uno</label>
-					        </div>
-					        <!-- /.table-responsive -->
+						
 						</div>
-
 					</div>
 
 				</div>

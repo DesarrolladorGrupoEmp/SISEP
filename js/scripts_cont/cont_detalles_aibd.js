@@ -31,7 +31,7 @@ $(function() {
             $.each(data.mensaje[0], function(key, value) {
                 console.log(key + "--" + value);
                 if (key == "url_documento" && value != "") {
-                    $("#form_documento").append('<div id="pdf_imagen" class="form-group">' + '<label for="adjunto" id="lbl_pkID_archivo_" name="lbl_pkID_archivo_" class="custom-control-label">Imagen</label>' + '<br>' + '<input type="text" style="width: 89%;display: inline;" class="form-control" id="pkID_archivo" name="btn_Rmdocumento" value="' + value + '" readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../vistas/subidas/' + value + '" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmadocumento" id="btn_actionRmadocumento" data-id-contratos="1" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>' + '</div>');
+                    $("#form_documento").append('<div id="pdf_documento" class="form-group">' + '<label for="adjunto" id="lbl_pkID_archivo_" name="lbl_pkID_archivo_" class="custom-control-label">Imagen</label>' + '<br>' + '<input type="text" style="width: 89%;display: inline;" class="form-control" id="pkID_archivo" name="btn_Rmdocumento" value="' + value + '" readonly="true"> <a id="btn_doc" title="Descargar Archivo" name="download_documento" type="button" class="btn btn-success" href = "../vistas/subidas/' + value + '" target="_blank" ><span class="glyphicon glyphicon-download-alt"></span></a><button name="btn_actionRmadocumento" id="btn_actionRmadocumento" data-id-contratos="1" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>' + '</div>');
                     $("#lbl_url_imagen").remove();
                     $("#url_imagen").remove();
                     $("[name*='btn_actionRmadocumento']").click(function(event) {
@@ -122,7 +122,7 @@ $(function() {
         if (confirma == true) {
             $.ajax({
                 url: '../controller/ajaxController12.php',
-                data: "pkID=" + numReg + "&tipo=eliminarlogico&nom_tabla=documento_aibd",
+                data: "pkID=" + numReg + "&tipo=eliminar_logico&nom_tabla=documento_aibd",
             }).done(function(data) {
                 console.log(data);
                 location.reload();
@@ -206,7 +206,7 @@ $(function() {
             //si confirma es true ejecuta ajax
             $.ajax({
                 url: '../controller/ajaxController12.php',
-                data: "pkID=" + id_funciona + "&tipo=eliminarlogico&nom_tabla=documentos_aibd",
+                data: "pkID=" + id_funciona + "&tipo=eliminar_logico&nom_tabla=documentos_aibd",
             }).done(function(data) {
                 //---------------------
                 console.log(data);

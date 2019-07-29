@@ -51,7 +51,7 @@ class microbiologiaController extends microbiologiaDAO
         //Los campos que se van a ver
         $grupo_campos = [
             // ["nombre"=>"pkID"],
-            ["nombre" => "fecha"],
+            ["nombre" => "anio"],
             ["nombre" => "nombre_institucion"],
             ["nombre" => "grado"],
             ["nombre" => "curso"],
@@ -1031,6 +1031,17 @@ class microbiologiaController extends microbiologiaDAO
                              </tr>';
             };
 
+        }
+    }
+
+    public function getSelectTotal($pkID_proyectoM, $filtro)
+    {
+
+        $grupo = $this->getTotalEstudiantes($pkID_proyectoM, $filtro);
+
+        echo '<span class="input-group-addon">#</span>';
+        for ($i = 0; $i < sizeof($grupo); $i++) {
+            echo '<input type="text" class="form-control" id="total_estudiantes" name="total_estudiantes" readonly="true" value=' . $grupo[$i]["cantidad"] . '>';
         }
     }
 }

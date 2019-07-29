@@ -21,7 +21,7 @@ class aulasDAO extends UsuariosDAO
     public function getaulass($pkID_proyectoM)
     {
 
-        $query = "SELECT *,aulas.pkID AS pkID FROM aulas
+        $query = "SELECT *,YEAR(fecha) AS anio,aulas.pkID AS pkID FROM aulas
                 INNER JOIN institucion ON institucion.pkID = aulas.fkID_institucion
                 WHERE aulas.estadoV = 1 AND fkID_proyecto_marco = " . $pkID_proyectoM;
 
@@ -36,8 +36,9 @@ class aulasDAO extends UsuariosDAO
             $where_anio = "AND YEAR(fecha) = " . $filtro;
         }
 
-        $query = "SELECT * FROM aulas
-                WHERE estadoV = 1 " . $where_anio . " AND fkID_proyecto_marco = " . $pkID_proyectoM;
+        $query = "SELECT *,YEAR(fecha) AS anio,aulas.pkID AS pkID FROM aulas
+                INNER JOIN institucion ON institucion.pkID = aulas.fkID_institucion
+                WHERE aulas.estadoV = 1 " . $where_anio . " AND fkID_proyecto_marco = " . $pkID_proyectoM;
 
         return $this->EjecutarConsulta($query);
     }

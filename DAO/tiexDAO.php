@@ -21,7 +21,7 @@ class tiexDAO extends UsuariosDAO
     public function getTiexs($pkID_proyectoM)
     {
 
-        $query = "SELECT *,tiex.pkID AS pkID,grado.nombre AS grado,(SELECT COUNT(*) FROM tiex_estudiante LEFT JOIN estudiante ON estudiante.pkID = tiex_estudiante.fkID_estudiante WHERE tiex.pkID = tiex_estudiante.fkID_tiex AND tiex_estudiante.estadoV = 1) as cantidad  FROM tiex
+        $query = "SELECT *,YEAR(fecha) AS anio, tiex.pkID AS pkID,grado.nombre AS grado,(SELECT COUNT(*) FROM tiex_estudiante LEFT JOIN estudiante ON estudiante.pkID = tiex_estudiante.fkID_estudiante WHERE tiex.pkID = tiex_estudiante.fkID_tiex AND tiex_estudiante.estadoV = 1) as cantidad  FROM tiex
                 INNER JOIN institucion ON institucion.pkID = tiex.fkID_institucion
                 INNER JOIN grado ON grado.pkID = tiex.fkID_grado
                 LEFT JOIN curso ON curso.pkID = tiex.fkID_curso
@@ -39,8 +39,12 @@ class tiexDAO extends UsuariosDAO
             $where_anio = "AND YEAR(fecha) = " . $filtro;
         }
 
-        $query = "SELECT * FROM tiex
-                WHERE estadoV = 1 " . $where_anio . " AND fkID_proyecto_marco = " . $pkID_proyectoM;
+        $query = "SELECT *,YEAR(fecha) AS anio, tiex.pkID AS pkID,grado.nombre AS grado,(SELECT COUNT(*) FROM tiex_estudiante LEFT JOIN estudiante ON estudiante.pkID = tiex_estudiante.fkID_estudiante WHERE tiex.pkID = tiex_estudiante.fkID_tiex AND tiex_estudiante.estadoV = 1) as cantidad  FROM tiex
+                INNER JOIN institucion ON institucion.pkID = tiex.fkID_institucion
+                INNER JOIN grado ON grado.pkID = tiex.fkID_grado
+                LEFT JOIN curso ON curso.pkID = tiex.fkID_curso
+                INNER JOIN ciclo ON ciclo.pkID = tiex.fkID_ciclo
+                WHERE tiex.estadoV = 1 " . $where_anio . " AND fkID_proyecto_marco = " . $pkID_proyectoM;
 
         return $this->EjecutarConsulta($query);
     }
@@ -152,6 +156,22 @@ class tiexDAO extends UsuariosDAO
     public function getSesiones($pkID_tiex)
     {
         $query = "SELECT * FROM tiex_sesion WHERE estadoV=1 and fkID_tiex =" . $pkID_tiex;
+
+        return $this->EjecutarConsulta($query);
+    }
+
+    public function getTotalEstudiantes($pkID_proyectoM, $filtro)
+    {
+        if ($filtro == "'Todos'") {
+            $where_anio = "!= 0";
+        } else {
+            $where_anio = "=" . $filtro;
+        }
+
+        $query = "SELECT COUNT(*) AS cantidad FROM tiex_estudiante
+                LEFT JOIN estudiante ON estudiante.pkID = tiex_estudiante.fkID_estudiante
+                LEFT JOIN tiex on tiex.pkID = tiex_estudiante.fkID_tiex
+                WHERE tiex.estadoV = 1 AND tiex_estudiante.estadoV=1 and tiex.pkID = tiex_estudiante.fkID_tiex and tiex.fkID_proyecto_marco = " . $pkID_proyectoM . " and YEAR(tiex.fecha)" . $where_anio;
 
         return $this->EjecutarConsulta($query);
     }

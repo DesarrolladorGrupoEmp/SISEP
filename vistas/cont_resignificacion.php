@@ -60,7 +60,7 @@ include "form_novedades.php";
             <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
             <li><a href="academico.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Académico</a></li>
             <li><a href="formacion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Formación a maestros</a></li>
-            <li class="active migadepan">Resignificación planes de area - <?php echo $proyectoMGen[0]["nombre"] ?> </li>
+            <li class="active migadepan">Resignificación planes de area </li>
           </ol>
     </div>
 
