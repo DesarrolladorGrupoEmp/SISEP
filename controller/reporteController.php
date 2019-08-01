@@ -36,12 +36,16 @@ class reporteController extends reporteDAO
         $edita       = $arrPermisos[0]["editar"];
         $elimina     = $arrPermisos[0]["eliminar"];
         $consulta    = $arrPermisos[0]["consultar"];
+        //-----------------Contadores-----------------
+        $item_objetivo     = 0;
+        $item_actividad    = 0;
+        $item_subactividad = 0;
         //---------------------------------------------------------------------------------
 
         if (($this->aibd)) {
 
             for ($a = 0; $a < sizeof($this->aibd); $a++) {
-                $id                 = $this->aibd[$a]["pkID"];
+                $id                 = $this->aibd[$a]["id_indicador"];
                 $objetivo           = $this->aibd[$a]["objetivo"];
                 $numero             = $this->aibd[$a]["numero"];
                 $actividad          = $this->aibd[$a]["actividad"];
@@ -49,55 +53,101 @@ class reporteController extends reporteDAO
                 $indicador          = $this->aibd[$a]["indicador"];
                 $meta1              = $this->aibd[$a]["meta1"];
                 $consulta           = $this->aibd[$a]["cumplimiento1"];
-                $this->anio1        = $this->getConsulta($consulta, $fkID_proyecto_marco);
-                $cumplimiento1      = $this->anio1[$a]["cantidad"];
+                $this->anio         = $this->getConsulta($consulta, $fkID_proyecto_marco);
+                $cumplimiento1      = $this->anio[0]["cantidad"];
                 $pendiente1         = $cumplimiento1 - $meta1;
                 $meta2              = $this->aibd[$a]["meta2"];
                 $consulta           = $this->aibd[$a]["cumplimiento2"];
-                $this->anio2        = $this->getConsulta($consulta, $fkID_proyecto_marco);
-                $cumplimiento2      = $this->anio2[$a]["cantidad"];
+                $this->anio         = $this->getConsulta($consulta, $fkID_proyecto_marco);
+                $cumplimiento2      = $this->anio[0]["cantidad"];
                 $pendiente2         = $cumplimiento1 + $cumplimiento2 - $meta1 - $meta2;
                 $meta3              = $this->aibd[$a]["meta3"];
                 $consulta           = $this->aibd[$a]["cumplimiento3"];
-                $this->anio3        = $this->getConsulta($consulta, $fkID_proyecto_marco);
-                $cumplimiento3      = $this->anio3[$a]["cantidad"];
+                $this->anio         = $this->getConsulta($consulta, $fkID_proyecto_marco);
+                $cumplimiento3      = $this->anio[0]["cantidad"];
                 $pendiente3         = $cumplimiento1 + $cumplimiento2 + $cumplimiento3 - $meta1 - $meta2 - $meta3;
                 $meta4              = $this->aibd[$a]["meta4"];
                 $consulta           = $this->aibd[$a]["cumplimiento4"];
-                $this->anio4        = $this->getConsulta($consulta, $fkID_proyecto_marco);
-                $cumplimiento4      = $this->anio4[$a]["cantidad"];
+                $this->anio         = $this->getConsulta($consulta, $fkID_proyecto_marco);
+                $cumplimiento4      = $this->anio[0]["cantidad"];
                 $pendiente4         = $cumplimiento1 + $cumplimiento2 + $cumplimiento3 + $cumplimiento4 - $meta1 - $meta2 - $meta3 - $meta4;
                 $meta_total         = $meta1 + $meta2 + $meta3 + $meta4;
                 $cumplimiento_total = $cumplimiento1 + $cumplimiento2 + $cumplimiento3 + $cumplimiento4;
                 $pendiente_total    = $cumplimiento_total - $meta_total;
 
                 echo '
-                             <tr>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail"><strong>' . $objetivo . '</strong></td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $numero . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $actividad . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $subactividad . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $indicador . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $meta1 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $cumplimiento1 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $pendiente1 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $meta2 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $cumplimiento2 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $pendiente2 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $meta3 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $cumplimiento3 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $pendiente3 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $meta4 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $cumplimiento4 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $pendiente4 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $meta_total . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $cumplimiento_total . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="detail">' . $pendiente_total . '</td>
+                             <tr>';
+
+                if ($item_objetivo == 0) {
+                    $this->cantObjetivo = $this->getCantObjetivo($this->aibd[$a]["fkID_objetivo"]);
+
+                    $cant_objetivo = $this->cantObjetivo[0]["cantidad"];
+
+                    $tdObjetivo = '<td rowspan="' . $cant_objetivo . '" title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap"><strong>' . $objetivo . '</strong></td>';
+
+                    $item_objetivo = $cant_objetivo;
+                } else {
+                    $tdObjetivo = '';
+                }
+
+                echo $tdObjetivo;
+
+                if ($item_actividad == 0) {
+                    $this->cantActividad = $this->getCantActividad($this->aibd[$a]["fkID_actividad"]);
+
+                    $cant_actividad = $this->cantActividad[0]["cantidad"];
+
+                    $tdActividad = '<td rowspan="' . $cant_actividad . '" title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $numero . '</td>
+                                 <td rowspan="' . $cant_actividad . '" title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $actividad . '</td>';
+
+                    $item_actividad = $cant_actividad;
+                } else {
+                    $tdActividad = '';
+                }
+
+                echo $tdActividad;
+
+                if ($item_subactividad == 0) {
+                    $this->cantSubactividad = $this->getCantSubactividad($this->aibd[$a]["fkID_subactividad"]);
+
+                    $cant_subactividad = $this->cantSubactividad[0]["cantidad"];
+
+                    $tdSubactividad = '<td rowspan="' . $cant_subactividad . '" title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $subactividad . '</td>';
+
+                    $item_subactividad = $cant_subactividad;
+                } else {
+                    $tdSubactividad = '';
+                }
+
+                echo $tdSubactividad;
+
+                echo '
+
+                                 <td href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $indicador . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $meta1 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $cumplimiento1 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $pendiente1 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $meta2 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $cumplimiento2 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $pendiente2 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $meta3 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $cumplimiento3 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $pendiente3 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $meta4 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $cumplimiento4 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $pendiente4 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $meta_total . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $cumplimiento_total . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $pendiente_total . '</td>
                                  <td>
-                                     <a href="graficos.php"><button id="edita_sesion" title="Editar" name="edita_sesion"  type="button" class="btn btn-success" data-id-sesion = "' . $id . '" ';
+                                     <a href="graficos.php?id_indicador=' . $id . '&cumplimiento1=' . $cumplimiento1 . '&cumplimiento2=' . $cumplimiento2 . '&cumplimiento3=' . $cumplimiento3 . '&cumplimiento4=' . $cumplimiento4 . '"><button id="edita_sesion" title="Editar" name="edita_sesion"  type="button" class="btn btn-success" ';
                 echo '><span class="glyphicon glyphicon-signal"></span></button></a>
                                  </td>
                              </tr>';
+
+                $item_objetivo     = $item_objetivo - 1;
+                $item_actividad    = $item_actividad - 1;
+                $item_subactividad = $item_subactividad - 1;
             };
 
         }

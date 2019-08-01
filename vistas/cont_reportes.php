@@ -55,7 +55,7 @@ $id_proyecto  = $_GET['id_proyectoM'];
 
         <div class="panel-body">
 
-          <div class="dataTable_wrapper">
+          <div class="table-responsive">
               <table class="display table table-striped table-bordered table-hover" id="tbl_grupo">
                   <thead>
                       <tr>
