@@ -22,13 +22,13 @@ include 'form_docentes.php';
   <div class="row">
 
       <div class="col-lg-12">
-          <h2 class="page-header titleprincipal"><img src="../img/botones/docentesonly.png"><?php echo $proyectoMGen[0]["nombre"] ?> - Descripción</h2>
+          <h2 class="page-header titleprincipal"><img src="../img/botones/descripcion.png"> Descripción - <?php echo $proyectoMGen[0]["nombre"] ?></h2>
       </div>
       <!-- /.col-lg-12 -->
       <div class="col-lg-12">
         <ol class="breadcrumb migadepan">
           <li><a href="proyecto_marco.php" class="migadepan">Inicio</a></li>
-          <li class="active migadepan"> Descripción </li>
+          <li class="active migadepan"> Descripción - <?php echo $proyectoMGen[0]["nombre"] ?></li>
         </ol>
       </div>
 
@@ -161,7 +161,7 @@ include 'form_docentes.php';
           <div class="col-sm-10 panel panel-default mt-0">
                   <div class=""><h5><a href="grupo.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>">Formación, Acompañamiento y seguimiento a Grupos Ondas de Innovación Y Emprendimiento.</a></h5></div>
               </div>
-      </div> 
+      </div>
         </div>
     </div><br><br>
       </p><br>

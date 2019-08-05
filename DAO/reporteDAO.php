@@ -66,4 +66,18 @@ class reporteDAO
                             GROUP BY fkID_subactividad';
         return $this->EjecutarConsulta($this->q_general);
     }
+
+    public function getProyectosMarcoId($pkID)
+    {
+
+        $query = "select proyecto_marco.*, departamento.nombre_departamento as nom_departamento
+
+                      FROM proyecto_marco
+
+                      INNER JOIN departamento ON departamento.pkID = proyecto_marco.fkID_departamento
+
+                      WHERE proyecto_marco.pkID = " . $pkID;
+
+        return $this->EjecutarConsulta($query);
+    }
 }

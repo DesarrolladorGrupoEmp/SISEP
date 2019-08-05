@@ -68,6 +68,15 @@ class aibdDAO extends UsuariosDAO
         return $this->EjecutarConsulta($query);
     }
 
+    public function getFotosAibd($pkID_proyectoM){  
+       
+      $query = "select fotos_aibd.* FROM `fotos_aibd`
+        INNER JOIN aibd on aibd.pkID = fotos_aibd.fkID_aibd
+        WHERE aibd.estadoV=1 and fotos_aibd.estadoV=1 and aibd.fkID_proyecto_marco=".$pkID_proyectoM;
+
+      return $this->EjecutarConsulta($query);
+    }
+
     public function getAlbumGrupo($pkID_grupo)
     {
 

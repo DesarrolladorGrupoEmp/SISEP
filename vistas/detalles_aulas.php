@@ -7,7 +7,7 @@ $muestra_detalles_aulas = new mostrar();
 
 //---------------------------------------------------------
 $pagina    = 'cont_detalles_aulas.php';
-$scripts   = array('cont_detalles_aulas.js');
+$scripts   = array('cont_detalles_aulas.js', 'cont_album_aula.js');
 $id_modulo = 39;
 //---------------------------------------------------------
 

@@ -132,6 +132,30 @@ class microbiologiaDAO extends UsuariosDAO
         return $this->EjecutarConsulta($query);
     }
 
+    public function getMicrobiologiaGaleria($pkID_album){  
+       
+      $query = "select galeria_microbiologia.*, proyecto_marco.pkID as fkID_proyecto FROM galeria_microbiologia 
+            INNER JOIN microbiologia on microbiologia.pkID = galeria_microbiologia.fkID_microbiologia
+            INNER JOIN proyecto_marco on proyecto_marco.pkID = microbiologia.fkID_proyecto_marco
+            WHERE galeria_microbiologia.pkID=".$pkID_album;
+
+      return $this->EjecutarConsulta($query);
+    }
+
+    public function getAlbumMicrobiologia($pkID_biotecnologia){  
+       
+      $query = "select * FROM `galeria_microbiologia` WHERE estadoV=1 and fkID_microbiologia=".$pkID_biotecnologia;
+
+      return $this->EjecutarConsulta($query);
+    }
+
+    public function getFotosMicrobiologia($pkID_album){  
+       
+      $query = "select * FROM `fotos_microbiologia` WHERE estadoV=1 and fkID_album=".$pkID_album;
+
+      return $this->EjecutarConsulta($query);
+    }
+
     public function getEstudiantes()
     {
 

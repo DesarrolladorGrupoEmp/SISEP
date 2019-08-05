@@ -15,7 +15,7 @@ class tiexDAO extends UsuariosDAO
     public function getcpm()
     {
 
-        return $this->getCookieProyectoM();
+        return $this->getCookieProyectoM(); 
     }
 
     public function getTiexs($pkID_proyectoM)
@@ -141,6 +141,30 @@ class tiexDAO extends UsuariosDAO
                 WHERE grupo.pkID=" . $fkID_grupo;
 
         return $this->EjecutarConsulta($query);
+    }
+
+    public function getTiexGaleria($pkID_album){  
+       
+      $query = "select galeria_tiex.*, proyecto_marco.pkID as fkID_proyecto FROM galeria_tiex 
+                INNER JOIN tiex on tiex.pkID = galeria_tiex.fkID_tiex
+                INNER JOIN proyecto_marco on proyecto_marco.pkID = tiex.fkID_proyecto_marco
+                WHERE galeria_tiex.pkID=".$pkID_album;
+
+      return $this->EjecutarConsulta($query);
+    }
+
+    public function getAlbumTiex($pkID_tiex){  
+       
+      $query = "select * FROM `galeria_tiex` WHERE estadoV=1 and fkID_tiex=".$pkID_tiex;
+
+      return $this->EjecutarConsulta($query);
+    }
+
+    public function getFotosTiex($pkID_album){  
+       
+      $query = "select * FROM `fotos_tiex` WHERE estadoV=1 and fkID_album=".$pkID_album;
+
+      return $this->EjecutarConsulta($query);
     }
 
     public function getEstudiantes()

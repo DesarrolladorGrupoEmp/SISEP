@@ -14,6 +14,7 @@ include 'form_aulas_tecnologia.php';
 include 'form_aulas_cientifico.php';
 include 'form_aulas_wifi.php';
 include 'form_aulas_actas.php';
+include 'form_album_aula.php';
 //++++++++++++++++++++++++++++++++++
 ?>
 
@@ -269,57 +270,42 @@ include 'form_aulas_actas.php';
 
       </div>
 
-      <div role="tabpanel" class="tab-pane" id="album">
+      <div role="tabpanel" class="tab-pane" id="album">  
         <br>
         <!-- contenido general -->
 
         <div class="panel panel-default proc-pan-def3">
 
-          <div class="titulohead">
+          <div class="titulohead"> 
 
                   <div class="row">
                     <div class="col-md-6">
-                        <div class="titleprincipal"><h4>Galeria de fotos - <?php echo $proyectoMGen[0]["nombre"] . ' - ' . $proyectoMGen[0]["nombre_proyecto"] ?></h4></div>
+                        <div class="titleprincipal"><h4>Galeria de Álbumes</h4></div>
                     </div>
                     <div class="col-md-6 text-right">
-                   <button id="btn_album_grupo" type="button" class="btn btn-primary botonnewgrupo" data-toggle="modal"  data-grupo="<?php echo $pkID_aulas ?>" data-target="#frm_modal_album_grupo" <?php if (($crea != 1) || ($ne >= 30)) {echo 'disabled="disabled"';}?> ><span class="glyphicon glyphicon-plus"></span>
-                   Crear album</button>
+                   <button id="btn_album_aula" type="button" class="btn btn-primary botonnewgrupo" data-toggle="modal"  data-biotecnologia="<?php echo $pkID_aulas ?>" data-target="#frm_modal_album_aula"><span class="glyphicon glyphicon-plus"></span> 
+                   Crear album</button>  
 
                    <div class="form-group " hidden>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="pkID_grup" name="pkID_grup" value=<?php echo $pkID_aulas; ?>>
+                            <input type="text" class="form-control" id="pkID_grup" name="pkID_grup" value=<?php echo $$pkID_aulas; ?>>
                         </div>
                     </div>
                     </div>
                   </div>
 
                 </div>
+                <br><br>
                 <!-- /.panel-heading -->
 
-          <div class="panel-body">
+          <div class="container-fluid">
+            <div class="row">
+              <?php
+                $detalles_aulasInst->getSelectAlbumAula($pkID_aulas);
+              ?>
 
-            <div class="col-md-12">
-              <div class="dataTable_wrapper">
-                      <table class="display table table-striped table-bordered table-hover" id="tbl_grupo_album">
-                          <thead>
-                              <tr>
-                                  <th>Nombre</th>
-                                  <th>Fecha de Creación</th>
-                                  <th>Observación</th>
-                                  <th data-orderable="false">Opciones</th>
-                              </tr>
-                          </thead>
-
-                          <tbody>
-                              <?php
-$detalles_aulasInst->getTablaAlbumGrupo($pkID_aulas);
-?>
-                          </tbody>
-                      </table>
-                  </div>
-                  <!-- /.table-responsive -->
-            </div>
-
+            
+            </div>  
           </div>
 
         </div>

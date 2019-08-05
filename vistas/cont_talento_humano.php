@@ -6,7 +6,7 @@ include '../controller/talento_humanoController.php';
 include '../controller/funcionarioController.php';
 include '../conexion/datos.php';
 
-$talento_humanoInst = new talento_humanoController();  
+$talento_humanoInst = new talento_humanoController();
 
 $funcionarioInst = new funcionarioController();
 
@@ -53,6 +53,7 @@ include "form_modal_archivos.php";
       <div class="col-md-7">
         <ol class="breadcrumb migadepan">
           <li><a href="proyecto_marco.php" class="migadepan">Inicio</a></li>
+          <li><a href="descripcion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Descripción</a></li>
           <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
           <li class="active migadepan">Talento humano </li>
         </ol>

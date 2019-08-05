@@ -10,6 +10,31 @@ $(function() {
         cargar_input_imagen();
     });
 
+    $("#btn_nuevafoto").click(function() {
+        $("#lbl_form_foto_aibd").html("Nuevas Fotos");
+        $("#lbl_btn_actionfoto_aibd").html("Guardar <span class='glyphicon glyphicon-save'></span>");
+        $("#btn_actionfoto_aibd").attr("data-action", "crear");
+        $("#form_foto_aibd")[0].reset();
+    });
+
+    $("#btn_actionfoto_aibd").click(function() {
+        var validacioncon = validarfoto();
+        if (validacioncon === "no") {  
+            window.alert("Faltan Campos por diligenciar.");
+        } else {
+        action = $(this).attr("data-action");
+        //valida_actio(action);
+        console.log("accion a ejecutar: " + action);
+        crea_foto();
+        }
+    });
+
+    $("[name*='elimina_foto']").click(function(event) {
+        id_foto = $(this).attr('data-id-foto');
+        console.log(id_foto)
+        elimina_foto(id_foto);
+    });
+
     function limpia_inputs() {
         $("#pdf_imagen").remove();
         $("#pdf_documento").remove();
@@ -66,6 +91,69 @@ $(function() {
     $("#email_aibd").change(function(event) {
         validarEmail($(this).val())
     });
+
+    function validarfoto(){
+        if (document.getElementById("url_foto").files.length) {
+            respuesta = "ok"
+        }else{
+            respuesta = "no"
+        }
+        return respuesta
+    }
+
+    function crea_foto() {  
+         var data = new FormData($("#form_foto_aibd")[0]);
+            data.append('tipo', "crear_foto");
+            console.log(data)
+            $.ajax({
+                type: "POST",
+                url: "../controller/ajaxaibd.php", 
+                data: data, 
+                contentType: false,
+                processData: false,
+                success: function(a) {  
+                    console.log(a);
+                    var tipos = JSON.parse(a);
+                    console.log(tipos);
+                    for(x=0; x<tipos.length; x++) {
+                console.log("nombre"+tipos[x]);
+                }
+                location.reload();
+                }
+            })  
+    }
+
+    function elimina_foto(id_foto) {
+        var confirma = confirm("En realidad quiere eliminar esta Foto?");
+        console.log(confirma);
+
+        /**/
+        if (confirma == true) {
+            //si confirma es true ejecuta ajax
+            $.ajax({
+                url: '../controller/ajaxController12.php',
+                data: "pkID=" + id_foto + "&tipo=eliminar_logico&nom_tabla=fotos_aibd",
+            }).done(function(data) {
+                console.log(data);
+                location.reload();
+            }).fail(function() {
+                console.log("errorfatal");
+            }).always(function() {
+                console.log("complete");
+            });
+        } else {
+            //no hace nada
+        }
+    };
+
+    function validarextension(ext){
+        if(ext != ".jpg" && ext != ".png" && ext != ".gif" && ext != ".jpeg") {
+            window.alert("Solo se permiten formatos de imagen.");
+            $("#form_foto_aibd")[0].reset();
+        } else{
+            console.log("ok")
+        }  
+    }
 
     function crea_aibd() {
         ok = $('#form_aibd').valida();

@@ -12,6 +12,7 @@ $proyectoMGen      = $detalles_aibdInst->getProyectosMarcoGrupo($pkID_proyectoM)
 //++++++++++++++++++++++++++++++++++
 include 'form_aibd.php';
 include 'form_documentos_aibd.php';
+include 'form_fotos_aibd.php';
 //++++++++++++++++++++++++++++++++++
 ?>
 
@@ -44,13 +45,14 @@ include 'form_documentos_aibd.php';
       <input type="hidden" id="id_mod_page_estudiante" value=<?php echo $id_modulo ?>>
 
       <div class="col-lg-12">
-          <h1 class="page-header titleprincipal"><img src="../img/botones/aibdonly.png">AIBD (Aula Investigación Básica Departamental) - <?php echo $proyectoMGen[0]["nombre_proyecto"] ?></h1>
+          <h1 class="page-header titleprincipal"><img src="../img/botones/aibdonly.png"> AIBD (Aula Investigación Básica Departamental) - <?php echo $proyectoMGen[0]["nombre_proyecto"] ?></h1>
       </div>
       <!-- /.col-lg-12 -->
 
     <div class="col-md-9">
           <ol class="breadcrumb migadepan">
             <li><a href="proyecto_marco.php" class="migadepan">Inicio</a></li>
+            <li><a href="descripcion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Descripción</a></li>
             <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
             <li><a href="cientifico.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Científico</a></li>
             <li><a href="aibd.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">AIBD</a></li>
@@ -157,15 +159,15 @@ include 'form_documentos_aibd.php';
 
                   <div class="row">
                     <div class="col-md-6">
-                        <div class="titleprincipal"><h4>Galeria de fotos - <?php echo $proyectoMGen[0]["nombre"] . ' - ' . $proyectoMGen[0]["nombre_proyecto"] ?></h4></div>
+                        <div class="titleprincipal"><h4>Galeria de fotos - <?php echo $proyectoMGen[0]["nombre_proyecto"] ?></h4></div>
                     </div>
                     <div class="col-md-6 text-right">
-                   <button id="btn_album_grupo" type="button" class="btn btn-primary botonnewgrupo" data-toggle="modal"  data-grupo="<?php echo $pkID_aibd ?>" data-target="#frm_modal_album_grupo" <?php if (($crea != 1) || ($ne >= 30)) {echo 'disabled="disabled"';}?> ><span class="glyphicon glyphicon-plus"></span>
-                   Crear album</button>
+                   <button id="btn_nuevafoto" type="button" class="btn btn-primary botonnewgrupo" data-toggle="modal"  data-aibd="<?php echo $pkID_proyectoM ?>" data-target="#frm_modal_foto_aibd" ><span class="glyphicon glyphicon-plus"></span>
+                   Nueva Foto</button>
 
                    <div class="form-group " hidden>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="pkID_grup" name="pkID_grup" value=<?php echo $pkID_aibd; ?>>
+                            <input type="text" class="form-control" id="pkID_grup" name="pkID_grup" value=<?php echo $pkID_grupo; ?>>
                         </div>
                     </div>
                     </div>
@@ -177,23 +179,42 @@ include 'form_documentos_aibd.php';
           <div class="panel-body">
 
             <div class="col-md-12">
-              <div class="dataTable_wrapper">
-                      <table class="display table table-striped table-bordered table-hover" id="tbl_grupo_album">
-                          <thead>
-                              <tr>
-                                  <th>Nombre</th>
-                                  <th>Fecha de Creación</th>
-                                  <th>Observación</th>
-                                  <th data-orderable="false">Opciones</th>
-                              </tr>
-                          </thead>
+               <div class='container' id="fotos">
+    <div class="row">
+      <div class="col-lg-12">
+      <?php
+$nums  = 1;
+$fotos = $detalles_aibdInst->getFotosAibd($pkID_proyectoM);
+if ($fotos[0]["pkID"] != "") {
+    for ($a = 0; $a < sizeof($fotos); $a++) {
+        ?>
 
-                          <tbody>
-                              <?php
-$detalles_aibdInst->getTablaAlbumGrupo($pkID_aibd);
+          <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="../img/<?php echo $fotos[$a]["url_foto"]; ?>" data-lightbox="fotos_taller" data-title="<?php echo $fotos[$a]["descripcion"]; ?>"><img class="img-responsive" style="height: 200px" src="../img/<?php echo $fotos[$a]["url_foto"]; ?>" alt="" /><br>
+            <div class="col-md-12 text-center"><button id="btn_elimina_foto" title="Eliminar" name="elimina_foto" type="button" class="btn btn-danger text center" data-id-foto = "<?php echo $fotos[$a]["pkID"]; ?>";
+           ><span class="glyphicon glyphicon-remove"></span></button></div><br><br>
+
+           </a>
+
+          </div>
+          <?php
+
+        if ($nums % 4 == 0) {
+            echo '<div class="clearfix"></div>';
+        }
+        $nums++;
+    }
+} else {
+    echo '<div class="col-md-12 text-center">
+            <h3>No Existen Fotos en este Álbum</h3>
+            </div>';
+}
 ?>
-                          </tbody>
-                      </table>
+
+      </div>
+
+    </div>
+  </div>
                   </div>
                   <!-- /.table-responsive -->
             </div>
@@ -201,10 +222,6 @@ $detalles_aibdInst->getTablaAlbumGrupo($pkID_aibd);
           </div>
 
         </div>
-
-        <!-- /.contenido general -->
-
-      </div>
 
 
       <div role="tabpanel" class="tab-pane" id="asistencia">

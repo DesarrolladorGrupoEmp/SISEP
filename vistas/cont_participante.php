@@ -21,12 +21,13 @@ include 'form_participante.php';
   <div class="row">
 
       <div class="col-lg-12">
-          <h2 class="page-header titleprincipal"><img src="../img/botones/useronly.png"><?php echo $proyectoMGen[0]["nombre"] ?> - Participantes</h2>
+          <h2 class="page-header titleprincipal"><img src="../img/botones/participantesonly.png"><?php echo $proyectoMGen[0]["nombre"] ?> - Participantes</h2>
       </div>
       <!-- /.col-lg-12 -->
       <div class="col-lg-12">
         <ol class="breadcrumb migadepan">
           <li><a href="proyecto_marco.php" class="migadepan">Inicio</a></li>
+          <li><a href="descripcion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Descripción</a></li>
           <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
           <li><a href="configuracion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Configuración</a></li>
           <li class="active migadepan">participantes</li>
@@ -71,7 +72,7 @@ include 'form_participante.php';
                           <th data-orderable="false">Opciones</th>
                       </tr>
                   </thead>
- 
+
                   <tbody>
                       <?php
 $participanteInst->getTablaParticipante($pkID_proyectoM);

@@ -151,6 +151,30 @@ class biotecnologiaDAO extends UsuariosDAO
         return $this->EjecutarConsulta($query);
     }
 
+    public function getBiotecnologiaGaleria($pkID_album){  
+       
+      $query = "select galeria_biotecnologia.*, proyecto_marco.pkID as fkID_proyecto FROM galeria_biotecnologia 
+        INNER JOIN biotecnologia on biotecnologia.pkID = galeria_biotecnologia.fkID_biotecnologia
+        INNER JOIN proyecto_marco on proyecto_marco.pkID = biotecnologia.fkID_proyecto_marco
+        WHERE galeria_biotecnologia.pkID=".$pkID_album;
+
+      return $this->EjecutarConsulta($query);
+    }
+
+    public function getAlbumBiotecnologia($pkID_biotecnologia){  
+       
+      $query = "select * FROM `galeria_biotecnologia` WHERE estadoV=1 and fkID_biotecnologia=".$pkID_biotecnologia;
+
+      return $this->EjecutarConsulta($query);
+    }
+
+    public function getFotosBiotecnologia($pkID_album){  
+       
+      $query = "select * FROM `fotos_biotecnologia` WHERE estadoV=1 and fkID_album=".$pkID_album;
+
+      return $this->EjecutarConsulta($query);
+    }
+
     public function getSesiones($pkID_biotecnologia)
     {
         $query = "SELECT * FROM biotecnologia_sesion WHERE estadoV=1 and fkID_biotecnologia =" . $pkID_biotecnologia;

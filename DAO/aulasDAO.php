@@ -150,6 +150,30 @@ class aulasDAO extends UsuariosDAO
         return $this->EjecutarConsulta($query);
     }
 
+    public function getAulaGaleria($pkID_album){  
+       
+      $query = "select galeria_aula.*, proyecto_marco.pkID as fkID_proyecto FROM galeria_aula 
+                INNER JOIN aulas on aulas.pkID = galeria_aula.fkID_aula
+                INNER JOIN proyecto_marco on proyecto_marco.pkID = aulas.fkID_proyecto_marco
+                WHERE galeria_aula.pkID=".$pkID_album;
+
+      return $this->EjecutarConsulta($query);
+    }
+
+    public function getAlbumAula($pkID_aula){  
+       
+      $query = "select * FROM `galeria_aula` WHERE estadoV=1 and fkID_aula=".$pkID_aula;
+
+      return $this->EjecutarConsulta($query);
+    }
+
+    public function getFotosAula($pkID_album){  
+       
+      $query = "select * FROM `fotos_aula` WHERE estadoV=1 and fkID_album=".$pkID_album;
+
+      return $this->EjecutarConsulta($query);
+    }
+
     public function getEstudiantes()
     {
 

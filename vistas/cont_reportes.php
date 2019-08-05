@@ -3,10 +3,11 @@
 include '../controller/reporteController.php';
 include '../conexion/datos.php';
 
-$reportesInst = new reporteController();
-$arrPermisos  = $reportesInst->getPermisosModulo_Tipo($id_modulo, $_COOKIE[$NomCookiesApp . '_IDtipo']);
-$crea         = $arrPermisos[0]['crear'];
-$id_proyecto  = $_GET['id_proyectoM'];
+$reportesInst   = new reporteController();
+$arrPermisos    = $reportesInst->getPermisosModulo_Tipo($id_modulo, $_COOKIE[$NomCookiesApp . '_IDtipo']);
+$crea           = $arrPermisos[0]['crear'];
+$pkID_proyectoM = $_GET["id_proyectoM"];
+$proyectoMGen   = $reportesInst->getProyectosMarcoId($pkID_proyectoM);
 ?>
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
 
@@ -18,12 +19,15 @@ $id_proyecto  = $_GET['id_proyectoM'];
 
 
       <div class="col-lg-12">
-          <h2 class="page-header titleprincipal"><img src="../img/botones/proyectosmarcoonly.png">Reporte Indicadores</h2>
+          <h2 class="page-header titleprincipal"><img src="../img/botones/proyectosmarcoonly.png">Reporte Indicadores - <?php echo $proyectoMGen[0]["nombre"] ?></h2>
       </div>
       <!-- /.col-lg-12 -->
       <div class="col-lg-12">
           <ol class="breadcrumb migadepan">
-            <li><a class="migadepan">Reporte Indicadores</a></li>
+            <li><a href="proyecto_marco.php" class="migadepan">Inicio</a></li>
+            <li><a href="descripcion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Descripción</a></li>
+            <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
+            <li class="active migadepan">Reporte indicadores - <?php echo $proyectoMGen[0]["nombre"] ?></li>
           </ol>
       </div>
 
@@ -89,7 +93,7 @@ $id_proyecto  = $_GET['id_proyectoM'];
                       </tr>
 
                   <tbody>
-                      <?php echo $reportesInst->getTablaReporte($id_proyecto); ?>
+                      <?php echo $reportesInst->getTablaReporte($pkID_proyectoM); ?>
                   </tbody>
               </table>
           </div>

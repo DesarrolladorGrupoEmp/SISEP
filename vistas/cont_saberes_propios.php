@@ -55,27 +55,28 @@ include "form_novedades.php";
 
 
       <div class="col-lg-12">
-          <h1 class="page-header titleprincipal"><img src="../img/botones/grupoonly.png">Saberes Propios - <?php echo $proyectoMGen[0]["nombre"] ?></h1>
+          <h1 class="page-header titleprincipal"><img src="../img/botones/saberesonly.png">Saberes Propios - <?php echo $proyectoMGen[0]["nombre"] ?></h1>
       </div>
       <!-- /.col-lg-12 -->
     <div class="col-md-9">
           <ol class="breadcrumb migadepan">
             <li><a href="proyecto_marco.php" class="migadepan">Inicio</a></li>
+            <li><a href="descripcion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Descripción</a></li>
             <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
             <li><a href="academico.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Académico</a></li>
             <li class="active migadepan">Saberes Propios </li>
           </ol>
-    </div> 
+    </div>
 
-    <div class="col-md-2 text-right form-inline">                        
-                    <label for="grupo_filtrop" class="control-label">Año: </label>      
+    <div class="col-md-2 text-right form-inline">
+                    <label for="grupo_filtrop" class="control-label">Año: </label>
                       <?php
-                             $saberesInst->getSelectAnioFiltro();
-                      ?>  
+$saberesInst->getSelectAnioFiltro();
+?>
      </div>
-    <div class="col-md-1 text-left form-inline">                                             
+    <div class="col-md-1 text-left form-inline">
                      <button class="btn btn-success" id="btn_filtrars"><span class="glyphicon glyphicon-filter"></span> Filtrar</button>
-                
+
                      <hr>
 
             </div>
@@ -129,7 +130,7 @@ include "form_novedades.php";
 if (($pkID_tipo_user == 8) || ($pkID_tipo_user == 9)) {
     $saberesInst->getTablaSaberesUsuario($pkID_user);
 } else {
-    $saberesInst->getTablasaberes($filtro,$pkID_proyectoM);  
+    $saberesInst->getTablasaberes($filtro, $pkID_proyectoM);
 }
 ?>
                   </tbody>
@@ -138,12 +139,12 @@ if (($pkID_tipo_user == 8) || ($pkID_tipo_user == 9)) {
                                 <label for="total_ingresos" class="control-label"><B>Total Estudiantes</B></label>
               </div>
                                 <div class="input-group col-md-2 text-left">
-                                   <?php $saberesInst->getSelectTotal($filtro,$pkID_proyectoM); ?>
+                                   <?php $saberesInst->getSelectTotal($filtro, $pkID_proyectoM);?>
                                 </div>
                             </div>
           </div>
           <!-- /.table-responsive -->
-          
+
 
         </div>
         <!-- /.panel-body -->

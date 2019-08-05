@@ -27,9 +27,10 @@ include 'form_estudiantes.php';
       <div class="col-lg-12">
         <ol class="breadcrumb migadepan">
           <li><a href="proyecto_marco.php" class="migadepan">Inicio</a></li>
+          <li><a href="descripcion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Descripción</a></li>
           <li><a href="principal.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Menú principal</a></li>
           <li><a href="configuracion.php?id_proyectoM=<?php echo $pkID_proyectoM; ?>" class="migadepan">Configuración</a></li>
-          <li class="active migadepan"> Estudiantes </li>  
+          <li class="active migadepan"> Estudiantes </li>
         </ol>
       </div>
 
