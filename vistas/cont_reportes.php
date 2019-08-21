@@ -63,7 +63,7 @@ $proyectoMGen   = $reportesInst->getProyectosMarcoId($pkID_proyectoM);
               <table class="display table table-striped table-bordered table-hover" id="tbl_grupo">
                   <thead>
                       <tr>
-                          <th colspan="5">Indicadores y metas</th>
+                          <th colspan="4">Indicadores y metas</th>
                           <th colspan="3">Año 1</th>
                           <th colspan="3">Año 2</th>
                           <th colspan="3">Año 3</th>
@@ -73,22 +73,22 @@ $proyectoMGen   = $reportesInst->getProyectosMarcoId($pkID_proyectoM);
                       </tr>
                   </thead>
                       <tr>
-                          <td colspan="5"></td>
-                          <td >Meta</td>
-                          <td >Cump</td>
-                          <td >Pdte</td>
-                          <td >Meta</td>
-                          <td >Cump</td>
-                          <td >Pdte</td>
-                          <td >Meta</td>
-                          <td >Cump</td>
-                          <td >Pdte</td>
-                          <td >Meta</td>
-                          <td >Cump</td>
-                          <td >Pdte</td>
-                          <td >Meta</td>
-                          <td >Cump</td>
-                          <td >Pdte</td>
+                          <td colspan="4"></td>
+                          <td class="anio1">Meta</td>
+                          <td class="anio1">Cump</td>
+                          <td class="anio1">Pdte</td>
+                          <td class="anio2">Meta</td>
+                          <td class="anio2">Cump</td>
+                          <td class="anio2">Pdte</td>
+                          <td class="anio3">Meta</td>
+                          <td class="anio3">Cump</td>
+                          <td class="anio3">Pdte</td>
+                          <td class="anio4">Meta</td>
+                          <td class="anio4">Cump</td>
+                          <td class="anio4">Pdte</td>
+                          <td class="anio_total">Meta</td>
+                          <td class="anio_total">Cump</td>
+                          <td class="anio_total">Pdte</td>
                           <td></td>
                       </tr>
 

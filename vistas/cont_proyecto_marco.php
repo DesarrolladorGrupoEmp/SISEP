@@ -5,23 +5,17 @@ include '../controller/institucionController.php';
 include '../controller/proyecto_marcoController.php';
 include '../conexion/datos.php';
 
-$institucionInst = new institucionController();
-
+$institucionInst    = new institucionController();
 $proyecto_marcoInst = new proyecto_marcoController();
-
-$arrPermisos = $proyecto_marcoInst->getPermisosModulo_Tipo($id_modulo, $_COOKIE[$NomCookiesApp . '_IDtipo']);
-
-$crea = $arrPermisos[0]['crear'];
+$arrPermisos        = $proyecto_marcoInst->getPermisosModulo_Tipo($id_modulo, $_COOKIE[$NomCookiesApp . '_IDtipo']);
+$crea               = $arrPermisos[0]['crear'];
 
 include "form_proyectosM.php";
-
 include "form_modal_archivos.php";
-
 ?>
-
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
 
-<div id="page-wrapper" style="margin: 0px;">
+<div id="page-general" style="margin: 0px;">
 
   <div class="row">
     <!-- Campo que contiene el valor del id del modulo para auditoria con el nombre del modulo-->
@@ -29,7 +23,7 @@ include "form_modal_archivos.php";
 
 
       <div class="col-lg-12">
-          <h2 class="page-header titleprincipal"><img src="../img/botones/proyectosmarco.png"> Proyectos Marcos</h2>
+          <h2 class="page-header titleprincipal"><img src="../img/botones/proyectosmarco.png"> Proyectos Marco</h2>
       </div>
       <!-- /.col-lg-12 -->
       <div class="col-lg-12">
@@ -80,9 +74,7 @@ include "form_modal_archivos.php";
                   </thead>
 
                   <tbody>
-                      <?php
-$proyecto_marcoInst->getTablaProyectoMarco();
-?>
+                      <?php echo $proyecto_marcoInst->getTablaProyectoMarco(); ?>
                   </tbody>
               </table>
           </div>

@@ -63,34 +63,59 @@
 }
 body {
     background-image: url(../../../../img/fondo.jpg);
-    background-repeat: repeat; 
+    background-repeat: repeat;
 }
 #login_fondo {
     background-image: url(../../../../img/fondosisep.png);
-    background-repeat: no-repeat;  
-    overflow: hidden;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
 }
-
-
-#tabla-login{
-  margin-top: 100px;
-  margin-left: -50px;
-  border-radius: 25px 25px 25px 25px;
-  -webkit-box-shadow: 8px 8px 12px #999;
-  -moz-box-shadow: 8px 8px 12px #999;
-  filter: progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=4);
+#tabla-login {
+    margin-top: 100px;
+    margin-left: -50px;
+    border-radius: 25px 25px 25px 25px;
+    -webkit-box-shadow: 8px 8px 12px #999;
+    -moz-box-shadow: 8px 8px 12px #999;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=4);
 }
-
-#columna-login{
+@media screen and (max-width: 600px) {
+    #tabla-login {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #fila-login:nth-of-type(10n) {
+        background-color: inherit;
+    }
+    #fila-login td:first-child {
+        background: #ffff;
+        font-weight: bold;
+        font-size: 1.3em;
+    }
+    tbody td {
+        display: block;
+        text-align: center;
+    }
+    tbody td:before {
+        display: block;
+        text-align: center;
+    }
+}
+#columna-login {
     width: 330px;
-   padding: 0.9em;
+    padding: 0.9em;
+    border-radius: 0px 25px 25px 0px;
 }
-
-#fila-login{
-   line-height: 5px;
-   min-height: 5px;
+#imagen-login {
+    border-radius: 25px 0px 0px 25px;
 }
-
+#btn_login {
+    border-radius: 10px 10px 10px 10px;
+}
+#fila-login {
+    line-height: 5px;
+    min-height: 5px;
+}
 thead {
     background-color: #139498;
 }
@@ -169,8 +194,6 @@ th {
     color: #5D5D5D;
     font-family: 'Exo-Regular';
 }
-
-
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
     color: #fff !important;
     cursor: default !important;
@@ -283,6 +306,9 @@ thead {
 #page-principal {
     padding: 10px 20px 100px 20px;
 }
+#page-general {
+    padding: 10px 20px 0px 20px;
+}
 .page-footer {
     /*position: fixed;*/
     width: 100%;
@@ -369,4 +395,31 @@ td:hover.tooltips span {
 }
 .detail {
     cursor: pointer;
+}
+.meta {
+    background-color: #6c757d;
+    color: white;
+}
+.pendiente_up {
+    background-color: #28a745;
+    color: white;
+}
+.pendiente_down {
+    background-color: #dc3545;
+    color: white;
+}
+.anio1 {
+    font-weight: bold;
+}
+.anio2 {
+    font-weight: bold;
+}
+.anio3 {
+    font-weight: bold;
+}
+.anio4 {
+    font-weight: bold;
+}
+.anio_total {
+    font-weight: bold;
 }

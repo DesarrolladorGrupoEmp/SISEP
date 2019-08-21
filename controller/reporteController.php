@@ -1,8 +1,4 @@
 <?php
-/**/
-
-//ini_set('error_reporting', E_ALL|E_STRICT);
-//ini_set('display_errors', 1);
 
 include_once '../DAO/reporteDAO.php';
 include_once 'helper_controller/render_table.php';
@@ -107,16 +103,34 @@ class reporteController extends reporteDAO
 
                 echo $tdActividad;
 
-                if ($item_subactividad == 0) {
-                    $this->cantSubactividad = $this->getCantSubactividad($this->aibd[$a]["fkID_subactividad"]);
-
-                    $cant_subactividad = $this->cantSubactividad[0]["cantidad"];
-
-                    $tdSubactividad = '<td rowspan="' . $cant_subactividad . '" title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $subactividad . '</td>';
-
-                    $item_subactividad = $cant_subactividad;
+                if ($pendiente1 >= 0) {
+                    $clase_pendiente1 = "pendiente_up";
                 } else {
-                    $tdSubactividad = '';
+                    $clase_pendiente1 = "pendiente_down";
+                }
+
+                if ($pendiente2 >= 0) {
+                    $clase_pendiente2 = "pendiente_up";
+                } else {
+                    $clase_pendiente2 = "pendiente_down";
+                }
+
+                if ($pendiente3 >= 0) {
+                    $clase_pendiente3 = "pendiente_up";
+                } else {
+                    $clase_pendiente3 = "pendiente_down";
+                }
+
+                if ($pendiente4 >= 0) {
+                    $clase_pendiente4 = "pendiente_up";
+                } else {
+                    $clase_pendiente4 = "pendiente_down";
+                }
+
+                if ($pendiente_total >= 0) {
+                    $clase_pendiente_total = "pendiente_up";
+                } else {
+                    $clase_pendiente_total = "pendiente_down";
                 }
 
                 echo $tdSubactividad;
@@ -124,21 +138,21 @@ class reporteController extends reporteDAO
                 echo '
 
                                  <td href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $indicador . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $meta1 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $cumplimiento1 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $pendiente1 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $meta2 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $cumplimiento2 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $pendiente2 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $meta3 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $cumplimiento3 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $pendiente3 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $meta4 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $cumplimiento4 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $pendiente4 . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $meta_total . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $cumplimiento_total . '</td>
-                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap">' . $pendiente_total . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap meta">' . $meta1 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap bg-primary text-white">' . $cumplimiento1 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap ' . $clase_pendiente1 . '">' . $pendiente1 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap meta">' . $meta2 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap bg-primary text-white">' . $cumplimiento2 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap ' . $clase_pendiente2 . '">' . $pendiente2 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap meta">' . $meta3 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap bg-primary text-white">' . $cumplimiento3 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap ' . $clase_pendiente3 . '">' . $pendiente3 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap meta">' . $meta4 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap bg-primary text-white">' . $cumplimiento4 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap ' . $clase_pendiente4 . '">' . $pendiente4 . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap meta">' . $meta_total . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap bg-primary text-white">' . $cumplimiento_total . '</td>
+                                 <td title="Click Ver Detalles" href="detalles_aibd.php?id_aibd=' . $id . '" class="text-wrap ' . $clase_pendiente_total . '">' . $pendiente_total . '</td>
                                  <td>
                                      <a href="graficos.php?id_indicador=' . $id . '&cumplimiento1=' . $cumplimiento1 . '&cumplimiento2=' . $cumplimiento2 . '&cumplimiento3=' . $cumplimiento3 . '&cumplimiento4=' . $cumplimiento4 . '"><button id="edita_sesion" title="Editar" name="edita_sesion"  type="button" class="btn btn-success" ';
                 echo '><span class="glyphicon glyphicon-signal"></span></button></a>

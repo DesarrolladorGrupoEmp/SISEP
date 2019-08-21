@@ -17,7 +17,7 @@ include 'form_docentes.php';
 
 ?>
 
-<div id="page-wrapper" style="margin: 0px;">
+<div id="page-general" style="margin: 0px;">
 
   <div class="row">
 

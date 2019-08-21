@@ -10,7 +10,7 @@ $proyectoMGen   = $principalInst->getProyectosMarcoId($pkID_proyectoM);
 //--------------------------------------------------------------------
 ?>
 
-<div id="page-wrapper" style="margin: 0px;">
+<div id="page-principal" style="margin: 0px;">
 
              <!-- Contenido del Index -->
              <div class="row">
